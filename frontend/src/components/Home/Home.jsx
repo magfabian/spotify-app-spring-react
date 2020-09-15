@@ -13,12 +13,11 @@ const Home = () => {
         <CardItem
             key={data.id}
             category='album'
-            img={data.images[0].url}
-            imageUrl={data.external_urls.spotify}
-            header={data.artists[0].name}
-            headerUrl={data.artists[0].external_urls.spotify}
-            footer={data.name}
-            id={data.id}
+            imageUrl={data.imageUrl}
+            onClickUrl={data.onClickUrl}
+            header={data.header}
+            footer={data.footer}
+            footerUrl={data.footerUrl}
         />
     ));
 

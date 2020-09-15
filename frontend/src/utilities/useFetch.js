@@ -15,11 +15,7 @@ const useFetch = (url, route) => {
 
     const fetchData = () => {
         axios
-            .get(url, {
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            })
+            .get(url)
             .then(response => {
                 setStatus("loaded");
                 setData(getObjectRoute(response));

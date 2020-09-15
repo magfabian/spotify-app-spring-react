@@ -9,17 +9,15 @@ const useFetch = (url, route) => {
 
     useEffect(() => {
         setStatus("loading");
-        token.getToken().then(data => {
-            fetchData(data);
-        });
+        fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
-    const fetchData = data => {
+    const fetchData = () => {
         axios
             .get(url, {
                 headers: {
-                    Authorization: "Bearer " + data
+                    "Access-Control-Allow-Origin": "*"
                 }
             })
             .then(response => {
@@ -35,7 +33,7 @@ const useFetch = (url, route) => {
     const getObjectRoute = response => {
         switch (route) {
             case "release":
-                return response.data.albums.items;
+                return response.data;
             case "artist":
                 return response.data.artists.items;
             case "track":

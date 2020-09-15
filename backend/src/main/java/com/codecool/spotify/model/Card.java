@@ -17,28 +17,4 @@ public class Card {
       this.footer = footer;
       this.footerUrl = footerUrl;
    }
-
-   public void setImageUrl(String imageUrl) {
-      this.imageUrl = imageUrl;
-   }
-
-   public void setOnClickUrl(String onClickUrl) {
-      this.onClickUrl = onClickUrl;
-   }
-
-   public void setHeader(String header) {
-      this.header = header;
-   }
-
-   public void setFooterUrl(String footerUrl) {
-      this.footerUrl = footerUrl;
-   }
-
-   public void setFooter(String footer) {
-      this.footer = footer;
-   }
-
-   public void setId(String id) {
-      this.id = id;
-   }
 }

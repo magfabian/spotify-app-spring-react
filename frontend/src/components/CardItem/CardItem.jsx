@@ -4,41 +4,40 @@ import FavoriteStar from "../FavoriteStar/FavoriteStar";
 
 const cardStyle = {
     margin: "10px",
-    maxWidth: "300px",
+    maxWidth: "300px"
 };
 
 const CardItem = ({
     category,
-    img,
     imageUrl,
+    onClickUrl,
     header,
-    headerUrl,
     footer,
-    id,
+    footerUrl
 }) => {
     return (
-        <Card key={id} style={cardStyle} className="column">
+        <Card style={cardStyle} className='column'>
             <Image
-                src={img}
-                alt=""
+                src={imageUrl}
+                alt=''
                 wrapped
-                as="a"
+                as='a'
                 ui={false}
-                href={imageUrl}
-                target="_blank"
+                href={onClickUrl}
+                target='_blank'
             />
             <Card.Content>
-                <Card.Header>{footer}</Card.Header>
-                <Card.Description as="a" href={headerUrl} target="_blank">
-                    {header}
+                <Card.Header>{header}</Card.Header>
+                <Card.Description as='a' href={footerUrl} target='_blank'>
+                    {footer}
                 </Card.Description>
             </Card.Content>
             <FavoriteStar
                 category={category}
-                img={img}
-                imgUrl={imageUrl}
+                img={imageUrl}
+                imgUrl={onClickUrl}
                 header={header}
-                headerUrl={headerUrl}
+                headerUrl={footerUrl}
                 footer={footer}
             />
         </Card>

@@ -22,7 +22,6 @@ public class RemoteURLReader {
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
          lines = reader.lines().collect(Collectors.joining("\n"));
       }
-      JSONObject json = new JSONObject(lines);
-      return json;
+      return new JSONObject(lines);
    }
 }

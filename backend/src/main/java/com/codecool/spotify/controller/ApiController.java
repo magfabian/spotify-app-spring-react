@@ -28,4 +28,9 @@ public class ApiController {
       return dataCreator.provideTracks(searchString);
    }
 
+   @CrossOrigin
+   @GetMapping("/playlists/{searchString}")
+   public List<Card> handlePlaylistSearch(@PathVariable String searchString) throws IOException, JSONException {
+      return dataCreator.providePlaylists(searchString);
+   }
 }

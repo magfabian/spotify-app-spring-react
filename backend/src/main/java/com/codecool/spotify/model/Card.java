@@ -17,4 +17,8 @@ public class Card {
       this.footer = footer;
       this.footerUrl = footerUrl;
    }
+
+   public String getImageUrl() {
+      return imageUrl;
+   }
 }

@@ -15,6 +15,8 @@ public class DataProvider {
 
    public static final String NEW_RELEASES_URL = "https://api.spotify.com/v1/browse/new-releases";
    private static final String ACCESS_TOKEN_URL = "?access_token=";
+   private static final String SEARCH_URL = "https://api.spotify.com/v1/search?q=";
+   private static final String TRACK_TYPE = "&type=track";
 
    @Autowired
    private RemoteURLReader remoteURLReader;
@@ -33,4 +35,10 @@ public class DataProvider {
    }
 
 
+   public List<Card> provideTracks(String searchString) throws IOException, JSONException {
+      String token = tokenProvider.getAccessToken();
+      String url = SEARCH_URL + searchString + TRACK_TYPE + ACCESS_TOKEN_URL + token;
+      JSONObject json = remoteURLReader.readFromUrl(url);
+      return jsonParser.getParsedSearchedTracks(json);
+   }
 }

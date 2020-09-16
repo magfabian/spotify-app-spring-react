@@ -73,7 +73,6 @@ public class JsonParser {
       List<Card> data = new ArrayList<>();
       JSONObject artists = json.getJSONObject("artists");
       JSONArray items = artists.getJSONArray("items");
-      System.out.println(items.length());
       for (int i = 0; i < items.length(); i++) {
          JSONObject artist = items.getJSONObject(i);
          String imageUrl;

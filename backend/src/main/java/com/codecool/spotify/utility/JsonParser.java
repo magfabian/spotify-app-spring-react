@@ -30,4 +30,24 @@ public class JsonParser {
       }
       return data;
    }
+
+   public List<Card> getParsedSearchedTracks(JSONObject json) throws JSONException {
+      System.out.println(json);
+      List<Card> data = new ArrayList<>();
+      JSONObject tracks = json.getJSONObject("tracks");
+      JSONArray items = tracks.getJSONArray("items");
+
+      for (int i = 0; i < items.length(); i++) {
+         JSONObject track = items.getJSONObject(i);
+         String imageUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url").toString();
+         String header = track.get("name").toString();
+         String footer = track.getJSONArray("artists").getJSONObject(0).get("name").toString();
+         String onClickUrl = track.getJSONObject("external_urls").get("spotify").toString();
+         String footerUrl = track.getJSONArray("artists").getJSONObject(0).getJSONObject("external_urls").get("spotify").toString();
+         String id = track.get("id").toString();
+         Card card = new Card(id, imageUrl, onClickUrl, header, footer, footerUrl);
+         data.add(card);
+      }
+      return data;
+   }
 }

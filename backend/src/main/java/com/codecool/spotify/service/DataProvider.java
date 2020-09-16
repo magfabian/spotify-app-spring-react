@@ -14,7 +14,8 @@ import java.util.List;
 public class DataProvider {
 
    public static final String NEW_RELEASES_URL = "https://api.spotify.com/v1/browse/new-releases";
-   private static final String ACCESS_TOKEN_URL = "?access_token=";
+   public static final String SEARCH_URL = "https://api.spotify.com/v1/search";
+   public static final String ALBUM_CATEGORY_URL = "&type=album";
 
    @Autowired
    private RemoteURLReader remoteURLReader;
@@ -27,8 +28,15 @@ public class DataProvider {
 
    public List<Card> provideNewReleases() throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
-      String url = NEW_RELEASES_URL + ACCESS_TOKEN_URL + token;
-      JSONObject json = remoteURLReader.readFromUrl(url);
+      String url = NEW_RELEASES_URL;
+      JSONObject json = remoteURLReader.readFromUrl(url,token);
+      return jsonParser.getParsedNewReleases(json);
+   }
+
+   public List<Card> provideSearchedAlbums(String searchedString) throws IOException, JSONException {
+      String token = tokenProvider.getAccessToken();
+      String url = SEARCH_URL + "?q=" + searchedString + ALBUM_CATEGORY_URL ;
+      JSONObject json = remoteURLReader.readFromUrl(url,token);
       return jsonParser.getParsedNewReleases(json);
    }
 

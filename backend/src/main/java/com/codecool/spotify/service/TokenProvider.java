@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 @Service
 public class TokenProvider {
@@ -41,7 +40,7 @@ public class TokenProvider {
    }
 
    private String getToken() throws IOException, JSONException {
-      JSONObject json = remoteURLReader.readFromUrl(TOKEN_URL);
+      JSONObject json = remoteURLReader.readFromUrl(TOKEN_URL,"");
       String token = json.get("token").toString();
       System.out.println(token);
       return token;

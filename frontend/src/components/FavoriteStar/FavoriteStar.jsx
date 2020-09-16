@@ -4,11 +4,12 @@ import { FavouriteContext } from "../../context/FavouriteContext";
 
 const FavoriteStar = ({
     category,
+    id,
     imageUrl,
     onClickUrl,
     header,
     footer,
-    footerUrl
+    footerUrl,
 }) => {
     const { artists, tracks, albums, playlists } = useContext(FavouriteContext);
     const [artist, setArtist] = artists;
@@ -17,43 +18,52 @@ const FavoriteStar = ({
     const [playlist, setPlaylist] = playlists;
 
     const starStyle = {
-        marginLeft: "110px"
+        marginLeft: "110px",
     };
 
     const handleClick = () => {
         const card = {
+            id: id,
             imageUrl: imageUrl,
             onClickUrl: onClickUrl,
             header: header,
             footer: footer,
-            footerUrl: footerUrl
+            footerUrl: footerUrl,
         };
         console.log(card);
         setCard(card);
     };
 
-    const setCard = card => {
+    const setCard = (card) => {
         switch (category) {
             case "album":
-                if (!album.some(object => object.imageUrl === card.imageUrl)) {
-                    setAlbum(prevAlbums => [...prevAlbums, card]);
+                if (
+                    !album.some((object) => object.imageUrl === card.imageUrl)
+                ) {
+                    setAlbum((prevAlbums) => [...prevAlbums, card]);
                 }
                 break;
             case "artist":
-                if (!artist.some(object => object.imageUrl === card.imageUrl)) {
-                    setArtist(prevArtists => [...prevArtists, card]);
+                if (
+                    !artist.some((object) => object.imageUrl === card.imageUrl)
+                ) {
+                    setArtist((prevArtists) => [...prevArtists, card]);
                 }
                 break;
             case "track":
-                if (!track.some(object => object.imageUrl === card.imageUrl)) {
-                    setTrack(prevTracks => [...prevTracks, card]);
+                if (
+                    !track.some((object) => object.imageUrl === card.imageUrl)
+                ) {
+                    setTrack((prevTracks) => [...prevTracks, card]);
                 }
                 break;
             case "playlist":
                 if (
-                    !playlist.some(object => object.imageUrl === card.imageUrl)
+                    !playlist.some(
+                        (object) => object.imageUrl === card.imageUrl
+                    )
                 ) {
-                    setPlaylist(prevPlaylists => [...prevPlaylists, card]);
+                    setPlaylist((prevPlaylists) => [...prevPlaylists, card]);
                 }
                 break;
             default:
@@ -64,7 +74,7 @@ const FavoriteStar = ({
     return (
         <Card.Content extra>
             <span style={starStyle} onClick={handleClick}>
-                <Icon name='star' size='large' />
+                <Icon name="star" size="large" />
             </span>
         </Card.Content>
     );

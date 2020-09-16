@@ -11,18 +11,19 @@ const Favorite = () => {
     const [playlist] = playlists;
 
     const headerStyle = {
-        marginBottom: "20px"
+        marginBottom: "20px",
     };
 
     const dividerStlye = {
-        maxWidth: "940px"
+        maxWidth: "940px",
     };
 
     const renderCards = (type, cards) => {
-        return cards.map(data => (
+        return cards.map((data) => (
             <CardItem
                 key={data.id}
                 category={type}
+                id={data.id}
                 imageUrl={data.imageUrl}
                 onClickUrl={data.onClickUrl}
                 header={data.header}
@@ -41,8 +42,8 @@ const Favorite = () => {
     const renderedPlaylist = renderCards("playlist", playlist);
 
     return (
-        <div className='content'>
-            <Header style={headerStyle} as='h1'>
+        <div className="content">
+            <Header style={headerStyle} as="h1">
                 Favorites:
             </Header>
             {artist.length > 0 && (
@@ -50,7 +51,7 @@ const Favorite = () => {
                     <Divider style={dividerStlye} horizontal>
                         ARTISTS
                     </Divider>
-                    <div className='ui stackable three column grid'>
+                    <div className="ui stackable three column grid">
                         {renderedArtists}
                     </div>
                 </div>
@@ -60,7 +61,7 @@ const Favorite = () => {
                     <Divider style={dividerStlye} horizontal>
                         ALBUMS
                     </Divider>
-                    <div className='ui stackable three column grid'>
+                    <div className="ui stackable three column grid">
                         {renderedAlbums}
                     </div>
                 </div>
@@ -70,7 +71,7 @@ const Favorite = () => {
                     <Divider style={dividerStlye} horizontal>
                         TRACKS
                     </Divider>
-                    <div className='ui stackable three column grid'>
+                    <div className="ui stackable three column grid">
                         {renderedTracks}
                     </div>
                 </div>
@@ -80,7 +81,7 @@ const Favorite = () => {
                     <Divider style={dividerStlye} horizontal>
                         PLAYLISTS
                     </Divider>
-                    <div className='ui stackable three column grid'>
+                    <div className="ui stackable three column grid">
                         {renderedPlaylist}
                     </div>
                 </div>

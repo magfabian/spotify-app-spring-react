@@ -3,6 +3,7 @@ package com.codecool.spotify.controller;
 import com.codecool.spotify.model.Card;
 import com.codecool.spotify.service.DataProvider;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,4 +34,10 @@ public class ApiController {
    public List<Card> handlePlaylistSearch(@PathVariable String searchString) throws IOException, JSONException {
       return dataCreator.providePlaylists(searchString);
    }
+
+   @GetMapping("/search/album/{searchedString}")
+   public List<Card> handleAlbumSearch(@PathVariable String searchedString) throws IOException, JSONException {
+      return dataCreator.provideSearchedAlbums(searchedString);
+   }
+
 }

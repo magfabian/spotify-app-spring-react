@@ -14,9 +14,9 @@ import java.util.List;
 public class DataProvider {
 
    public static final String NEW_RELEASES_URL = "https://api.spotify.com/v1/browse/new-releases";
-   private static final String ACCESS_TOKEN_URL = "?access_token=";
    private static final String SEARCH_URL = "https://api.spotify.com/v1/search?q=";
    private static final String TRACK_TYPE = "&type=track";
+   private static final String PLAYLIST_TYPE = "&type=playlist";
 
    @Autowired
    private RemoteURLReader remoteURLReader;
@@ -29,16 +29,23 @@ public class DataProvider {
 
    public List<Card> provideNewReleases() throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
-      String url = NEW_RELEASES_URL + ACCESS_TOKEN_URL + token;
-      JSONObject json = remoteURLReader.readFromUrl(url);
+      String url = NEW_RELEASES_URL;
+      JSONObject json = remoteURLReader.readFromUrl(url, token);
       return jsonParser.getParsedNewReleases(json);
    }
 
 
    public List<Card> provideTracks(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
-      String url = SEARCH_URL + searchString + TRACK_TYPE + ACCESS_TOKEN_URL + token;
-      JSONObject json = remoteURLReader.readFromUrl(url);
+      String url = SEARCH_URL + searchString + TRACK_TYPE;
+      JSONObject json = remoteURLReader.readFromUrl(url, token);
       return jsonParser.getParsedSearchedTracks(json);
+   }
+
+   public List<Card> providePlaylists(String searchString) throws IOException, JSONException {
+      String token = tokenProvider.getAccessToken();
+      String url = SEARCH_URL + searchString + PLAYLIST_TYPE;
+      JSONObject json = remoteURLReader.readFromUrl(url, token);
+      return jsonParser.getParsedSearchedPlaylists(json);
    }
 }

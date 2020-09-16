@@ -4,11 +4,11 @@ import { FavouriteContext } from "../../context/FavouriteContext";
 
 const FavoriteStar = ({
     category,
-    img,
     imageUrl,
+    onClickUrl,
     header,
-    headerUrl,
-    footer
+    footer,
+    footerUrl
 }) => {
     const { artists, tracks, albums, playlists } = useContext(FavouriteContext);
     const [artist, setArtist] = artists;
@@ -22,34 +22,37 @@ const FavoriteStar = ({
 
     const handleClick = () => {
         const card = {
-            img: img,
             imageUrl: imageUrl,
+            onClickUrl: onClickUrl,
             header: header,
-            headerUrl,
-            footer
+            footer: footer,
+            footerUrl: footerUrl
         };
+        console.log(card);
         setCard(card);
     };
 
     const setCard = card => {
         switch (category) {
             case "album":
-                if (!album.some(object => object.img === card.img)) {
+                if (!album.some(object => object.imageUrl === card.imageUrl)) {
                     setAlbum(prevAlbums => [...prevAlbums, card]);
                 }
                 break;
             case "artist":
-                if (!artist.some(object => object.img === card.img)) {
+                if (!artist.some(object => object.imageUrl === card.imageUrl)) {
                     setArtist(prevArtists => [...prevArtists, card]);
                 }
                 break;
             case "track":
-                if (!track.some(object => object.img === card.img)) {
+                if (!track.some(object => object.imageUrl === card.imageUrl)) {
                     setTrack(prevTracks => [...prevTracks, card]);
                 }
                 break;
             case "playlist":
-                if (!playlist.some(object => object.img === card.img)) {
+                if (
+                    !playlist.some(object => object.imageUrl === card.imageUrl)
+                ) {
                     setPlaylist(prevPlaylists => [...prevPlaylists, card]);
                 }
                 break;

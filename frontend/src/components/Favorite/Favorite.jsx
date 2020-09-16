@@ -21,12 +21,13 @@ const Favorite = () => {
     const renderCards = (type, cards) => {
         return cards.map(data => (
             <CardItem
+                key={data.id}
                 category={type}
-                img={data.img}
-                imageUrl={data.imgUrl}
+                imageUrl={data.imageUrl}
+                onClickUrl={data.onClickUrl}
                 header={data.header}
-                headerUrl={data.headerUrl}
                 footer={data.footer}
+                footerUrl={data.footerUrl}
             />
         ));
     };

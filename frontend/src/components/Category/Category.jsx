@@ -17,8 +17,24 @@ const Category = ({ categoryType }) => {
         setCategory(categoryType);
         const searchString = event.target.value;
         if (searchString !== "") {
-            setUrl(url.search + searchString + "&type=" + categoryType);
-            setSearch(true);
+            switch (categoryType) {
+                case "album":
+                    setUrl(url.album_search + searchString);
+                    setSearch(true);
+                    break;
+                case "track":
+                    setUrl(url.track_search + searchString);
+                    setSearch(true);
+                    break;
+                case "playlist":
+                    setUrl(url.playlist_search + searchString);
+                    setSearch(true);
+                    break;
+                default:
+                    setUrl(url.artist_search + searchString);
+                    setSearch(true);
+                    break;
+            }
         }
     };
 

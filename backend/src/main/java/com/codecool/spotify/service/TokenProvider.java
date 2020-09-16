@@ -43,7 +43,6 @@ public class TokenProvider {
    private String getToken() throws IOException, JSONException {
       JSONObject json = remoteURLReader.readFromUrl(TOKEN_URL,"");
       String token = json.get("token").toString();
-      System.out.println(token);
       return token;
    }
 

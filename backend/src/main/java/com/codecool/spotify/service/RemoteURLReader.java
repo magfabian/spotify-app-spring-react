@@ -15,9 +15,11 @@ import java.util.stream.Collectors;
 @Component
 public class RemoteURLReader {
 
-   public JSONObject readFromUrl(String endpoint) throws IOException, JSONException {
+   public JSONObject readFromUrl(String endpoint,String token) throws IOException, JSONException {
       URL url = new URL(endpoint);
       URLConnection conn = url.openConnection();
+      String auth = "Bearer " + token;
+      conn.setRequestProperty("Authorization",auth);
       String lines;
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
          lines = reader.lines().collect(Collectors.joining("\n"));

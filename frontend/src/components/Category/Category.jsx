@@ -15,7 +15,8 @@ const Category = ({ categoryType }) => {
 
     const handleChange = event => {
         setCategory(categoryType);
-        const searchString = event.target.value;
+        const rawSearch = event.target.value;
+        const searchString = rawSearch.replace(/\s/g, " ".charCodeAt());
         if (searchString !== "") {
             switch (categoryType) {
                 case "album":

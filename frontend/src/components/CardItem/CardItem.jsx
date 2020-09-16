@@ -34,11 +34,11 @@ const CardItem = ({
             </Card.Content>
             <FavoriteStar
                 category={category}
-                img={imageUrl}
-                imgUrl={onClickUrl}
+                imageUrl={imageUrl}
+                onClickUrl={onClickUrl}
                 header={header}
-                headerUrl={footerUrl}
                 footer={footer}
+                footerUrl={footerUrl}
             />
         </Card>
     );

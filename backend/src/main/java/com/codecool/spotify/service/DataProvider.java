@@ -32,16 +32,15 @@ public class DataProvider {
       String token = tokenProvider.getAccessToken();
       String url = NEW_RELEASES_URL;
       JSONObject json = remoteURLReader.readFromUrl(url,token);
-      return jsonParser.getParsedNewReleases(json);
+      return jsonParser.getParsedAlbums(json);
    }
 
    public List<Card> provideSearchedAlbums(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + ALBUM_TYPE ;
       JSONObject json = remoteURLReader.readFromUrl(url,token);
-      return jsonParser.getParsedNewReleases(json);
+      return jsonParser.getParsedAlbums(json);
    }
-
 
    public List<Card> provideTracks(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();

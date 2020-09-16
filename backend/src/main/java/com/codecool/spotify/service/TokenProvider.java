@@ -10,9 +10,10 @@ import java.io.IOException;
 @Service
 public class TokenProvider {
 
-   public static final String TOKEN_URL = "http://localhost:8888/token";
    @Autowired
    private RemoteURLReader remoteURLReader;
+
+   public static final String TOKEN_URL = "http://localhost:8888/token";
 
    private long startTime;
 

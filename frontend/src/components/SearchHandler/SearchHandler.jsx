@@ -6,8 +6,7 @@ import { Divider } from "semantic-ui-react";
 import CardItem from "../CardItem/CardItem";
 
 const SearchHandler = ({ urlString, categoryType }) => {
-    const [status, error, fetchedData] = useFetch(urlString, categoryType);
-    // console.log(fetchedData);
+    const [status, error, fetchedData] = useFetch(urlString);
 
     const dividerStyle = {
         maxWidth: "940px"
@@ -17,6 +16,7 @@ const SearchHandler = ({ urlString, categoryType }) => {
         return (
             <CardItem
                 key={data.id}
+                id={data.id}
                 category={categoryType}
                 imageUrl={data.imageUrl}
                 onClickUrl={data.onClickUrl}

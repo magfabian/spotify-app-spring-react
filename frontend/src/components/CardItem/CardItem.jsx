@@ -9,6 +9,7 @@ const cardStyle = {
 
 const CardItem = ({
     category,
+    id,
     imageUrl,
     onClickUrl,
     header,
@@ -34,6 +35,7 @@ const CardItem = ({
             </Card.Content>
             <FavoriteStar
                 category={category}
+                id={id}
                 imageUrl={imageUrl}
                 onClickUrl={onClickUrl}
                 header={header}

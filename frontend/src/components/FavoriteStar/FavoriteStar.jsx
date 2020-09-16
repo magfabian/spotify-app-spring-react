@@ -1,60 +1,46 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Icon } from "semantic-ui-react";
-import { FavouriteContext } from "../../context/FavouriteContext";
+import axios from "axios";
+import url from "../../utilities/url";
 
 const FavoriteStar = ({
     category,
+    id,
     imageUrl,
     onClickUrl,
     header,
     footer,
     footerUrl
 }) => {
-    const { artists, tracks, albums, playlists } = useContext(FavouriteContext);
-    const [artist, setArtist] = artists;
-    const [track, setTrack] = tracks;
-    const [album, setAlbum] = albums;
-    const [playlist, setPlaylist] = playlists;
-
     const starStyle = {
         marginLeft: "110px"
     };
 
     const handleClick = () => {
         const card = {
+            id: id,
             imageUrl: imageUrl,
             onClickUrl: onClickUrl,
             header: header,
             footer: footer,
             footerUrl: footerUrl
         };
-        console.log(card);
-        setCard(card);
+        handlePost(card);
     };
 
-    const setCard = card => {
+    const handlePost = card => {
         switch (category) {
-            case "album":
-                if (!album.some(object => object.imageUrl === card.imageUrl)) {
-                    setAlbum(prevAlbums => [...prevAlbums, card]);
-                }
-                break;
-            case "artist":
-                if (!artist.some(object => object.imageUrl === card.imageUrl)) {
-                    setArtist(prevArtists => [...prevArtists, card]);
-                }
-                break;
             case "track":
-                if (!track.some(object => object.imageUrl === card.imageUrl)) {
-                    setTrack(prevTracks => [...prevTracks, card]);
-                }
+                axios.post(url.favorite_track, card);
+                break;
+            case "album":
+                axios.post(url.favorite_album, card);
                 break;
             case "playlist":
-                if (
-                    !playlist.some(object => object.imageUrl === card.imageUrl)
-                ) {
-                    setPlaylist(prevPlaylists => [...prevPlaylists, card]);
-                }
+                axios.post(url.favorite_playlist, card);
+                break;
+            case "artist":
+                axios.post(url.favorite_artist, card);
                 break;
             default:
                 break;
@@ -63,8 +49,8 @@ const FavoriteStar = ({
 
     return (
         <Card.Content extra>
-            <span style={starStyle} onClick={handleClick}>
-                <Icon name='star' size='large' />
+            <span style={starStyle}>
+                <Icon name='star' size='large' onClick={handleClick} />
             </span>
         </Card.Content>
     );

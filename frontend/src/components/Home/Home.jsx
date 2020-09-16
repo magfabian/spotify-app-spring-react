@@ -7,11 +7,12 @@ import { Header, Divider } from "semantic-ui-react";
 import Error from "../Error/Error";
 
 const Home = () => {
-    const [status, error, fetchedData] = useFetch(url.new_releases, "release");
+    const [status, error, fetchedData] = useFetch(url.new_releases);
 
     const renderedCards = fetchedData.map(data => (
         <CardItem
             key={data.id}
+            id={data.id}
             category='album'
             imageUrl={data.imageUrl}
             onClickUrl={data.onClickUrl}

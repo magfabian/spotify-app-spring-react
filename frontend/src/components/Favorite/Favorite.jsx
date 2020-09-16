@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
-import { FavouriteContext } from "../../context/FavouriteContext";
+import React from "react";
 import { Header, Divider } from "semantic-ui-react";
 import CardItem from "../CardItem/CardItem";
+import useFetch from "../../utilities/useFetch";
+import url from "../../utilities/url";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 
 const Favorite = () => {
-    const { artists, tracks, albums, playlists } = useContext(FavouriteContext);
-    const [artist] = artists;
-    const [track] = tracks;
-    const [album] = albums;
-    const [playlist] = playlists;
+    const [status, error, fetchedData] = useFetch(url.favorite_all);
 
     const headerStyle = {
         marginBottom: "20px"
@@ -19,9 +18,9 @@ const Favorite = () => {
     };
 
     const renderCards = (type, cards) => {
-        return cards.map(data => (
+        return cards.map((data, index) => (
             <CardItem
-                key={data.id}
+                key={index}
                 category={type}
                 imageUrl={data.imageUrl}
                 onClickUrl={data.onClickUrl}
@@ -32,57 +31,75 @@ const Favorite = () => {
         ));
     };
 
-    const renderedArtists = renderCards("artist", artist);
+    let renderedArtists = [];
+    if (fetchedData["artists"]) {
+        renderedArtists = renderCards("artist", fetchedData["artists"]);
+    }
 
-    const renderedTracks = renderCards("track", track);
+    let renderedTracks = [];
+    if (fetchedData["tracks"]) {
+        renderedTracks = renderCards("track", fetchedData["tracks"]);
+    }
 
-    const renderedAlbums = renderCards("albums", album);
+    let renderedAlbums = [];
+    if (fetchedData["albums"]) {
+        renderedAlbums = renderCards("album", fetchedData["albums"]);
+    }
 
-    const renderedPlaylist = renderCards("playlist", playlist);
+    let renderedPlaylists = [];
+    if (fetchedData["playlists"]) {
+        renderedPlaylists = renderCards("playlist", fetchedData["playlists"]);
+    }
 
     return (
         <div className='content'>
-            <Header style={headerStyle} as='h1'>
-                Favorites:
-            </Header>
-            {artist.length > 0 && (
+            {status === "error" && <Error error={error} />}
+            {status === "loading" && <Loading />}
+            {status === "loaded" && (
                 <div>
-                    <Divider style={dividerStlye} horizontal>
-                        ARTISTS
-                    </Divider>
-                    <div className='ui stackable three column grid'>
-                        {renderedArtists}
-                    </div>
-                </div>
-            )}
-            {album.length > 0 && (
-                <div>
-                    <Divider style={dividerStlye} horizontal>
-                        ALBUMS
-                    </Divider>
-                    <div className='ui stackable three column grid'>
-                        {renderedAlbums}
-                    </div>
-                </div>
-            )}
-            {track.length > 0 && (
-                <div>
-                    <Divider style={dividerStlye} horizontal>
-                        TRACKS
-                    </Divider>
-                    <div className='ui stackable three column grid'>
-                        {renderedTracks}
-                    </div>
-                </div>
-            )}
-            {playlist.length > 0 && (
-                <div>
-                    <Divider style={dividerStlye} horizontal>
-                        PLAYLISTS
-                    </Divider>
-                    <div className='ui stackable three column grid'>
-                        {renderedPlaylist}
-                    </div>
+                    <Header style={headerStyle} as='h1'>
+                        Favorites:
+                    </Header>
+                    {renderedArtists.length > 0 && (
+                        <div>
+                            <Divider style={dividerStlye} horizontal>
+                                ARTISTS
+                            </Divider>
+                            <div className='ui stackable three column grid'>
+                                {renderedArtists}
+                            </div>
+                        </div>
+                    )}
+                    {renderedAlbums.length > 0 && (
+                        <div>
+                            <Divider style={dividerStlye} horizontal>
+                                ALBUMS
+                            </Divider>
+                            <div className='ui stackable three column grid'>
+                                {renderedAlbums}
+                            </div>
+                        </div>
+                    )}
+                    {renderedTracks.length > 0 && (
+                        <div>
+                            <Divider style={dividerStlye} horizontal>
+                                TRACKS
+                            </Divider>
+                            <div className='ui stackable three column grid'>
+                                {renderedTracks}
+                            </div>
+                        </div>
+                    )}
+                    {renderedPlaylists.length > 0 && (
+                        <div>
+                            <Divider style={dividerStlye} horizontal>
+                                PLAYLISTS
+                            </Divider>
+                            <div className='ui stackable three column grid'>
+                                {renderedPlaylists}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

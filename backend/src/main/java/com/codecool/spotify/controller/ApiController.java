@@ -37,6 +37,11 @@ public class ApiController {
 
    @GetMapping("/search/albums/{searchString}")
    public List<Card> handleAlbumSearch(@PathVariable String searchString) throws IOException, JSONException {
-      return dataCreator.provideSearchedAlbums(searchString);
+      return dataCreator.provideAlbums(searchString);
+   }
+
+   @GetMapping("/search/artists/{searchString}")
+   public List<Card> handleArtistSearch(@PathVariable String searchString) throws IOException, JSONException {
+      return dataCreator.provideArtists(searchString);
    }
 }

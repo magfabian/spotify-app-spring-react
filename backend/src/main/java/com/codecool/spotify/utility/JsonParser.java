@@ -67,6 +67,29 @@ public class JsonParser {
          data.add(card);
       }
       return data;
+   }
 
+   public List<Card> getParsedSearchedArtist(JSONObject json) throws JSONException {
+      List<Card> data = new ArrayList<>();
+      JSONObject artists = json.getJSONObject("artists");
+      JSONArray items = artists.getJSONArray("items");
+      System.out.println(items.length());
+      for (int i = 0; i < items.length(); i++) {
+         JSONObject artist = items.getJSONObject(i);
+         String imageUrl;
+         try {
+            imageUrl = artist.getJSONArray("images").getJSONObject(0).get("url").toString();
+         } catch (Exception ex) {
+            imageUrl = "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png";
+         }
+         String header = artist.get("name").toString();
+         String footer = "Followers: "  + artist.getJSONObject("followers").get("total");
+         String onClickUrl = artist.getJSONObject("external_urls").get("spotify").toString();
+         String footerUrl = null;
+         String id = artist.get("id").toString();
+         Card card = new Card(id, imageUrl, onClickUrl, header, footer, footerUrl);
+         data.add(card);
+      }
+      return data;
    }
 }

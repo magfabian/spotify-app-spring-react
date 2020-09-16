@@ -18,6 +18,7 @@ public class DataProvider {
    private static final String TRACK_TYPE = "&type=track";
    private static final String PLAYLIST_TYPE = "&type=playlist";
    public static final String ALBUM_TYPE = "&type=album";
+   public static final String ARTIST_TYPE = "&type=artist";
 
    @Autowired
    private RemoteURLReader remoteURLReader;
@@ -35,7 +36,7 @@ public class DataProvider {
       return jsonParser.getParsedAlbums(json);
    }
 
-   public List<Card> provideSearchedAlbums(String searchString) throws IOException, JSONException {
+   public List<Card> provideAlbums(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + ALBUM_TYPE ;
       JSONObject json = remoteURLReader.readFromUrl(url,token);
@@ -54,5 +55,12 @@ public class DataProvider {
       String url = SEARCH_URL + searchString + PLAYLIST_TYPE;
       JSONObject json = remoteURLReader.readFromUrl(url, token);
       return jsonParser.getParsedSearchedPlaylists(json);
+   }
+
+   public List<Card> provideArtists(String searchString) throws IOException, JSONException {
+      String token = tokenProvider.getAccessToken();
+      String url = SEARCH_URL + searchString + ARTIST_TYPE;
+      JSONObject json = remoteURLReader.readFromUrl(url, token);
+      return jsonParser.getParsedSearchedArtist(json);
    }
 }

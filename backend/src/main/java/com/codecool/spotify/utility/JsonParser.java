@@ -30,4 +30,43 @@ public class JsonParser {
       }
       return data;
    }
+
+   public List<Card> getParsedSearchedTracks(JSONObject json) throws JSONException {
+      List<Card> data = new ArrayList<>();
+      JSONObject tracks = json.getJSONObject("tracks");
+      JSONArray items = tracks.getJSONArray("items");
+
+      for (int i = 0; i < items.length(); i++) {
+         JSONObject track = items.getJSONObject(i);
+         String imageUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url").toString();
+         String header = track.get("name").toString();
+         String footer = track.getJSONArray("artists").getJSONObject(0).get("name").toString();
+         String onClickUrl = track.getJSONObject("external_urls").get("spotify").toString();
+         String footerUrl = track.getJSONArray("artists").getJSONObject(0).getJSONObject("external_urls").get("spotify").toString();
+         String id = track.get("id").toString();
+         Card card = new Card(id, imageUrl, onClickUrl, header, footer, footerUrl);
+         data.add(card);
+      }
+      return data;
+   }
+
+   public List<Card> getParsedSearchedPlaylists(JSONObject json) throws JSONException {
+      List<Card> data = new ArrayList<>();
+      JSONObject playlists = json.getJSONObject("tracks");
+      JSONArray items = playlists.getJSONArray("items");
+
+      for (int i = 0; i < items.length(); i++) {
+         JSONObject playlist = items.getJSONObject(i);
+         String imageUrl = playlist.getJSONObject("playlist").getJSONArray("images").getJSONObject(0).get("url").toString();
+         String header = playlist.get("name").toString();
+         String footer = "Tracks: "  + playlist.getJSONObject("tracks").getJSONObject("total").toString();
+         String onClickUrl = playlist.getJSONObject("external_urls").get("spotify").toString();
+         String footerUrl = null;
+         String id = playlist.get("id").toString();
+         Card card = new Card(id, imageUrl, onClickUrl, header, footer, footerUrl);
+         data.add(card);
+      }
+      return data;
+
+   }
 }

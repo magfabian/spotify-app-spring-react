@@ -24,6 +24,17 @@ public class ApiController {
    }
 
    @CrossOrigin
+   @GetMapping("/tracks/{searchString}")
+   public List<Card> handleTrackSearch(@PathVariable String searchString) throws IOException, JSONException {
+      return dataCreator.provideTracks(searchString);
+   }
+
+   @CrossOrigin
+   @GetMapping("/playlists/{searchString}")
+   public List<Card> handlePlaylistSearch(@PathVariable String searchString) throws IOException, JSONException {
+      return dataCreator.providePlaylists(searchString);
+   }
+
    @GetMapping("/search/album/{searchedString}")
    public List<Card> handleAlbumSearch(@PathVariable String searchedString) throws IOException, JSONException {
       return dataCreator.provideSearchedAlbums(searchedString);

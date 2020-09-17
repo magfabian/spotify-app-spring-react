@@ -5,13 +5,12 @@ import java.util.List;
 
 public class Playlist {
     private String title;
-    private int total;
+    private int total = 0;
     private List<Card> tracks;
 
     public Playlist(String title) {
         this.title = title;
         this.tracks = new ArrayList<>();
-        this.total = tracks.size();
     }
 
     public String getTitle() {
@@ -27,10 +26,7 @@ public class Playlist {
     }
 
     public void addNewTrackToPlaylist(Card card) {
-        for (Card track : tracks) {
-            if (!track.getImageUrl().equals(card.getImageUrl())) {
-                tracks.add(card);
-            }
-        }
+        tracks.add(card);
+        total ++;
     }
 }

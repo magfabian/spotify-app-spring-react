@@ -39,7 +39,7 @@ const Playlists = () => {
     };
 
     const renderedPlaylists = fetchedData.map((data, index) => {
-        const playListUrl = `/playlist/${data.title}`;
+        const playListUrl = `/playlists/${data.title}`;
         if (index === 0 || index % 2 == 0) {
             return (
                 <Segment key={index} circular style={square}>

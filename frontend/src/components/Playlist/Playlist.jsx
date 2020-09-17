@@ -12,7 +12,6 @@ const Playlist = (props) => {
         url.playlist + props.match.params.title
     );
 
-    console.log(fetchedData.total);
     const renderCards = () => {
         fetchedData.tracks.map((card) => (
             <CardItem

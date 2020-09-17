@@ -26,7 +26,16 @@ public class Playlist {
     }
 
     public void addNewTrackToPlaylist(Card card) {
-        tracks.add(card);
-        total ++;
+        boolean contains = false;
+        for (Card track:tracks) {
+            if (track.getImageUrl().equals(card.getImageUrl())) {
+                contains = true;
+                break;
+            }
+        }
+        if (!contains) {
+            tracks.add(card);
+            total ++;
+        }
     }
 }

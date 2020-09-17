@@ -1,6 +1,7 @@
 package com.codecool.spotify.controller;
 
 import com.codecool.spotify.model.Card;
+import com.codecool.spotify.model.Playlist;
 import com.codecool.spotify.service.PlaylistProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,8 @@ public class PlaylistController {
 
     @CrossOrigin
     @GetMapping("/get-all")
-    public Map<String, List<Card>> handleAllPlaylist() {
+    public List<Playlist> handleAllPlaylist() {
         return playlistProvider.getAllPlaylists();
-    }
-
-    @CrossOrigin
-    @GetMapping("/total")
-    public Map<String, Integer> handlePlaylistLength() {
-        return playlistProvider.getPlaylistsLength();
     }
 
     @PostMapping("/new/{playlist}")
@@ -34,6 +29,11 @@ public class PlaylistController {
 
     @PostMapping("/track/{playlist}/")
     public void handleNewTrack(@PathVariable String playlist, @RequestBody Card card) {
-        playlistProvider.addNewTrack(playlist, card);
+        playlistProvider.getSpecificPlaylist(playlist).addNewTrackToPlaylist(card);
+    }
+
+    @GetMapping("/{playlist}")
+    public Playlist handlePlaylist(@PathVariable String playlist) {
+        return playlistProvider.getSpecificPlaylist(playlist);
     }
 }

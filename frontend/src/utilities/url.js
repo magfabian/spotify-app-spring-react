@@ -11,6 +11,7 @@ const url = {
     favorite_all: "/favorite/get-all",
     playlist_new: "/playlist/new/",
     playlist_get_all: "/playlist/get-all",
+    playlist_add_track: "http://localhost:8080/playlist/track/",
 };
 
 export default url;

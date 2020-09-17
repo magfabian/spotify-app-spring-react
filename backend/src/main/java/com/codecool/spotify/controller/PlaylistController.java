@@ -32,6 +32,7 @@ public class PlaylistController {
         playlistProvider.getSpecificPlaylist(playlist).addNewTrackToPlaylist(card);
     }
 
+    @CrossOrigin
     @GetMapping("/{playlist}")
     public Playlist handlePlaylist(@PathVariable String playlist) {
         return playlistProvider.getSpecificPlaylist(playlist);

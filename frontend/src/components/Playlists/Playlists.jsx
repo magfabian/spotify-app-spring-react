@@ -1,78 +1,64 @@
-import React, { useState } from "react";
-import { Button, Form, Modal } from "semantic-ui-react";
-import axios from "axios";
+import React from "react";
+import PlaylistModal from "../PlaylistModal/PlaylistModal";
 import url from "../../utilities/url";
+import useFetch from "../../utilities/useFetch";
+import { Header, Segment } from "semantic-ui-react";
 
 const Playlists = () => {
-    const [open, setOpen] = React.useState(false);
-    const [input, setInput] = React.useState("");
+    const [status, error, fetchedData] = useFetch(url.playlist_get_total);
 
-    const buttonStyle = {
+    const square = {
+        width: 190,
+        height: 190,
+        margin: "20px",
+        marginTop: "50px",
+    };
+
+    const headerStyle = {
+        display: "table",
+        position: "relative",
+        top: "1.9vw",
+        margin: "0 auto",
+        fontWeight: "bold",
+        fontSize: "30px",
+    };
+
+    const subheaderStyle = {
         fontSize: "20px",
-        fontWeight: "bolder",
     };
 
-    const formStyle = {
-        fontSize: "20px",
-        marginTop: "15px",
-        marginBottom: "15px",
-    };
-
-    const submitStyle = {
-        fontSize: "18px",
-        marginBottom: "10px",
-        marginLeft: "390px",
-    };
-
-    const handleInputChange = (event) => {
-        setInput(event.target.value);
-    };
-
-    const handleNewPlaylist = () => {
-        setOpen(false);
-        axios.post(url.playlist_new + input);
-        setInput("");
-    };
+    const renderedPlaylists = fetchedData.map((data, index) => {
+        if (index === 0 || index % 2 == 0) {
+            return (
+                <Segment key={index} circular inverted style={square}>
+                    <Header style={headerStyle} as="h2" inverted>
+                        {data.title}
+                        <Header.Subheader style={subheaderStyle}>
+                            {data.total}
+                        </Header.Subheader>
+                    </Header>
+                </Segment>
+            );
+        } else {
+            return (
+                <Segment key={index} circular style={square}>
+                    <Header style={headerStyle} as="h2">
+                        {data.title}
+                        <Header.Subheader style={subheaderStyle}>
+                            {data.total}
+                        </Header.Subheader>
+                    </Header>
+                </Segment>
+            );
+        }
+    });
 
     return (
         <div>
-            <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={
-                    <Button
-                        style={buttonStyle}
-                        basic
-                        color="black"
-                        onClick={handleNewPlaylist}
-                    >
-                        Add new playlist
-                    </Button>
-                }
-            >
-                <Modal.Header>Add new playlist:</Modal.Header>
-                <Form>
-                    <Modal.Content>
-                        <Form.Field>
-                            <input
-                                style={formStyle}
-                                placeholder="Your playlist name"
-                                onChange={handleInputChange}
-                            />
-                        </Form.Field>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button
-                            style={submitStyle}
-                            type="submit"
-                            onClick={handleNewPlaylist}
-                        >
-                            Submit
-                        </Button>
-                    </Modal.Actions>
-                </Form>
-            </Modal>
+            <PlaylistModal />
+            <div>
+                <div className="ui grid">{renderedPlaylists}</div>
+            </div>
         </div>
     );
 };

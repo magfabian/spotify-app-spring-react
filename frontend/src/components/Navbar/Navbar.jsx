@@ -17,6 +17,14 @@ const Navbar = () => {
             <NavLink activeClassName="active" to="/favorite" className="item">
                 Favorites
             </NavLink>
+            <NavLink
+                activeClassName="active"
+                exact
+                to="/playlists"
+                className="item"
+            >
+                Playlists
+            </NavLink>
             <div className="item">
                 <p>Search by:</p>
                 <div className="menu">

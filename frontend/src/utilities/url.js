@@ -8,7 +8,8 @@ const url = {
     favorite_album: "/favorite/album",
     favorite_artist: "/favorite/artist",
     favorite_playlist: "/favorite/playlist",
-    favorite_all: "http://localhost:8080/favorite/get-all"
+    favorite_all: "/favorite/get-all",
+    playlist_new: "/playlist/new/",
 };
 
 export default url;

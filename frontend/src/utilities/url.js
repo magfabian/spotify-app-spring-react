@@ -9,6 +9,7 @@ const url = {
     favorite_artist: "/favorite/artist",
     favorite_playlist: "/favorite/playlist",
     favorite_all: "/favorite/get-all",
+    playlist: "http://localhost:8080/playlist/",
     playlist_new: "/playlist/new/",
     playlist_get_all: "/playlist/get-all",
     playlist_add_track: "http://localhost:8080/playlist/track/",

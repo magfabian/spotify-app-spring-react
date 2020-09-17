@@ -32,7 +32,7 @@ public class PlaylistController {
         playlistProvider.getSpecificPlaylist(playlist).addNewTrackToPlaylist(card);
     }
 
-    @GetMapping("{playlist}")
+    @GetMapping("/{playlist}")
     public Playlist handlePlaylist(@PathVariable String playlist) {
         return playlistProvider.getSpecificPlaylist(playlist);
     }

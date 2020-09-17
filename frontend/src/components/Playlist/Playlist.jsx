@@ -13,18 +13,22 @@ const Playlist = (props) => {
     );
 
     const renderCards = () => {
-        fetchedData.tracks.map((card) => (
-            <CardItem
-                key={card.id}
-                id={card.id}
-                category="track"
-                imageUrl={card.imageUrl}
-                onClickUrl={card.onClickUrl}
-                header={card.header}
-                footer={card.footer}
-                footerUrl={card.footerUrl}
-            />
-        ));
+        if (fetchedData.total > 0) {
+            return fetchedData.tracks.map((card) => (
+                <CardItem
+                    key={card.id}
+                    id={card.id}
+                    category="track"
+                    imageUrl={card.imageUrl}
+                    onClickUrl={card.onClickUrl}
+                    header={card.header}
+                    footer={card.footer}
+                    footerUrl={card.footerUrl}
+                />
+            ));
+        } else {
+            return;
+        }
     };
 
     const headerStyle = {
@@ -34,6 +38,8 @@ const Playlist = (props) => {
     const dividerStlye = {
         maxWidth: "940px",
     };
+
+    let renderedCards = renderCards();
 
     return (
         <div className="content ">
@@ -51,7 +57,7 @@ const Playlist = (props) => {
                                 TRACKS
                             </Divider>
                             <div className="ui stackable three column grid">
-                                {renderCards}
+                                {renderedCards}
                             </div>
                         </>
                     )}

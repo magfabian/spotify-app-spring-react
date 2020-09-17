@@ -21,6 +21,11 @@ public class PlaylistController {
         return playlistProvider.getAllPlaylists();
     }
 
+    @GetMapping("/{playlist/total")
+    public Map<String, Integer> handlePlaylistLength() {
+        return playlistProvider.getPlaylistsLength();
+    }
+
     @PostMapping("/new/{playlist}")
     public void handleNewPlaylist(@PathVariable String playlist) {
         playlistProvider.addNewPlaylist(playlist);

@@ -21,7 +21,8 @@ public class PlaylistController {
         return playlistProvider.getAllPlaylists();
     }
 
-    @GetMapping("/{playlist/total")
+    @CrossOrigin
+    @GetMapping("/total")
     public Map<String, Integer> handlePlaylistLength() {
         return playlistProvider.getPlaylistsLength();
     }

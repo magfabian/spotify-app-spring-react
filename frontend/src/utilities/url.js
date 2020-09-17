@@ -10,6 +10,7 @@ const url = {
     favorite_playlist: "/favorite/playlist",
     favorite_all: "/favorite/get-all",
     playlist_new: "/playlist/new/",
+    playlist: "/playlist/",
 };
 
 export default url;

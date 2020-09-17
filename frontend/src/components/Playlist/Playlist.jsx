@@ -5,22 +5,28 @@ import CardItem from "../CardItem/CardItem";
 import Loading from "../Loading/Loading";
 import { Header, Divider } from "semantic-ui-react";
 import Error from "../Error/Error";
+import EmptyPlaylist from "../EmptyPlaylist/EmptyPlaylist";
 
-const Playlist = ({ name }) => {
-    const [status, error, fetchedData] = useFetch(url.playlist + { name });
+const Playlist = (props) => {
+    const [status, error, fetchedData] = useFetch(
+        url.playlist + props.match.params.title
+    );
 
-    const renderedCards = fetchedData.map((card) => (
-        <CardItem
-            key={card.id}
-            id={card.id}
-            category="track"
-            imageUrl={card.imageUrl}
-            onClickUrl={card.onClickUrl}
-            header={card.header}
-            footer={card.footer}
-            footerUrl={card.footerUrl}
-        />
-    ));
+    console.log(fetchedData.total);
+    const renderCards = () => {
+        fetchedData.tracks.map((card) => (
+            <CardItem
+                key={card.id}
+                id={card.id}
+                category="track"
+                imageUrl={card.imageUrl}
+                onClickUrl={card.onClickUrl}
+                header={card.header}
+                footer={card.footer}
+                footerUrl={card.footerUrl}
+            />
+        ));
+    };
 
     const headerStyle = {
         marginBottom: "20px",
@@ -37,14 +43,19 @@ const Playlist = ({ name }) => {
             {status === "loaded" && (
                 <div>
                     <Header style={headerStyle} as="h1">
-                        {name}:
+                        {props.match.params.title}
                     </Header>
-                    <Divider style={dividerStlye} horizontal>
-                        TRACKS
-                    </Divider>
-                    <div className="ui stackable three column grid">
-                        {renderedCards}
-                    </div>
+                    {fetchedData.total === 0 && <EmptyPlaylist />}
+                    {fetchedData.total > 0 && (
+                        <>
+                            <Divider style={dividerStlye} horizontal>
+                                TRACKS
+                            </Divider>
+                            <div className="ui stackable three column grid">
+                                {renderCards}
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
         </div>

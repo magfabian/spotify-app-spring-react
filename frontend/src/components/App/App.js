@@ -1,12 +1,18 @@
 import React from "react";
 import Header from "../Header/Header";
 import Home from "../Home/Home";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    matchPath,
+    Route,
+    Switch,
+} from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Favorite from "../Favorite/Favorite";
 import Category from "../Category/Category";
 import "./App.css";
 import Playlists from "../Playlists/Playlists";
+import Playlist from "../Playlist/Playlist";
 
 function App() {
     return (
@@ -36,6 +42,10 @@ function App() {
                     <Route path="/playlist">
                         <Category categoryType={"playlist"} />
                     </Route>
+                    <Route
+                        path="/playlists/:title"
+                        render={(props) => <Playlist {...props} />}
+                    ></Route>
                 </Switch>
             </div>
         </Router>

@@ -1,34 +1,24 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.Card;
+import com.codecool.spotify.model.Playlist;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PlaylistProvider {
 
-    private Map<String, List<Card>> playlists = new HashMap<>();
-    private Map<String, Integer> playlistsLength = new HashMap<>();
+    private List<Playlist> playlists = new ArrayList<>();
 
-    public Map<String, List<Card>> getAllPlaylists() {
+    public List<Playlist> getAllPlaylists() {
         return this.playlists;
     }
 
     public void addNewPlaylist(String title) {
-        playlistsLength.put(title, 0);
-        playlists.put(title, new ArrayList<>());
+       playlists.add(new Playlist(title));
     }
 
-    public void addNewTrack(String title, Card card) {
-        playlistsLength.remove(title, playlistsLength.get(title));
-        playlistsLength.put(title, playlists.get(title).size());
-        playlists.get(title).add(card);
-    }
-
-    public Map<String, Integer> getPlaylistsLength() {
-        return playlistsLength;
+    public Playlist getSpecificPlaylist(String title) {
+        return playlists.stream().filter(playlist -> playlist.getTitle().equals(title)).findFirst().get();
     }
 }

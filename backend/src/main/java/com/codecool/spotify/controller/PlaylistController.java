@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/playlist")
@@ -27,7 +26,8 @@ public class PlaylistController {
         playlistProvider.addNewPlaylist(playlist);
     }
 
-    @PostMapping("/track/{playlist}/")
+    @CrossOrigin
+    @PostMapping("/track/{playlist}")
     public void handleNewTrack(@PathVariable String playlist, @RequestBody Card card) {
         playlistProvider.getSpecificPlaylist(playlist).addNewTrackToPlaylist(card);
     }

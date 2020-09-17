@@ -1,10 +1,13 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Dropdown } from "semantic-ui-react";
 import FavoriteStar from "../FavoriteStar/FavoriteStar";
+import useFetch from "../../utilities/useFetch";
+import url from "../../utilities/url";
+import axios from "axios";
 
 const cardStyle = {
     margin: "10px",
-    maxWidth: "300px"
+    maxWidth: "300px",
 };
 
 const CardItem = ({
@@ -14,22 +17,50 @@ const CardItem = ({
     onClickUrl,
     header,
     footer,
-    footerUrl
+    footerUrl,
 }) => {
+    const [status, error, fetchedData] = useFetch(url.playlist_get_all);
+
+    const handleClick = (event) => {
+        const playlist = event.target.getAttribute("data-title");
+        const card = {
+            id: id,
+            imageUrl: imageUrl,
+            onClickUrl: onClickUrl,
+            header: header,
+            footer: footer,
+            footerUrl: footerUrl,
+        };
+        const trackUrl = url.playlist_add_track + playlist;
+        axios.post(trackUrl, card);
+    };
+
+    const renderedDropDown = fetchedData.map((data, index) => {
+        return (
+            <Dropdown.Item
+                key={index}
+                onClick={handleClick}
+                data-title={data.title}
+            >
+                {data.title}
+            </Dropdown.Item>
+        );
+    });
+
     return (
-        <Card style={cardStyle} className='column'>
+        <Card style={cardStyle} className="column">
             <Image
                 src={imageUrl}
-                alt=''
+                alt=""
                 wrapped
-                as='a'
+                as="a"
                 ui={false}
                 href={onClickUrl}
-                target='_blank'
+                target="_blank"
             />
             <Card.Content>
                 <Card.Header>{header}</Card.Header>
-                <Card.Description as='a' href={footerUrl} target='_blank'>
+                <Card.Description as="a" href={footerUrl} target="_blank">
                     {footer}
                 </Card.Description>
             </Card.Content>
@@ -42,6 +73,17 @@ const CardItem = ({
                 footer={footer}
                 footerUrl={footerUrl}
             />
+            {category === "track" && (
+                <Dropdown
+                    text="Add to playlist"
+                    icon="plus"
+                    labeled
+                    button
+                    className="icon"
+                >
+                    <Dropdown.Menu>{renderedDropDown}</Dropdown.Menu>
+                </Dropdown>
+            )}
         </Card>
     );
 };

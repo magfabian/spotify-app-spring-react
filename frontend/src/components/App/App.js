@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import Favorite from "../Favorite/Favorite";
 import Category from "../Category/Category";
 import "./App.css";
+import Playlist from "../Playlist/Playlist";
 
 function App() {
     return (
@@ -19,6 +20,9 @@ function App() {
                     </Route>
                     <Route path="/favorite">
                         <Favorite />
+                    </Route>
+                    <Route exact path="/playlists">
+                        <Playlist />
                     </Route>
                     <Route path="/artist">
                         <Category categoryType={"artist"} />

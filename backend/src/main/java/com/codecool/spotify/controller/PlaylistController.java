@@ -1,7 +1,7 @@
 package com.codecool.spotify.controller;
 
 import com.codecool.spotify.model.Card;
-import com.codecool.spotify.model.Playlist;
+import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.service.PlaylistProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class PlaylistController {
 
     @CrossOrigin
     @GetMapping("/get-all")
-    public List<Playlist> handleAllPlaylist() {
+    public List<UserPlaylist> handleAllPlaylist() {
         return playlistProvider.getAllPlaylists();
     }
 
@@ -34,7 +34,7 @@ public class PlaylistController {
 
     @CrossOrigin
     @GetMapping("/{playlist}")
-    public Playlist handlePlaylist(@PathVariable String playlist) {
+    public UserPlaylist handlePlaylist(@PathVariable String playlist) {
         return playlistProvider.getSpecificPlaylist(playlist);
     }
 }

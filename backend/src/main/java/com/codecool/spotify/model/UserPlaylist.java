@@ -1,41 +1,45 @@
 package com.codecool.spotify.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserPlaylist {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false)
     private String title;
-    private int total = 0;
-    private List<Card> tracks;
 
-    public UserPlaylist(String title) {
-        this.title = title;
-        this.tracks = new ArrayList<>();
-    }
+    private int total;
 
-    public String getTitle() {
-        return title;
-    }
+    @OneToMany
+    private Set<Track> tracks;
 
-    public int getTotal() {
-        return total;
-    }
-
-    public List<Card> getTracks() {
-        return tracks;
-    }
-
-    public void addNewTrackToPlaylist(Card card) {
-        boolean contains = false;
-        for (Card track:tracks) {
-            if (track.getImageUrl().equals(card.getImageUrl())) {
-                contains = true;
-                break;
-            }
-        }
-        if (!contains) {
-            tracks.add(card);
-            total ++;
-        }
-    }
+//    public void addNewTrackToPlaylist(Card card) {
+//        boolean contains = false;
+//        for (Card track:tracks) {
+//            if (track.getImageUrl().equals(card.getImageUrl())) {
+//                contains = true;
+//                break;
+//            }
+//        }
+//        if (!contains) {
+//            tracks.add(card);
+//            total ++;
+//        }
+//    }
 }

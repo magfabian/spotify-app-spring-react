@@ -3,12 +3,24 @@ package com.codecool.spotify.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Album extends Card {
+public class Album {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String spotifyId;
+    private String imageUrl;
+    private String onClickUrl;
+    private String header;
+    private String footer;
+    private String footerUrl;
 }

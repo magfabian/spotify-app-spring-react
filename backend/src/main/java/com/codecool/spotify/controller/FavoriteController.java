@@ -6,6 +6,7 @@ import com.codecool.spotify.service.FavoriteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,56 +14,33 @@ import java.util.Set;
 @RequestMapping("/favorite")
 public class FavoriteController {
 
-   @Autowired
-   private FavoriteProvider favoriteProvider;
+    @Autowired
+    private FavoriteProvider favoriteProvider;
 
-   @CrossOrigin
-   @GetMapping("/get-all")
-   public Map<String, Set<Card>> handleAllFavorites() {
-      return favoriteProvider.provideAllFavorites();
-   }
+    @CrossOrigin
+    @GetMapping("/get-all")
+    public Favorite handleAllFavorites() {
+        return favoriteProvider.provideAllFavorites();
+    }
 
-   @PostMapping("/track")
-   public boolean handleNewFavoriteTrack(@RequestBody Track track) {
-      try {
-         favoriteProvider.addNewFavoriteTrack(track);
-         return true;
-      } catch (Exception ex) {
-         ex.printStackTrace();
-         return false;
-      }
-   }
+    @PostMapping("/track")
+    public void handleNewFavoriteTrack(@RequestBody Track track) {
+        favoriteProvider.addNewFavoriteTrack(track);
+    }
 
-   @PostMapping("/album")
-   public boolean handleNewFavoriteAlbum(@RequestBody Album album) {
-      try {
-         favoriteProvider.addNewFavoriteAlbum(album);
-         return true;
-      } catch (Exception ex) {
-         ex.printStackTrace();
-         return false;
-      }
-   }
+    @PostMapping("/album")
+    public void handleNewFavoriteAlbum(@RequestBody Album album) {
+        favoriteProvider.addNewFavoriteAlbum(album);
+    }
 
-   @PostMapping("/playlist")
-   public boolean handleNewFavoritePlaylist(@RequestBody Playlist playlist) {
-      try {
-         favoriteProvider.addNewFavoritePlaylist(playlist);
-         return true;
-      } catch (Exception ex) {
-         ex.printStackTrace();
-         return false;
-      }
-   }
+    @PostMapping("/playlist")
+    public void handleNewFavoritePlaylist(@RequestBody Playlist playlist) {
+        favoriteProvider.addNewFavoritePlaylist(playlist);
+    }
 
-   @PostMapping("/artist")
-   public boolean handleNewFavoriteArtist(@RequestBody Artist artist) {
-      try {
-         favoriteProvider.addNewFavoriteArtist(artist);
-         return true;
-      } catch (Exception ex) {
-         ex.printStackTrace();
-         return false;
-      }
-   }
+    @PostMapping("/artist")
+    public void handleNewFavoriteArtist(@RequestBody Artist artist) {
+        favoriteProvider.addNewFavoriteArtist(artist);
+
+    }
 }

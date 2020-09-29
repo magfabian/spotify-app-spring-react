@@ -1,26 +1,17 @@
 package com.codecool.spotify.model;
 
 import lombok.*;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Track {
+@EqualsAndHashCode(callSuper = true)
+public class Track extends Card {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    private String spotifyId;
-    private String imageUrl;
-    private String onClickUrl;
-    private String header;
-    private String footer;
-    private String footerUrl;
+    @Builder(builderMethodName = "trackBuilder")
+    public Track(Long id, String spotifyId, String imageUrl, String onClickUrl, String header, String footer, String footerUrl) {
+        super(id, spotifyId, imageUrl, onClickUrl, header, footer, footerUrl);
+    }
 }

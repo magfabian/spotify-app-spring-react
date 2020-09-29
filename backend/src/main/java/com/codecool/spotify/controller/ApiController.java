@@ -1,6 +1,9 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.Card;
+import com.codecool.spotify.model.Album;
+import com.codecool.spotify.model.Artist;
+import com.codecool.spotify.model.Playlist;
+import com.codecool.spotify.model.Track;
 import com.codecool.spotify.service.DataProvider;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +21,27 @@ public class ApiController {
 
    @CrossOrigin
    @GetMapping("/new-releases")
-   public List<Card> handleNewReleases() throws IOException, JSONException {
+   public List<Album> handleNewReleases() throws IOException, JSONException {
       return dataCreator.provideNewReleases();
    }
 
    @GetMapping("/search/tracks/{searchString}")
-   public List<Card> handleTrackSearch(@PathVariable String searchString) throws IOException, JSONException {
+   public List<Track> handleTrackSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
       return dataCreator.provideTracks(searchString);
    }
 
    @GetMapping("/search/playlists/{searchString}")
-   public List<Card> handlePlaylistSearch(@PathVariable String searchString) throws IOException, JSONException {
+   public List<Playlist> handlePlaylistSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
       return dataCreator.providePlaylists(searchString);
    }
 
    @GetMapping("/search/albums/{searchString}")
-   public List<Card> handleAlbumSearch(@PathVariable String searchString) throws IOException, JSONException {
+   public List<Album> handleAlbumSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
       return dataCreator.provideAlbums(searchString);
    }
 
    @GetMapping("/search/artists/{searchString}")
-   public List<Card> handleArtistSearch(@PathVariable String searchString) throws IOException, JSONException {
+   public List<Artist> handleArtistSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
       return dataCreator.provideArtists(searchString);
    }
 }

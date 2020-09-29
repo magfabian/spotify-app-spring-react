@@ -32,10 +32,11 @@ public class DataProvider {
    @Autowired
    private JsonParser jsonParser;
 
+
+
    public List<Album> provideNewReleases() throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
-      String url = NEW_RELEASES_URL;
-      JSONObject json = remoteURLReader.readFromUrl(url,token);
+      JSONObject json = remoteURLReader.readFromUrl(NEW_RELEASES_URL,token);
       return jsonParser.getParsedAlbums(json);
    }
 

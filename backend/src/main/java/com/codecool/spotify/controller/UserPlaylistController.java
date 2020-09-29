@@ -29,8 +29,7 @@ public class UserPlaylistController {
     @CrossOrigin
     @PostMapping("/track/{playlist}")
     public void handleNewTrack(@PathVariable(name = "playlist") String playlist, @RequestBody Track track) {
-        // TODO deleted method
-//        playlistProvider.getSpecificPlaylist(playlist).addNewTrackToPlaylist(track);
+        playlistProvider.addNewTrackToPlaylist(playlist, track);
     }
 
     @CrossOrigin

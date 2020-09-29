@@ -1,13 +1,8 @@
 package com.codecool.spotify.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,22 +19,11 @@ public class UserPlaylist {
     @Column(nullable = false)
     private String title;
 
+    @Transient
     private int total;
 
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @Singular
     private Set<Track> tracks;
 
-//    public void addNewTrackToPlaylist(Card card) {
-//        boolean contains = false;
-//        for (Card track:tracks) {
-//            if (track.getImageUrl().equals(card.getImageUrl())) {
-//                contains = true;
-//                break;
-//            }
-//        }
-//        if (!contains) {
-//            tracks.add(card);
-//            total ++;
-//        }
-//    }
 }

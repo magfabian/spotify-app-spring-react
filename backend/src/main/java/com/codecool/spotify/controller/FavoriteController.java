@@ -1,7 +1,7 @@
 package com.codecool.spotify.controller;
 
 
-import com.codecool.spotify.model.Card;
+import com.codecool.spotify.model.*;
 import com.codecool.spotify.service.FavoriteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +23,9 @@ public class FavoriteController {
    }
 
    @PostMapping("/track")
-   public boolean handleNewFavoriteTrack(@RequestBody Card card) {
+   public boolean handleNewFavoriteTrack(@RequestBody Track track) {
       try {
-         favoriteProvider.addNewFavoriteTrack(card);
+         favoriteProvider.addNewFavoriteTrack(track);
          return true;
       } catch (Exception ex) {
          ex.printStackTrace();
@@ -34,9 +34,9 @@ public class FavoriteController {
    }
 
    @PostMapping("/album")
-   public boolean handleNewFavoriteAlbum(@RequestBody Card card) {
+   public boolean handleNewFavoriteAlbum(@RequestBody Album album) {
       try {
-         favoriteProvider.addNewFavoriteAlbum(card);
+         favoriteProvider.addNewFavoriteAlbum(album);
          return true;
       } catch (Exception ex) {
          ex.printStackTrace();
@@ -45,9 +45,9 @@ public class FavoriteController {
    }
 
    @PostMapping("/playlist")
-   public boolean handleNewFavoritePlaylist(@RequestBody Card card) {
+   public boolean handleNewFavoritePlaylist(@RequestBody Playlist playlist) {
       try {
-         favoriteProvider.addNewFavoritePlaylist(card);
+         favoriteProvider.addNewFavoritePlaylist(playlist);
          return true;
       } catch (Exception ex) {
          ex.printStackTrace();
@@ -56,9 +56,9 @@ public class FavoriteController {
    }
 
    @PostMapping("/artist")
-   public boolean handleNewFavoriteArtist(@RequestBody Card card) {
+   public boolean handleNewFavoriteArtist(@RequestBody Artist artist) {
       try {
-         favoriteProvider.addNewFavoriteArtist(card);
+         favoriteProvider.addNewFavoriteArtist(artist);
          return true;
       } catch (Exception ex) {
          ex.printStackTrace();

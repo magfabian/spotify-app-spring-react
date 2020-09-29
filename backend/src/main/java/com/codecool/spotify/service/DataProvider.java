@@ -1,6 +1,9 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.Card;
+import com.codecool.spotify.model.Album;
+import com.codecool.spotify.model.Artist;
+import com.codecool.spotify.model.Playlist;
+import com.codecool.spotify.model.Track;
 import com.codecool.spotify.utility.JsonParser;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,35 +32,35 @@ public class DataProvider {
    @Autowired
    private JsonParser jsonParser;
 
-   public List<Card> provideNewReleases() throws IOException, JSONException {
+   public List<Album> provideNewReleases() throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = NEW_RELEASES_URL;
       JSONObject json = remoteURLReader.readFromUrl(url,token);
       return jsonParser.getParsedAlbums(json);
    }
 
-   public List<Card> provideAlbums(String searchString) throws IOException, JSONException {
+   public List<Album> provideAlbums(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + ALBUM_TYPE ;
       JSONObject json = remoteURLReader.readFromUrl(url,token);
       return jsonParser.getParsedAlbums(json);
    }
 
-   public List<Card> provideTracks(String searchString) throws IOException, JSONException {
+   public List<Track> provideTracks(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + TRACK_TYPE;
       JSONObject json = remoteURLReader.readFromUrl(url, token);
       return jsonParser.getParsedSearchedTracks(json);
    }
 
-   public List<Card> providePlaylists(String searchString) throws IOException, JSONException {
+   public List<Playlist> providePlaylists(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + PLAYLIST_TYPE;
       JSONObject json = remoteURLReader.readFromUrl(url, token);
       return jsonParser.getParsedSearchedPlaylists(json);
    }
 
-   public List<Card> provideArtists(String searchString) throws IOException, JSONException {
+   public List<Artist> provideArtists(String searchString) throws IOException, JSONException {
       String token = tokenProvider.getAccessToken();
       String url = SEARCH_URL + searchString + ARTIST_TYPE;
       JSONObject json = remoteURLReader.readFromUrl(url, token);

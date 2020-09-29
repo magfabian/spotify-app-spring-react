@@ -1,6 +1,7 @@
 package com.codecool.spotify.service;
 
 import com.codecool.spotify.model.Card;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -8,14 +9,17 @@ import java.util.*;
 @Service
 public class FavoriteProvider {
 
-   private Set<Card> tracks = new HashSet<>();
-   private Set<Card> albums = new HashSet<>();
-   private Set<Card> playlists = new HashSet<>();
-   private Set<Card> artists = new HashSet<>();
+   @Autowired
+   private FavoriteProvider favoriteProvider;
+
+//   private Set<Card> tracks = new HashSet<>();
+//   private Set<Card> albums = new HashSet<>();
+//   private Set<Card> playlists = new HashSet<>();
+//   private Set<Card> artists = new HashSet<>();
 
    public Map<String,Set<Card>> provideAllFavorites() {
       Map<String,Set<Card>> favorites = new HashMap();
-      favorites.put("tracks",tracks);
+      favorites.put("tracks",favoriteProvider.);
       favorites.put("albums",albums);
       favorites.put("playlists",playlists);
       favorites.put("artists",artists);
@@ -73,5 +77,4 @@ public class FavoriteProvider {
          artists.add(card);
       }
    }
-
 }

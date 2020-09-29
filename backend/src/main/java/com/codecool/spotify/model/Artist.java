@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Playlist extends Card {
+public class Artist  extends Card {
 
-    @Builder(builderMethodName = "playlistBuilder")
-    public Playlist(Long id, String spotifyId, String imageUrl, String onClickUrl, String header, String footer, String footerUrl) {
+    @Builder(builderMethodName = "artistBuilder")
+    public Artist(Long id, String spotifyId, String imageUrl, String onClickUrl, String header, String footer, String footerUrl) {
         super(id, spotifyId, imageUrl, onClickUrl, header, footer, footerUrl);
     }
 }

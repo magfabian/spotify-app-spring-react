@@ -1,24 +1,41 @@
 package com.codecool.spotify.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Card {
 
-   public String id;
-   public String imageUrl;
-   public String onClickUrl;
-   public String header;
-   public String footer;
-   public String footerUrl;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-   public Card(String id, String imageUrl, String onClickUrl, String header, String footer, String footerUrl) {
-      this.id = id;
-      this.imageUrl = imageUrl;
-      this.onClickUrl = onClickUrl;
-      this.header = header;
-      this.footer = footer;
-      this.footerUrl = footerUrl;
-   }
+    @Column
+    private String spotifyId;
 
-   public String getImageUrl() {
-      return imageUrl;
-   }
+    @Column
+    private String imageUrl;
+
+    @Column
+    private String onClickUrl;
+
+    @Column
+    private String header;
+
+    @Column
+    private String footer;
+
+    @Column
+    private String footerUrl;
+
 }

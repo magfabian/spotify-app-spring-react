@@ -1,33 +1,25 @@
 package com.codecool.spotify.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.Set;
 
-@Entity
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Favorite {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    private List<Artist> artists;
 
-    @OneToMany
-    private Set<Artist> artists;
+    private List<Album> albums;
 
-    @OneToMany
-    private Set<Album> albums;
+    private List<Track> tracks;
 
-    @OneToMany
-    private Set<Track> tracks;
-
-    @OneToMany
-    private Set<Playlist> playlists;
+    private List<Playlist> playlists;
 }

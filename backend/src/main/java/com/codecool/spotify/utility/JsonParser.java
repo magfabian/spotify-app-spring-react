@@ -28,7 +28,7 @@ public class JsonParser {
          String footerUrl = album.getJSONArray("artists")
                  .getJSONObject(0).getJSONObject("external_urls").get("spotify").toString();
          String id = album.get("id").toString();
-         Album generatedAlbum = Album.builder()
+         Album generatedAlbum = Album.albumBuilder()
              .spotifyId(id)
              .header(header)
              .imageUrl(imageUrl)
@@ -54,7 +54,7 @@ public class JsonParser {
          String onClickUrl = track.getJSONObject("external_urls").get("spotify").toString();
          String footerUrl = track.getJSONArray("artists").getJSONObject(0).getJSONObject("external_urls").get("spotify").toString();
          String id = track.get("id").toString();
-         Track generatedTrack = Track.builder()
+         Track generatedTrack = Track.trackBuilder()
              .spotifyId(id)
              .header(header)
              .imageUrl(imageUrl)
@@ -80,7 +80,7 @@ public class JsonParser {
          String onClickUrl = playlist.getJSONObject("external_urls").get("spotify").toString();
          String footerUrl = null;
          String id = playlist.get("id").toString();
-         Playlist generatedPlaylist = Playlist.builder()
+         Playlist generatedPlaylist = Playlist.playlistBuilder()
              .spotifyId(id)
              .header(header)
              .imageUrl(imageUrl)
@@ -110,7 +110,7 @@ public class JsonParser {
          String onClickUrl = artist.getJSONObject("external_urls").get("spotify").toString();
          String footerUrl = null;
          String id = artist.get("id").toString();
-         Artist generatedArtist = Artist.builder()
+         Artist generatedArtist = Artist.artistBuilder()
              .spotifyId(id)
              .header(header)
              .imageUrl(imageUrl)

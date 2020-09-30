@@ -18,6 +18,7 @@ const CardItem = ({
     header,
     footer,
     footerUrl,
+    favorite,
 }) => {
     const [status, error, fetchedData] = useFetch(url.playlist_get_all);
 
@@ -30,6 +31,7 @@ const CardItem = ({
             header: header,
             footer: footer,
             footerUrl: footerUrl,
+            favorite: favorite,
         };
         console.log(card);
         const trackUrl = url.playlist_add_track + playlist;
@@ -73,6 +75,7 @@ const CardItem = ({
                 header={header}
                 footer={footer}
                 footerUrl={footerUrl}
+                favorite={favorite}
             />
             {category === "track" && (
                 <Dropdown

@@ -4,11 +4,8 @@ package com.codecool.spotify.controller;
 import com.codecool.spotify.model.*;
 import com.codecool.spotify.service.FavoriteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/favorite")
@@ -24,23 +21,26 @@ public class FavoriteController {
     }
 
     @PostMapping("/track")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteTrack(@RequestBody Track track) {
         favoriteProvider.addNewFavoriteTrack(track);
     }
 
     @PostMapping("/album")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteAlbum(@RequestBody Album album) {
         favoriteProvider.addNewFavoriteAlbum(album);
     }
 
     @PostMapping("/playlist")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoritePlaylist(@RequestBody Playlist playlist) {
         favoriteProvider.addNewFavoritePlaylist(playlist);
     }
 
     @PostMapping("/artist")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteArtist(@RequestBody Artist artist) {
         favoriteProvider.addNewFavoriteArtist(artist);
-
     }
 }

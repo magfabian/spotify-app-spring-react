@@ -5,6 +5,7 @@ import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +24,14 @@ public class UserPlaylistController {
     }
 
     @PostMapping("/new")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewPlaylist(@RequestBody String playlist) {
         playlistProvider.addNewPlaylist(playlist);
     }
 
     @CrossOrigin
     @PostMapping("/track/{playlist}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void handleNewTrack(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack userPlaylistTrack) {
         playlistProvider.addNewTrackToPlaylist(playlist, userPlaylistTrack);
     }

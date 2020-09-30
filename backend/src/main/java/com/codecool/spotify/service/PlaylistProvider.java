@@ -1,6 +1,5 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.repository.UserPlaylistRepository;
@@ -8,7 +7,6 @@ import com.codecool.spotify.repository.UserPlaylistTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

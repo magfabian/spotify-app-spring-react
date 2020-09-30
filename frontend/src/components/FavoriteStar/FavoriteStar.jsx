@@ -11,6 +11,7 @@ const FavoriteStar = ({
     header,
     footer,
     footerUrl,
+    favorite,
 }) => {
     const starStyle = {
         marginLeft: "110px",
@@ -24,6 +25,7 @@ const FavoriteStar = ({
             header: header,
             footer: footer,
             footerUrl: footerUrl,
+            favorite: favorite,
         };
         handlePost(card);
     };
@@ -50,7 +52,11 @@ const FavoriteStar = ({
     return (
         <Card.Content extra>
             <span style={starStyle}>
-                <Icon name="star" size="large" onClick={handleClick} />
+                {favorite === true ? (
+                    <Icon name="yellow star" size="large" />
+                ) : (
+                    <Icon name="star" size="large" onClick={handleClick} />
+                )}
             </span>
         </Card.Content>
     );

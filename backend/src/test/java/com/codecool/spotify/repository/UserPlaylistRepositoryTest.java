@@ -1,6 +1,5 @@
 package com.codecool.spotify.repository;
 
-import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserPlaylistRepositoryTest {
 
     @Autowired
-    UserPlaylistRepository userPlaylistRepository;
+    private UserPlaylistRepository userPlaylistRepository;
 
     @Autowired
-    UserPlaylistTrackRepository userPlaylistTrackRepository;
+    private UserPlaylistTrackRepository userPlaylistTrackRepository;
 
     @Test
     public void test_saveUserPlaylist_hasSizeOne() {

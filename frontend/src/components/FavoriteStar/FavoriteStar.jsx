@@ -17,7 +17,8 @@ const FavoriteStar = ({
         marginLeft: "110px",
     };
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+        event.target.className = "yellow star large icon";
         const card = {
             spotifyId: spotifyId,
             imageUrl: imageUrl,

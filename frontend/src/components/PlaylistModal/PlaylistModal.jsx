@@ -44,12 +44,7 @@ const PlaylistModal = () => {
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
-                <Button
-                    style={buttonStyle}
-                    basic
-                    color="black"
-                    onClick={handleNewPlaylist}
-                >
+                <Button style={buttonStyle} basic color="black">
                     Add new playlist
                 </Button>
             }

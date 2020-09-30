@@ -1,19 +1,19 @@
 package com.codecool.spotify.service;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Service
 public class TokenProvider {
 
-   @Autowired
-   private RemoteURLReader remoteURLReader;
+   public static final String TOKEN_URL = "https://accounts.spotify.com/api/token";
 
-   public static final String TOKEN_URL = "http://localhost:8888/token";
+   public static final String SPOTIFY_CLIENT_ID="bcd882684d1747f0b39aed505175f3f4";
+
+   public static final String SPOTIFY_CLIENT_SECRET="f8455f7a4778421b9b52d086214fd873";
 
    private long startTime;
 
@@ -23,7 +23,7 @@ public class TokenProvider {
 
    private String token;
 
-   public String getAccessToken() throws IOException, JSONException {
+   public String getAccessToken() {
       if (fetchCounter == 0) {
          startTime = System.currentTimeMillis();
          endTime = System.currentTimeMillis();
@@ -40,10 +40,20 @@ public class TokenProvider {
       return token;
    }
 
-   private String getToken() throws IOException, JSONException {
-      JSONObject json = remoteURLReader.readFromUrl(TOKEN_URL,"");
-      String token = json.get("token").toString();
-      return token;
+   private String getToken() {
+      try {
+         String encoding = Base64.getEncoder().encodeToString((SPOTIFY_CLIENT_ID+ ":" +SPOTIFY_CLIENT_SECRET).getBytes(StandardCharsets.UTF_8));
+         JsonNode jsonResponse = Unirest.post(TOKEN_URL)
+                 .header("Content-Type", "application/x-www-form-urlencoded")
+                 .header("Authorization","Basic " + encoding)
+                 .field("grant_type", "client_credentials")
+                 .asJson()
+                 .getBody();
+         return (String) jsonResponse.getObject().get("access_token");
+      } catch(Exception e) {
+         e.printStackTrace();
+      }
+      return "";
    }
 
 

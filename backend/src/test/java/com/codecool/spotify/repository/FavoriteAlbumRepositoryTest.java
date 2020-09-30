@@ -63,4 +63,19 @@ class FavoriteAlbumRepositoryTest {
             favoriteAlbumRepository.saveAndFlush(album2)
         );
     }
+
+    @Test
+    public void albumSpotifyIdShouldBeNotNull() {
+        Album album = Album.builder()
+            .imageUrl("https://i.scdn.co/image/ab67616d0000b27370f2ab5608885749f7210b5f")
+            .onClickUrl("https://open.spotify.com/album/4Bp7LKA5Afo1PRoXuQe8qZ")
+            .header("FRANCHISE (feat. Young Thug & M.I.A.)")
+            .footer("Travis Scott")
+            .footerUrl("https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY")
+            .favorite(true)
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            favoriteAlbumRepository.save(album));
+    }
 }

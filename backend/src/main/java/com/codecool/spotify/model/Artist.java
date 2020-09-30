@@ -32,7 +32,6 @@ public class Artist  {
     @Column
     private String footerUrl;
 
-    @Transient
     private boolean favorite;
 
 }

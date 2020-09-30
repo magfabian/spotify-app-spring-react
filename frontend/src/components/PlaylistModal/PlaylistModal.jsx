@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "semantic-ui-react";
 import axios from "axios";
 import url from "../../utilities/url";
 
-const PlaylistModal = () => {
+const PlaylistModal = ({ handleClick }) => {
     const [open, setOpen] = useState(false);
     const [input, setInput] = useState("");
 
@@ -28,11 +28,10 @@ const PlaylistModal = () => {
         setInput(event.target.value);
     };
 
-    const handleNewPlaylist = () => {
+    const handleNewPlaylist = async () => {
         setOpen(false);
         const playlistName = input.replace(/\s/g, "%20");
-        console.log(playlistName);
-        axios.post(url.playlist_new, playlistName, {
+        await axios.post(url.playlist_new, playlistName, {
             headers: {
                 "Content-Type": "text/plain",
             },
@@ -41,7 +40,9 @@ const PlaylistModal = () => {
     };
     return (
         <Modal
-            onClose={() => setOpen(false)}
+            onClose={() => {
+                setOpen(false);
+            }}
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
@@ -65,7 +66,10 @@ const PlaylistModal = () => {
                     <Button
                         style={submitStyle}
                         type="submit"
-                        onClick={handleNewPlaylist}
+                        onClick={() => {
+                            handleNewPlaylist();
+                            handleClick();
+                        }}
                     >
                         Submit
                     </Button>

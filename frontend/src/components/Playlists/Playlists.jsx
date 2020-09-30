@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlaylistModal from "../PlaylistModal/PlaylistModal";
 import url from "../../utilities/url";
-import useFetch from "../../utilities/useFetch";
 import { Header, Segment } from "semantic-ui-react";
 import Loading from "../Loading/Loading";
-import Error from "../Error/Error";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Playlists = () => {
-    const [status, error, fetchedData] = useFetch(url.playlist_get_all);
+    const [status, setStatus] = useState("loading");
+    const [fetchedData, setData] = useState([]);
+
+    useEffect(() => {
+        setStatus("loading");
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const fetchData = async () => {
+        await axios
+            .get(url.playlist_get_all)
+            .then((response) => {
+                setStatus("loaded");
+                setData(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                setStatus("error");
+            });
+    };
 
     const square = {
         width: 190,
@@ -38,6 +57,12 @@ const Playlists = () => {
         color: "white",
     };
 
+    const handleClick = () => {
+        setTimeout(() => {
+            fetchData();
+        }, 100);
+    };
+
     const renderedPlaylists = fetchedData.map((data, index) => {
         const title = data.title.replace(/%20/g, " ");
         const playListUrl = `/playlists/${title}`;
@@ -48,7 +73,10 @@ const Playlists = () => {
                         <Link to={playListUrl} style={linkStyleWhite}>
                             {title}
                         </Link>
-                        <Header.Subheader style={subheaderStyle}>
+                        <Header.Subheader
+                            style={subheaderStyle}
+                            onClick={handleClick}
+                        >
                             Songs: {data.total}
                         </Header.Subheader>
                     </Header>
@@ -72,8 +100,8 @@ const Playlists = () => {
 
     return (
         <div>
-            <PlaylistModal />
-            {status === "error" && <Error error={error} />}
+            <PlaylistModal handleClick={handleClick.bind(this)} />
+            {status === "error" && <div>Error</div>}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>

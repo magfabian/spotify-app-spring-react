@@ -15,7 +15,7 @@ public class Track {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String spotifyId;
 
     @Column

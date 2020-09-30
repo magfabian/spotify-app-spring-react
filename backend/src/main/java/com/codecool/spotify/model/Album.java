@@ -32,5 +32,6 @@ public class Album {
     @Column
     private String footerUrl;
 
+    @Column
     private boolean favorite;
 }

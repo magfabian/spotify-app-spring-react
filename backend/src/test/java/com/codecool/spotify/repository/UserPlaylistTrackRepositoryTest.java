@@ -37,4 +37,33 @@ class UserPlaylistTrackRepositoryTest {
 
         assertThat(trackList).hasSize(1);
     }
+
+    @Test
+    public void test_saveSameUserPlaylistTrackTwice_ThrowsException() {
+        UserPlaylistTrack track = UserPlaylistTrack.builder()
+            .spotifyId("4LJhJ6DQS7NwE7UKtvcM52")
+            .header("What's My Age Again?")
+            .footer("blink-182")
+            .build();
+
+        UserPlaylistTrack track2 = UserPlaylistTrack.builder()
+            .spotifyId("4LJhJ6DQS7NwE7UKtvcM52")
+            .build();
+
+        userPlaylistTrackRepository.save(track);
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            userPlaylistTrackRepository.saveAndFlush(track2));
+    }
+
+    @Test
+    public void test_userPlaylistTrackSpotifyIdShouldBeNotNull_ThrowsException() {
+        UserPlaylistTrack track = UserPlaylistTrack.builder()
+            .header("What's My Age Again?")
+            .footer("blink-182")
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            userPlaylistTrackRepository.save(track));
+    }
 }

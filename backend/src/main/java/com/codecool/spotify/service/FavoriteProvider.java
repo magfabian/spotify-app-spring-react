@@ -31,18 +31,22 @@ public class FavoriteProvider {
    }
 
    public void addNewFavoriteTrack(Track newTrack) {
-        favoriteTrackRepository.save(newTrack);
+      newTrack.setFavorite(true);
+      favoriteTrackRepository.save(newTrack);
    }
 
    public void addNewFavoriteAlbum(Album newAlbum) {
-        favoriteAlbumRepository.save(newAlbum);
+      newAlbum.setFavorite(true);
+      favoriteAlbumRepository.save(newAlbum);
    }
 
    public void addNewFavoritePlaylist(Playlist newPlaylist) {
+      newPlaylist.setFavorite(true);
       favoritePlaylistRepository.save(newPlaylist);
    }
 
    public void addNewFavoriteArtist(Artist newArtist) {
+      newArtist.setFavorite(true);
       favoriteArtistRepository.save(newArtist);
    }
 }

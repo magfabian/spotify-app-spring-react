@@ -32,4 +32,6 @@ public class Track {
 
     @Column
     private String footerUrl;
+
+    private boolean favorite;
 }

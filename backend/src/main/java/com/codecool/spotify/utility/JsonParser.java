@@ -4,9 +4,15 @@ import com.codecool.spotify.model.Album;
 import com.codecool.spotify.model.Artist;
 import com.codecool.spotify.model.Playlist;
 import com.codecool.spotify.model.Track;
+import com.codecool.spotify.repository.FavoriteAlbumRepository;
+import com.codecool.spotify.repository.FavoriteArtistRepository;
+import com.codecool.spotify.repository.FavoritePlaylistRepository;
+import com.codecool.spotify.repository.FavoriteTrackRepository;
+import com.codecool.spotify.service.FavoriteProvider;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,6 +20,20 @@ import java.util.List;
 
 @Component
 public class JsonParser {
+
+   @Autowired
+   private FavoriteAlbumRepository favoriteAlbumRepository;
+
+   @Autowired
+   private FavoriteArtistRepository favoriteArtistRepository;
+
+   @Autowired
+   private FavoritePlaylistRepository favoritePlaylistRepository;
+
+   @Autowired
+   private FavoriteTrackRepository favoriteTrackRepository;
+
+
 
    public List<Album> getParsedAlbums(JSONObject json) throws JSONException {
       List<Album> data = new ArrayList<>();
@@ -35,6 +55,7 @@ public class JsonParser {
              .onClickUrl(onClickUrl)
              .footer(footer)
              .footerUrl(footerUrl)
+             .favorite(isFavoriteAlbum(id))
              .build();
          data.add(generatedAlbum);
       }
@@ -61,6 +82,7 @@ public class JsonParser {
              .onClickUrl(onClickUrl)
              .footer(footer)
              .footerUrl(footerUrl)
+             .favorite(isFavoriteTrack(id))
              .build();
          data.add(generatedTrack);
       }
@@ -87,6 +109,7 @@ public class JsonParser {
              .onClickUrl(onClickUrl)
              .footer(footer)
              .footerUrl(footerUrl)
+             .favorite(isFavoritePlaylist(id))
              .build();
          data.add(generatedPlaylist);
       }
@@ -117,9 +140,58 @@ public class JsonParser {
              .onClickUrl(onClickUrl)
              .footer(footer)
              .footerUrl(footerUrl)
+             .favorite(isFavoriteArtist(id))
              .build();
          data.add(generatedArtist);
       }
       return data;
+   }
+
+   public boolean isFavoriteAlbum(String id) {
+      List<Album> albums = favoriteAlbumRepository.findAll();
+      boolean contains = false;
+      for (Album album : albums) {
+         if (album.getSpotifyId().equals(id)) {
+            contains = true;
+            break;
+         }
+      }
+      return contains;
+   }
+
+   public boolean isFavoriteArtist(String id) {
+      List<Artist> artists = favoriteArtistRepository.findAll();
+      boolean contains = false;
+      for (Artist artist : artists) {
+         if (artist.getSpotifyId().equals(id)) {
+            contains = true;
+            break;
+         }
+      }
+      return contains;
+   }
+
+   public boolean isFavoriteTrack(String id) {
+      List<Track> tracks = favoriteTrackRepository.findAll();
+      boolean contains = false;
+      for (Track track : tracks) {
+         if (track.getSpotifyId().equals(id)) {
+            contains = true;
+            break;
+         }
+      }
+      return contains;
+   }
+
+   public boolean isFavoritePlaylist(String id) {
+      List<Playlist> playlists = favoritePlaylistRepository.findAll();
+      boolean contains = false;
+      for (Playlist playlist : playlists) {
+         if (playlist.getSpotifyId().equals(id)) {
+            contains = true;
+            break;
+         }
+      }
+      return contains;
    }
 }

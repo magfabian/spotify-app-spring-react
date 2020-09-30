@@ -1,10 +1,8 @@
 package com.codecool.spotify.model;
 
 import lombok.*;
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -33,5 +31,7 @@ public class Playlist {
 
     @Column
     private String footerUrl;
+
+    private boolean favorite;
 
 }

@@ -28,6 +28,7 @@ const Favorite = () => {
                 header={data.header}
                 footer={data.footer}
                 footerUrl={data.footerUrl}
+                favorite={data.favorite}
             />
         ));
     };

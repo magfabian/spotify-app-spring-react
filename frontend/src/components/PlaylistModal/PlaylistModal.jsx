@@ -30,8 +30,9 @@ const PlaylistModal = () => {
 
     const handleNewPlaylist = () => {
         setOpen(false);
-        console.log(input);
-        axios.post(url.playlist_new, input, {
+        const playlistName = input.replace(/\s/g, "%20");
+        console.log(playlistName);
+        axios.post(url.playlist_new, playlistName, {
             headers: {
                 "Content-Type": "text/plain",
             },

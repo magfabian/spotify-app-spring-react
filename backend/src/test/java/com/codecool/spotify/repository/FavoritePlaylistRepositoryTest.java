@@ -1,6 +1,5 @@
 package com.codecool.spotify.repository;
 
-import com.codecool.spotify.model.Album;
 import com.codecool.spotify.model.Playlist;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -34,5 +33,36 @@ class FavoritePlaylistRepositoryTest {
         List<Playlist> playlistList = favoritePlaylistRepository.findAll();
 
         assertThat(playlistList).hasSize(1);
+    }
+
+    @Test
+    public void test_saveSamePlaylistTwice_ThrowsException() {
+        Playlist playlist = Playlist.builder()
+            .spotifyId("37i9dQZF1DWSobRXOCtFPM")
+            .header("Carl Cox' track IDs")
+            .footer("Tracks: 93")
+            .favorite(true)
+            .build();
+
+        Playlist playlist2 = Playlist.builder()
+            .spotifyId("37i9dQZF1DWSobRXOCtFPM")
+            .build();
+
+        favoritePlaylistRepository.save(playlist);
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            favoritePlaylistRepository.saveAndFlush(playlist2));
+    }
+
+    @Test
+    public void test_playlistSpotifyIdShouldBeNotNull() {
+        Playlist playlist = Playlist.builder()
+            .header("Carl Cox' track IDs")
+            .footer("Tracks: 93")
+            .favorite(true)
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            favoritePlaylistRepository.save(playlist));
     }
 }

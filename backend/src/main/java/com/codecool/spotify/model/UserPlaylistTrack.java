@@ -1,5 +1,7 @@
 package com.codecool.spotify.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Track {
+public class UserPlaylistTrack {
     @Id
     @GeneratedValue
     private Long id;
@@ -32,4 +34,9 @@ public class Track {
 
     @Column
     private String footerUrl;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private UserPlaylist userPlaylist;
 }

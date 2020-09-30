@@ -9,15 +9,15 @@ const SearchHandler = ({ urlString, categoryType }) => {
     const [status, error, fetchedData] = useFetch(urlString);
 
     const dividerStyle = {
-        maxWidth: "940px"
+        maxWidth: "940px",
     };
 
-    const renderedCard = data => {
+    const renderedCard = (data) => {
         return (
             <CardItem
-                key={data.id}
-                id={data.id}
+                key={data.spotifyId}
                 category={categoryType}
+                spotifyId={data.spotifyId}
                 imageUrl={data.imageUrl}
                 onClickUrl={data.onClickUrl}
                 header={data.header}
@@ -36,8 +36,8 @@ const SearchHandler = ({ urlString, categoryType }) => {
                     <Divider style={dividerStyle} horizontal>
                         {categoryType}
                     </Divider>
-                    <div className='ui stackable three column grid'>
-                        {fetchedData.map(data => renderedCard(data))}
+                    <div className="ui stackable three column grid">
+                        {fetchedData.map((data) => renderedCard(data))}
                     </div>
                 </div>
             )}

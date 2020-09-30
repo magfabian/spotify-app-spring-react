@@ -10,11 +10,11 @@ const Favorite = () => {
     const [status, error, fetchedData] = useFetch(url.favorite_all);
 
     const headerStyle = {
-        marginBottom: "20px"
+        marginBottom: "20px",
     };
 
     const dividerStlye = {
-        maxWidth: "940px"
+        maxWidth: "940px",
     };
 
     const renderCards = (type, cards) => {
@@ -22,6 +22,7 @@ const Favorite = () => {
             <CardItem
                 key={index}
                 category={type}
+                spotifyId={data.spotifyId}
                 imageUrl={data.imageUrl}
                 onClickUrl={data.onClickUrl}
                 header={data.header}
@@ -52,12 +53,12 @@ const Favorite = () => {
     }
 
     return (
-        <div className='content'>
+        <div className="content">
             {status === "error" && <Error error={error} />}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>
-                    <Header style={headerStyle} as='h1'>
+                    <Header style={headerStyle} as="h1">
                         Favorites:
                     </Header>
                     {renderedArtists.length > 0 && (
@@ -65,7 +66,7 @@ const Favorite = () => {
                             <Divider style={dividerStlye} horizontal>
                                 ARTISTS
                             </Divider>
-                            <div className='ui stackable three column grid'>
+                            <div className="ui stackable three column grid">
                                 {renderedArtists}
                             </div>
                         </div>
@@ -75,7 +76,7 @@ const Favorite = () => {
                             <Divider style={dividerStlye} horizontal>
                                 ALBUMS
                             </Divider>
-                            <div className='ui stackable three column grid'>
+                            <div className="ui stackable three column grid">
                                 {renderedAlbums}
                             </div>
                         </div>
@@ -85,7 +86,7 @@ const Favorite = () => {
                             <Divider style={dividerStlye} horizontal>
                                 TRACKS
                             </Divider>
-                            <div className='ui stackable three column grid'>
+                            <div className="ui stackable three column grid">
                                 {renderedTracks}
                             </div>
                         </div>
@@ -95,7 +96,7 @@ const Favorite = () => {
                             <Divider style={dividerStlye} horizontal>
                                 PLAYLISTS
                             </Divider>
-                            <div className='ui stackable three column grid'>
+                            <div className="ui stackable three column grid">
                                 {renderedPlaylists}
                             </div>
                         </div>

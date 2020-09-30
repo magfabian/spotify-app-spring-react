@@ -24,6 +24,7 @@ const Playlist = (props) => {
                     header={card.header}
                     footer={card.footer}
                     footerUrl={card.footerUrl}
+                    favorite={card.favorite}
                 />
             ));
         } else {

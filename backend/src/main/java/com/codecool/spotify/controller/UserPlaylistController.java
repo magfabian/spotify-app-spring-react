@@ -22,8 +22,8 @@ public class UserPlaylistController {
         return playlistProvider.getAllPlaylists();
     }
 
-    @PostMapping("/new/{playlist}")
-    public void handleNewPlaylist(@PathVariable(name = "playlist") String playlist) {
+    @PostMapping("/new")
+    public void handleNewPlaylist(@RequestBody String playlist) {
         playlistProvider.addNewPlaylist(playlist);
     }
 

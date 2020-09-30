@@ -21,7 +21,7 @@ class FavoriteAlbumRepositoryTest {
     private FavoriteAlbumRepository favoriteAlbumRepository;
 
     @Test
-    public void saveFavoriteAlbum() {
+    public void test_saveFavoriteAlbum_hasSizeOne() {
         Album album = Album.builder()
             .spotifyId("4Bp7LKA5Afo1PRoXuQe8qZ")
             .imageUrl("https://i.scdn.co/image/ab67616d0000b27370f2ab5608885749f7210b5f")
@@ -39,7 +39,7 @@ class FavoriteAlbumRepositoryTest {
     }
 
     @Test
-    public void saveSameAlbumTwice() {
+    public void test_saveSameAlbumTwice_ThrowsException() {
         Album album = Album.builder()
             .spotifyId("4Bp7LKA5Afo1PRoXuQe8qZ")
             .imageUrl("https://i.scdn.co/image/ab67616d0000b27370f2ab5608885749f7210b5f")
@@ -63,7 +63,7 @@ class FavoriteAlbumRepositoryTest {
     }
 
     @Test
-    public void albumSpotifyIdShouldBeNotNull() {
+    public void test_albumSpotifyIdShouldBeNotNull_ThrowsException() {
         Album album = Album.builder()
             .imageUrl("https://i.scdn.co/image/ab67616d0000b27370f2ab5608885749f7210b5f")
             .onClickUrl("https://open.spotify.com/album/4Bp7LKA5Afo1PRoXuQe8qZ")

@@ -9,11 +9,11 @@ import Error from "../Error/Error";
 const Home = () => {
     const [status, error, fetchedData] = useFetch(url.new_releases);
 
-    const renderedCards = fetchedData.map(data => (
+    const renderedCards = fetchedData.map((data) => (
         <CardItem
-            key={data.id}
-            id={data.id}
-            category='album'
+            key={data.spotifyId}
+            spotifyId={data.spotifyId}
+            category="album"
             imageUrl={data.imageUrl}
             onClickUrl={data.onClickUrl}
             header={data.header}
@@ -23,26 +23,26 @@ const Home = () => {
     ));
 
     const headerStyle = {
-        marginBottom: "20px"
+        marginBottom: "20px",
     };
 
     const dividerStlye = {
-        maxWidth: "940px"
+        maxWidth: "940px",
     };
 
     return (
-        <div className='content '>
+        <div className="content ">
             {status === "error" && <Error error={error} />}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>
-                    <Header style={headerStyle} as='h1'>
+                    <Header style={headerStyle} as="h1">
                         New releases:
                     </Header>
                     <Divider style={dividerStlye} horizontal>
                         ALBUMS
                     </Divider>
-                    <div className='ui stackable three column grid'>
+                    <div className="ui stackable three column grid">
                         {renderedCards}
                     </div>
                 </div>

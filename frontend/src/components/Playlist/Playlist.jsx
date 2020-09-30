@@ -14,11 +14,11 @@ const Playlist = (props) => {
 
     const renderCards = () => {
         if (fetchedData.total > 0) {
-            return fetchedData.tracks.map((card) => (
+            return fetchedData.userPlaylistTracks.map((card) => (
                 <CardItem
-                    key={card.id}
-                    id={card.id}
+                    key={card.spotifyId}
                     category="track"
+                    spotifyId={card.spotifyId}
                     imageUrl={card.imageUrl}
                     onClickUrl={card.onClickUrl}
                     header={card.header}

@@ -5,30 +5,30 @@ import url from "../../utilities/url";
 
 const FavoriteStar = ({
     category,
-    id,
+    spotifyId,
     imageUrl,
     onClickUrl,
     header,
     footer,
-    footerUrl
+    footerUrl,
 }) => {
     const starStyle = {
-        marginLeft: "110px"
+        marginLeft: "110px",
     };
 
     const handleClick = () => {
         const card = {
-            id: id,
+            spotifyId: spotifyId,
             imageUrl: imageUrl,
             onClickUrl: onClickUrl,
             header: header,
             footer: footer,
-            footerUrl: footerUrl
+            footerUrl: footerUrl,
         };
         handlePost(card);
     };
 
-    const handlePost = card => {
+    const handlePost = (card) => {
         switch (category) {
             case "track":
                 axios.post(url.favorite_track, card);
@@ -50,7 +50,7 @@ const FavoriteStar = ({
     return (
         <Card.Content extra>
             <span style={starStyle}>
-                <Icon name='star' size='large' onClick={handleClick} />
+                <Icon name="star" size="large" onClick={handleClick} />
             </span>
         </Card.Content>
     );

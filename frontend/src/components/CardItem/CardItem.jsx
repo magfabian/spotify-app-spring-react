@@ -12,25 +12,26 @@ const cardStyle = {
 
 const CardItem = ({
     category,
-    id,
+    spotifyId,
     imageUrl,
     onClickUrl,
     header,
     footer,
     footerUrl,
 }) => {
-    const [status, error, fetchedData] = useFetch(url.playlist_get_all);
+    const [fetchedData] = useFetch(url.playlist_get_all);
 
     const handleClick = (event) => {
         const playlist = event.target.getAttribute("data-title");
         const card = {
-            id: id,
+            spotifyId: spotifyId,
             imageUrl: imageUrl,
             onClickUrl: onClickUrl,
             header: header,
             footer: footer,
             footerUrl: footerUrl,
         };
+        console.log(card);
         const trackUrl = url.playlist_add_track + playlist;
         axios.post(trackUrl, card);
     };
@@ -66,7 +67,7 @@ const CardItem = ({
             </Card.Content>
             <FavoriteStar
                 category={category}
-                id={id}
+                spotifyId={spotifyId}
                 imageUrl={imageUrl}
                 onClickUrl={onClickUrl}
                 header={header}

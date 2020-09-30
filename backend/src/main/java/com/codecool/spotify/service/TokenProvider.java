@@ -17,12 +17,13 @@ public class TokenProvider {
 
    private long startTime;
 
+   private long endTime;
+
    private int fetchCounter = 0;
 
    private String token;
 
    public String getAccessToken() {
-      long endTime;
       if (fetchCounter == 0) {
          startTime = System.currentTimeMillis();
          endTime = System.currentTimeMillis();

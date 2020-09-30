@@ -19,7 +19,7 @@ const CardItem = ({
     footer,
     footerUrl,
 }) => {
-    const [fetchedData] = useFetch(url.playlist_get_all);
+    const [status, error, fetchedData] = useFetch(url.playlist_get_all);
 
     const handleClick = (event) => {
         const playlist = event.target.getAttribute("data-title");

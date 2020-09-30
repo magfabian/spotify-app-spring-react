@@ -30,7 +30,12 @@ const PlaylistModal = () => {
 
     const handleNewPlaylist = () => {
         setOpen(false);
-        axios.post(url.playlist_new + input);
+        console.log(input);
+        axios.post(url.playlist_new, input, {
+            headers: {
+                "Content-Type": "text/plain",
+            },
+        });
         setInput("");
     };
     return (

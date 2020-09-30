@@ -39,13 +39,14 @@ const Playlists = () => {
     };
 
     const renderedPlaylists = fetchedData.map((data, index) => {
-        const playListUrl = `/playlists/${data.title}`;
+        const title = data.title.replace(/%20/g, " ");
+        const playListUrl = `/playlists/${title}`;
         if (index === 0 || index % 2 === 0) {
             return (
                 <Segment key={index} circular style={square}>
                     <Header style={headerStyle} as="h2">
                         <Link to={playListUrl} style={linkStyleWhite}>
-                            {data.title}
+                            {title}
                         </Link>
                         <Header.Subheader style={subheaderStyle}>
                             Songs: {data.total}
@@ -58,7 +59,7 @@ const Playlists = () => {
                 <Segment key={index} circular inverted style={square}>
                     <Header style={headerStyle} as="h2" inverted>
                         <Link to={playListUrl} style={linkStyleBlack}>
-                            {data.title}
+                            {title}
                         </Link>
                         <Header.Subheader style={subheaderStyle}>
                             Songs: {data.total}

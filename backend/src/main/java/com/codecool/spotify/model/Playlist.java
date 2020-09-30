@@ -32,7 +32,6 @@ public class Playlist {
     @Column
     private String footerUrl;
 
-    @Transient
     private boolean favorite;
 
 }

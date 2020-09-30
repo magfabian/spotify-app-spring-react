@@ -15,7 +15,7 @@ public class Track {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String spotifyId;
 
     @Column
@@ -32,8 +32,4 @@ public class Track {
 
     @Column
     private String footerUrl;
-
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @Singular
-    private Set<UserPlaylist> userPlaylists;
 }

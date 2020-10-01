@@ -25,6 +25,7 @@ const Playlist = (props) => {
                     footer={card.footer}
                     footerUrl={card.footerUrl}
                     favorite={card.favorite}
+                    playlistId={fetchedData.id}
                 />
             ));
         } else {

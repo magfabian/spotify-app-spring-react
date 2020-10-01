@@ -5,6 +5,8 @@ import com.codecool.spotify.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Service
 public class FavoriteProvider {
@@ -50,19 +52,24 @@ public class FavoriteProvider {
       favoriteArtistRepository.save(newArtist);
    }
 
+   @Transactional
    public void deleteFavoriteArtist(Artist artist) {
-      favoriteArtistRepository.delete(artist);
+      favoriteArtistRepository.deleteArtistBySpotifyId(artist.getSpotifyId());
    }
 
+
+   @Transactional
    public void deleteFavoriteAlbum(Album album) {
-      favoriteAlbumRepository.delete(album);
+      favoriteAlbumRepository.deleteAlbumBySpotifyId(album.getSpotifyId());
    }
 
+   @Transactional
    public void deleteFavoriteTrack(Track track) {
-      favoriteTrackRepository.delete(track);
+      favoriteTrackRepository.deleteTrackBySpotifyId(track.getSpotifyId());
    }
 
+   @Transactional
    public void deleteFavoritePlaylist(Playlist playlist) {
-      favoritePlaylistRepository.delete(playlist);
+      favoritePlaylistRepository.deletePlaylistBySpotifyId(playlist.getSpotifyId());
    }
 }

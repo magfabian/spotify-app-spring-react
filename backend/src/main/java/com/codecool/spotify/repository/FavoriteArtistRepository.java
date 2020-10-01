@@ -4,4 +4,6 @@ import com.codecool.spotify.model.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FavoriteArtistRepository extends JpaRepository<Artist,Long> {
+
+    void deleteArtistBySpotifyId(String spotifyId);
 }

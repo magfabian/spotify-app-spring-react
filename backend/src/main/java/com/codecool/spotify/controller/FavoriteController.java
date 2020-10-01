@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/favorite")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FavoriteController {
 
     @Autowired
@@ -44,22 +45,26 @@ public class FavoriteController {
         favoriteProvider.addNewFavoriteArtist(artist);
     }
 
-    @DeleteMapping("/delete/artist")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/delete/artist")
     public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
         favoriteProvider.deleteFavoriteArtist(artist);
     }
 
-    @DeleteMapping("/delete/album")
+
+    @PostMapping("/delete/album")
     public void handleDeleteFavouriteArtist(@RequestBody Album album) {
         favoriteProvider.deleteFavoriteAlbum(album);
     }
 
-    @DeleteMapping("/delete/track")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/delete/track")
     public void handleDeleteFavouriteArtist(@RequestBody Track track) {
         favoriteProvider.deleteFavoriteTrack(track);
     }
 
-    @DeleteMapping("/delete/playlist")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/delete/playlist")
     public void handleDeleteFavouriteArtist(@RequestBody Playlist playlist) {
         favoriteProvider.deleteFavoritePlaylist(playlist);
     }

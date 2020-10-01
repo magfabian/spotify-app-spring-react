@@ -26,7 +26,6 @@ public class TokenProvider {
    public String getAccessToken() {
       if (fetchCounter == 0) {
          startTime = System.currentTimeMillis();
-         endTime = System.currentTimeMillis();
          token = getToken();
          fetchCounter++;
       } else {

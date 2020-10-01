@@ -59,7 +59,9 @@ public class PlaylistProvider {
 
         userPlaylistTrackRepository.deleteTrackFromPlaylist(userPlaylist.getId(), track.getSpotifyId());
         userPlaylistRepository.save(userPlaylist);
+    }
 
-
+    public void deletePlaylist(UserPlaylist userPlaylist) {
+        userPlaylistRepository.delete(userPlaylist);
     }
 }

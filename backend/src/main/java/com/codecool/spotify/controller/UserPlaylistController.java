@@ -43,6 +43,12 @@ public class UserPlaylistController {
         return playlistProvider.getSpecificPlaylist(playlist);
     }
 
+    @DeleteMapping("/delete/{playlist}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void handleDeletePlaylist(@RequestBody UserPlaylist userPlaylist) {
+        playlistProvider.deletePlaylist(userPlaylist);
+    }
+
     @DeleteMapping("/delete/track/{playlist}")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack track) {

@@ -1,5 +1,6 @@
 package com.codecool.spotify.controller;
 
+import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistProvider;
@@ -37,7 +38,14 @@ public class UserPlaylistController {
 
     @CrossOrigin
     @GetMapping("/{playlist}")
+    @ResponseStatus(HttpStatus.CREATED)
     public UserPlaylist handlePlaylist(@PathVariable(name = "playlist") String playlist) {
         return playlistProvider.getSpecificPlaylist(playlist);
+    }
+
+    @DeleteMapping("/delete/track/{playlist}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack track) {
+        playlistProvider.deleteTrackFromPlaylist(playlist, track);
     }
 }

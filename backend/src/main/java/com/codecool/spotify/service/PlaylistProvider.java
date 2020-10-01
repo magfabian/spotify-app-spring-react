@@ -1,6 +1,5 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.repository.UserPlaylistRepository;
@@ -62,6 +61,12 @@ public class PlaylistProvider {
     }
 
     public void deletePlaylist(UserPlaylist userPlaylist) {
-        userPlaylistRepository.delete(userPlaylist);
+
+        userPlaylistRepository.deleteUserPlaylistById(userPlaylist.getId());
+    }
+
+    public UserPlaylist editPlaylistTitle(UserPlaylist userPlaylist) {
+        UserPlaylist playlist = userPlaylistRepository.findUserPlaylistById(userPlaylist.getId());
+        return userPlaylistRepository.updateUserPlaylistTitle(playlist.getId(), userPlaylist.getTitle());
     }
 }

@@ -43,4 +43,9 @@ public class FavoriteController {
     public void handleNewFavoriteArtist(@RequestBody Artist artist) {
         favoriteProvider.addNewFavoriteArtist(artist);
     }
+
+    @DeleteMapping("/delete/artist")
+    public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
+        favoriteProvider.deleteArtist(artist);
+    }
 }

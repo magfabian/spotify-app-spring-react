@@ -51,7 +51,6 @@ public class FavoriteController {
         favoriteProvider.deleteFavoriteArtist(artist);
     }
 
-
     @PostMapping("/delete/album")
     public void handleDeleteFavouriteArtist(@RequestBody Album album) {
         favoriteProvider.deleteFavoriteAlbum(album);

@@ -46,6 +46,21 @@ public class FavoriteController {
 
     @DeleteMapping("/delete/artist")
     public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
-        favoriteProvider.deleteArtist(artist);
+        favoriteProvider.deleteFavoriteArtist(artist);
+    }
+
+    @DeleteMapping("/delete/album")
+    public void handleDeleteFavouriteArtist(@RequestBody Album album) {
+        favoriteProvider.deleteFavoriteAlbum(album);
+    }
+
+    @DeleteMapping("/delete/track")
+    public void handleDeleteFavouriteArtist(@RequestBody Track track) {
+        favoriteProvider.deleteFavoriteTrack(track);
+    }
+
+    @DeleteMapping("/delete/playlist")
+    public void handleDeleteFavouriteArtist(@RequestBody Playlist playlist) {
+        favoriteProvider.deleteFavoritePlaylist(playlist);
     }
 }

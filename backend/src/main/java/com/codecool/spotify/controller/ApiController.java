@@ -17,31 +17,31 @@ import java.util.List;
 public class ApiController {
 
    @Autowired
-   private DataProvider dataCreator;
+   private DataProvider dataProvider;
 
    @CrossOrigin
    @GetMapping("/new-releases")
    public List<Album> handleNewReleases() throws IOException, JSONException {
-      return dataCreator.provideNewReleases();
+      return dataProvider.provideNewReleases();
    }
 
    @GetMapping("/search/tracks/{searchString}")
    public List<Track> handleTrackSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
-      return dataCreator.provideTracks(searchString);
+      return dataProvider.provideTracks(searchString);
    }
 
    @GetMapping("/search/playlists/{searchString}")
    public List<Playlist> handlePlaylistSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
-      return dataCreator.providePlaylists(searchString);
+      return dataProvider.providePlaylists(searchString);
    }
 
    @GetMapping("/search/albums/{searchString}")
    public List<Album> handleAlbumSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
-      return dataCreator.provideAlbums(searchString);
+      return dataProvider.provideAlbums(searchString);
    }
 
    @GetMapping("/search/artists/{searchString}")
    public List<Artist> handleArtistSearch(@PathVariable(name = "searchString") String searchString) throws IOException, JSONException {
-      return dataCreator.provideArtists(searchString);
+      return dataProvider.provideArtists(searchString);
    }
 }

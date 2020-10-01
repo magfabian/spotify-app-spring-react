@@ -8,7 +8,6 @@ import com.codecool.spotify.repository.FavoriteAlbumRepository;
 import com.codecool.spotify.repository.FavoriteArtistRepository;
 import com.codecool.spotify.repository.FavoritePlaylistRepository;
 import com.codecool.spotify.repository.FavoriteTrackRepository;
-import com.codecool.spotify.service.FavoriteProvider;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

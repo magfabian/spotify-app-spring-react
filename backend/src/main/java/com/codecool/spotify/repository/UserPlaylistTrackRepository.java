@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface UserPlaylistTrackRepository extends JpaRepository<UserPlaylistTrack,Long> {
 
+    void deleteUserPlaylistTrackBySpotifyId(String spotifyId);
+
     @Transactional
     @Query(
         "DELETE FROM UserPlaylistTrack U " +

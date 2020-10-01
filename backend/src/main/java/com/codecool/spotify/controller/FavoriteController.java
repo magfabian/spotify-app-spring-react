@@ -45,7 +45,6 @@ public class FavoriteController {
         favoriteProvider.addNewFavoriteArtist(artist);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/delete/artist")
     public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
         favoriteProvider.deleteFavoriteArtist(artist);

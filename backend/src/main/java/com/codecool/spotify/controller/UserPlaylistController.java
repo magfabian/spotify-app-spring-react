@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/playlist")
 public class UserPlaylistController {
@@ -28,14 +29,12 @@ public class UserPlaylistController {
         playlistProvider.addNewPlaylist(playlist);
     }
 
-    @CrossOrigin
     @PostMapping("/track/{playlist}")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewTrack(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack userPlaylistTrack) {
         playlistProvider.addNewTrackToPlaylist(playlist, userPlaylistTrack);
     }
 
-    @CrossOrigin
     @GetMapping("/{playlist}")
     public UserPlaylist handlePlaylist(@PathVariable(name = "playlist") String playlist) {
         return playlistProvider.getSpecificPlaylist(playlist);
@@ -46,9 +45,10 @@ public class UserPlaylistController {
         playlistProvider.deletePlaylist(userPlaylist);
     }
 
-    @PostMapping("/delete/track/{playlist}")
-    public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack track) {
-        playlistProvider.deleteTrackFromPlaylist(playlist, track);
+    @PostMapping("/delete/track/{playlistId}")
+    public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlistId") String playlistId, @RequestBody UserPlaylistTrack track) {
+        Long id = Long.parseLong(playlistId);
+        playlistProvider.deleteTrackFromPlaylist(id, track);
     }
 
     @PostMapping("/edit/")

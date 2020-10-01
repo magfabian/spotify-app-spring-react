@@ -1,7 +1,6 @@
 package com.codecool.spotify.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity

@@ -1,5 +1,6 @@
 package com.codecool.spotify.service;
 
+import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.repository.UserPlaylistRepository;
@@ -38,10 +39,27 @@ public class PlaylistProvider {
     public void addNewTrackToPlaylist(String title, UserPlaylistTrack userPlaylistTrack) {
         UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(title);
         Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
+
         userPlaylistTracks.add(userPlaylistTrack);
         userPlaylistTrack.setUserPlaylist(userPlaylist);
+
         userPlaylist.setTotal(userPlaylistTracks.size());
         userPlaylist.setUserPlaylistTracks(userPlaylistTracks);
         userPlaylistRepository.save(userPlaylist);
+    }
+
+    public void deleteTrackFromPlaylist(String title, UserPlaylistTrack track) {
+        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(title);
+        Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
+
+        userPlaylistTracks.remove(track);
+
+        userPlaylist.setUserPlaylistTracks(userPlaylistTracks);
+        userPlaylist.setTotal(userPlaylistTracks.size());
+
+        userPlaylistTrackRepository.deleteTrackFromPlaylist(userPlaylist.getId(), track.getSpotifyId());
+        userPlaylistRepository.save(userPlaylist);
+
+
     }
 }

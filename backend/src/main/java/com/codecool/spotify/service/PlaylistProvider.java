@@ -7,6 +7,7 @@ import com.codecool.spotify.repository.UserPlaylistTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -47,16 +48,18 @@ public class PlaylistProvider {
         userPlaylistRepository.save(userPlaylist);
     }
 
-    public void deleteTrackFromPlaylist(String title, UserPlaylistTrack track) {
-        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(title);
+    public void deleteTrackFromPlaylist(Long id, UserPlaylistTrack track) {
+        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistById(id);
         Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
 
-        userPlaylistTracks.remove(track);
+        UserPlaylistTrack userPlaylistTrackToDelete = userPlaylistTracks.stream().filter(track1 -> track1.getSpotifyId().equals(track.getSpotifyId())).findFirst().get();
+
+        userPlaylistTracks.remove(userPlaylistTrackToDelete);
 
         userPlaylist.setUserPlaylistTracks(userPlaylistTracks);
         userPlaylist.setTotal(userPlaylistTracks.size());
 
-        userPlaylistTrackRepository.deleteTrackFromPlaylist(userPlaylist.getId(), track.getSpotifyId());
+        userPlaylistTrackRepository.deleteTrackFromPlaylist(id, track.getSpotifyId());
         userPlaylistRepository.save(userPlaylist);
     }
 

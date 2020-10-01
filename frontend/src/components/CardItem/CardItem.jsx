@@ -19,6 +19,7 @@ const CardItem = ({
     footer,
     footerUrl,
     favorite,
+    playlistId,
 }) => {
     const [status, error, fetchedData] = useFetch(url.playlist_get_all);
 
@@ -36,6 +37,20 @@ const CardItem = ({
         console.log(card);
         const trackUrl = url.playlist_add_track + playlist;
         axios.post(trackUrl, card);
+    };
+
+    const handleDelete = () => {
+        const card = {
+            spotifyId: spotifyId,
+            imageUrl: imageUrl,
+            onClickUrl: onClickUrl,
+            header: header,
+            footer: footer,
+            footerUrl: footerUrl,
+            favorite: favorite,
+        };
+        console.log(card);
+        axios.post(url.playlist_delete_track + playlistId, card);
     };
 
     const renderedDropDown = fetchedData.map((data, index) => {
@@ -77,7 +92,7 @@ const CardItem = ({
                 footerUrl={footerUrl}
                 favorite={favorite}
             />
-            {category === "track" && (
+            {category === "track" && playlistId === undefined && (
                 <Dropdown
                     text="Add to playlist"
                     icon="plus"
@@ -87,6 +102,16 @@ const CardItem = ({
                 >
                     <Dropdown.Menu>{renderedDropDown}</Dropdown.Menu>
                 </Dropdown>
+            )}
+            {category === "track" && playlistId !== undefined && (
+                <Dropdown
+                    text="Remove from playlist"
+                    icon="minus"
+                    labeled
+                    button
+                    className="icon"
+                    onClick={handleDelete}
+                ></Dropdown>
             )}
         </Card>
     );

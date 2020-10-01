@@ -49,4 +49,20 @@ public class FavoriteProvider {
       newArtist.setFavorite(true);
       favoriteArtistRepository.save(newArtist);
    }
+
+   public void deleteFavoriteArtist(Artist artist) {
+      favoriteArtistRepository.delete(artist);
+   }
+
+   public void deleteFavoriteAlbum(Album album) {
+      favoriteAlbumRepository.delete(album);
+   }
+
+   public void deleteFavoriteTrack(Track track) {
+      favoriteTrackRepository.delete(track);
+   }
+
+   public void deleteFavoritePlaylist(Playlist playlist) {
+      favoritePlaylistRepository.delete(playlist);
+   }
 }

@@ -1,6 +1,5 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.Track;
 import com.codecool.spotify.model.UserPlaylist;
 import com.codecool.spotify.model.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistProvider;

@@ -9,11 +9,11 @@ import java.util.Base64;
 @Service
 public class TokenProvider {
 
-   public static final String TOKEN_URL = "https://accounts.spotify.com/api/token";
+   public static final String TOKEN_URL = System.getProperty("spotify.token.url");
 
-   public static final String SPOTIFY_CLIENT_ID="bcd882684d1747f0b39aed505175f3f4";
+   public static final String SPOTIFY_CLIENT_ID = System.getProperty("spotify.client.id");
 
-   public static final String SPOTIFY_CLIENT_SECRET="f8455f7a4778421b9b52d086214fd873";
+   public static final String SPOTIFY_CLIENT_SECRET = System.getProperty("spotify.client.secret");
 
    private long startTime;
 

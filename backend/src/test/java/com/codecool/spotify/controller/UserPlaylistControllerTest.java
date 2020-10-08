@@ -1,7 +1,7 @@
 package com.codecool.spotify.controller;
 
 import com.codecool.spotify.model.*;
-import com.codecool.spotify.service.PlaylistProvider;
+import com.codecool.spotify.service.PlaylistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ class UserPlaylistControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PlaylistProvider playlistProvider;
+    private PlaylistService playlistService;
 
     @Test
     public void test_GetAllEndpoint_ShouldRunAndGetArrayFromService() throws Exception {
@@ -36,14 +36,14 @@ class UserPlaylistControllerTest {
 
         List<UserPlaylist> playlists = List.of(playlist);
 
-        when(playlistProvider.getAllPlaylists()).thenReturn(playlists);
+        when(playlistService.getAllPlaylists()).thenReturn(playlists);
 
         this.mockMvc.perform(get("/playlist/get-all")
                 .accept("application/json"))
                 .andExpect(jsonPath("$[0].total").value("3"))
                 .andExpect(status().isOk());
 
-        verify(playlistProvider, times(1)).getAllPlaylists();
+        verify(playlistService, times(1)).getAllPlaylists();
     }
 
     @Test
@@ -60,7 +60,7 @@ class UserPlaylistControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(playlistProvider, times(1)).addNewPlaylist(any(String.class));
+        verify(playlistService, times(1)).addNewPlaylist(any(String.class));
     }
 
     @Test
@@ -75,7 +75,7 @@ class UserPlaylistControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(playlistProvider, times(1))
+        verify(playlistService, times(1))
                 .addNewTrackToPlaylist(any(String.class),any(UserPlaylistTrack.class));
     }
 
@@ -86,14 +86,14 @@ class UserPlaylistControllerTest {
                 .total(3)
                 .build();
 
-        when(playlistProvider.getSpecificPlaylist("test")).thenReturn(playlist);
+        when(playlistService.getSpecificPlaylist("test")).thenReturn(playlist);
 
         this.mockMvc.perform(get("/playlist/test")
                 .accept("application/json"))
                 .andExpect(jsonPath("$.total").value("3"))
                 .andExpect(status().isOk());
 
-        verify(playlistProvider, times(1)).getSpecificPlaylist(any(String.class));
+        verify(playlistService, times(1)).getSpecificPlaylist(any(String.class));
     }
 
     public static String asJsonString(final Object obj) {

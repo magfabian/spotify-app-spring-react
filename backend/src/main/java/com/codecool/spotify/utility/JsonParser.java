@@ -32,8 +32,6 @@ public class JsonParser {
    @Autowired
    private FavoriteTrackRepository favoriteTrackRepository;
 
-
-
    public List<Album> getParsedAlbums(JSONObject json) throws JSONException {
       List<Album> data = new ArrayList<>();
       JSONObject albums = json.getJSONObject("albums");
@@ -124,7 +122,7 @@ public class JsonParser {
          String imageUrl;
          try {
             imageUrl = artist.getJSONArray("images").getJSONObject(0).get("url").toString();
-         } catch (Exception ex) {
+         } catch (JSONException e) {
             imageUrl = "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png";
          }
          String header = artist.get("name").toString();

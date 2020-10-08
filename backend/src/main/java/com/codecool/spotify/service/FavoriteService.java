@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-
 @Service
-public class FavoriteProvider {
+public class FavoriteService {
 
    @Autowired
    private FavoriteAlbumRepository favoriteAlbumRepository;
@@ -56,7 +55,6 @@ public class FavoriteProvider {
    public void deleteFavoriteArtist(Artist artist) {
       favoriteArtistRepository.deleteArtistBySpotifyId(artist.getSpotifyId());
    }
-
 
    @Transactional
    public void deleteFavoriteAlbum(Album album) {

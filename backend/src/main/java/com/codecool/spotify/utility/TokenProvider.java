@@ -1,4 +1,4 @@
-package com.codecool.spotify.service;
+package com.codecool.spotify.utility;
 
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;

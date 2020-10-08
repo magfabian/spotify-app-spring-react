@@ -1,16 +1,40 @@
-import React from "react";
-import useFetch from "../../utilities/useFetch";
+import React, { useEffect, useState } from "react";
 import url from "../../utilities/url";
 import CardItem from "../CardItem/CardItem";
 import Loading from "../Loading/Loading";
 import { Header, Divider } from "semantic-ui-react";
 import Error from "../Error/Error";
+import axios from "axios";
 import EmptyPlaylist from "../EmptyPlaylist/EmptyPlaylist";
 
 const Playlist = (props) => {
-    const [status, error, fetchedData] = useFetch(
-        url.playlist + props.match.params.title
-    );
+    const [status, setStatus] = useState("");
+    const [fetchedData, setData] = useState([]);
+
+    useEffect(() => {
+        setStatus("loading");
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const fetchData = async () => {
+        await axios
+            .get(url.playlist + props.match.params.title)
+            .then((response) => {
+                setStatus("loaded");
+                setData(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                setStatus("error");
+            });
+    };
+
+    const reloadPlaylist = () => {
+        setTimeout(() => {
+            fetchData();
+        }, 100);
+    };
 
     const renderCards = () => {
         if (fetchedData.total > 0) {
@@ -26,6 +50,7 @@ const Playlist = (props) => {
                     footerUrl={card.footerUrl}
                     favorite={card.favorite}
                     playlistId={fetchedData.id}
+                    reloadPlaylist={reloadPlaylist}
                 />
             ));
         } else {
@@ -45,7 +70,7 @@ const Playlist = (props) => {
 
     return (
         <div className="content ">
-            {status === "error" && <Error error={error} />}
+            {status === "error" && <div>Error</div>}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>

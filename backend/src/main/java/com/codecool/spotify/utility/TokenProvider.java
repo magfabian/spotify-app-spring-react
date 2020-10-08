@@ -40,19 +40,14 @@ public class TokenProvider {
    }
 
    private String getToken() {
-      try {
-         String encoding = Base64.getEncoder().encodeToString((SPOTIFY_CLIENT_ID+ ":" +SPOTIFY_CLIENT_SECRET).getBytes(StandardCharsets.UTF_8));
-         JsonNode jsonResponse = Unirest.post(TOKEN_URL)
-                 .header("Content-Type", "application/x-www-form-urlencoded")
-                 .header("Authorization","Basic " + encoding)
-                 .field("grant_type", "client_credentials")
-                 .asJson()
-                 .getBody();
-         return (String) jsonResponse.getObject().get("access_token");
-      } catch(Exception e) {
-         e.printStackTrace();
-      }
-      return "";
+      String encoding = Base64.getEncoder().encodeToString((SPOTIFY_CLIENT_ID+ ":" +SPOTIFY_CLIENT_SECRET).getBytes(StandardCharsets.UTF_8));
+      JsonNode jsonResponse = Unirest.post(TOKEN_URL)
+              .header("Content-Type", "application/x-www-form-urlencoded")
+              .header("Authorization","Basic " + encoding)
+              .field("grant_type", "client_credentials")
+              .asJson()
+              .getBody();
+      return (String) jsonResponse.getObject().get("access_token");
    }
 
 

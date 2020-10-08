@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Playlists = () => {
-    const [status, setStatus] = useState("loading");
+    const [status, setStatus] = useState("");
     const [fetchedData, setData] = useState([]);
 
     useEffect(() => {

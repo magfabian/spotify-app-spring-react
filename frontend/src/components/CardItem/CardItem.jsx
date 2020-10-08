@@ -20,6 +20,7 @@ const CardItem = ({
     footerUrl,
     favorite,
     playlistId,
+    reloadPlaylist,
 }) => {
     const [status, error, fetchedData] = useFetch(url.playlist_get_all);
 
@@ -34,7 +35,6 @@ const CardItem = ({
             footerUrl: footerUrl,
             favorite: favorite,
         };
-        console.log(card);
         const trackUrl = url.playlist_add_track + playlist;
         axios.post(trackUrl, card);
     };
@@ -49,8 +49,8 @@ const CardItem = ({
             footerUrl: footerUrl,
             favorite: favorite,
         };
-        console.log(card);
         axios.post(url.playlist_delete_track + playlistId, card);
+        reloadPlaylist();
     };
 
     const renderedDropDown = fetchedData.map((data, index) => {

@@ -1,57 +1,82 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Icon } from "semantic-ui-react";
-import { FavouriteContext } from "../../context/FavouriteContext";
+import axios from "axios";
+import url from "../../utilities/url";
 
 const FavoriteStar = ({
     category,
-    img,
+    spotifyId,
     imageUrl,
+    onClickUrl,
     header,
-    headerUrl,
-    footer
+    footer,
+    footerUrl,
+    favorite,
 }) => {
-    const { artists, tracks, albums, playlists } = useContext(FavouriteContext);
-    const [artist, setArtist] = artists;
-    const [track, setTrack] = tracks;
-    const [album, setAlbum] = albums;
-    const [playlist, setPlaylist] = playlists;
-
     const starStyle = {
-        marginLeft: "110px"
+        marginLeft: "110px",
     };
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+        event.target.className = "yellow star large icon";
         const card = {
-            img: img,
+            spotifyId: spotifyId,
             imageUrl: imageUrl,
+            onClickUrl: onClickUrl,
             header: header,
-            headerUrl,
-            footer
+            footer: footer,
+            footerUrl: footerUrl,
+            favorite: favorite,
         };
-        setCard(card);
+        handlePost(card);
     };
 
-    const setCard = card => {
+    const handlePost = (card) => {
         switch (category) {
-            case "album":
-                if (!album.some(object => object.img === card.img)) {
-                    setAlbum(prevAlbums => [...prevAlbums, card]);
-                }
-                break;
-            case "artist":
-                if (!artist.some(object => object.img === card.img)) {
-                    setArtist(prevArtists => [...prevArtists, card]);
-                }
-                break;
             case "track":
-                if (!track.some(object => object.img === card.img)) {
-                    setTrack(prevTracks => [...prevTracks, card]);
-                }
+                axios.post(url.favorite_track, card);
+                break;
+            case "album":
+                axios.post(url.favorite_album, card);
                 break;
             case "playlist":
-                if (!playlist.some(object => object.img === card.img)) {
-                    setPlaylist(prevPlaylists => [...prevPlaylists, card]);
-                }
+                axios.post(url.favorite_playlist, card);
+                break;
+            case "artist":
+                axios.post(url.favorite_artist, card);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleYellowStarClick = (event) => {
+        event.target.className = "star large icon";
+        const card = {
+            spotifyId: spotifyId,
+            imageUrl: imageUrl,
+            onClickUrl: onClickUrl,
+            header: header,
+            footer: footer,
+            footerUrl: footerUrl,
+            favorite: favorite,
+        };
+        handleDelete(card);
+    };
+
+    const handleDelete = (card) => {
+        switch (category) {
+            case "track":
+                axios.post(url.favorite_delete_track, card);
+                break;
+            case "album":
+                axios.post(url.favorite_delete_album, card);
+                break;
+            case "playlist":
+                axios.post(url.favorite_delete_playlist, card);
+                break;
+            case "artist":
+                axios.post(url.favorite_delete_artist, card);
                 break;
             default:
                 break;
@@ -60,8 +85,16 @@ const FavoriteStar = ({
 
     return (
         <Card.Content extra>
-            <span style={starStyle} onClick={handleClick}>
-                <Icon name='star' size='large' />
+            <span style={starStyle}>
+                {favorite === true ? (
+                    <Icon
+                        name="yellow star"
+                        size="large"
+                        onClick={handleYellowStarClick}
+                    />
+                ) : (
+                    <Icon name="star" size="large" onClick={handleClick} />
+                )}
             </span>
         </Card.Content>
     );

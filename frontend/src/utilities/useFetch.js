@@ -1,52 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import token from "./token";
 
-const useFetch = (url, route) => {
+const useFetch = url => {
     const [status, setStatus] = useState("");
     const [fetchedData, setData] = useState([]);
     const [error, setError] = useState({});
 
     useEffect(() => {
         setStatus("loading");
-        token.getToken().then(data => {
-            fetchData(data);
-        });
+        fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
-    const fetchData = data => {
+    const fetchData = () => {
         axios
-            .get(url, {
-                headers: {
-                    Authorization: "Bearer " + data
-                }
-            })
+            .get(url)
             .then(response => {
                 setStatus("loaded");
-                setData(getObjectRoute(response));
+                setData(response.data);
             })
             .catch(error => {
                 setStatus("error");
                 setError(error.response);
             });
-    };
-
-    const getObjectRoute = response => {
-        switch (route) {
-            case "release":
-                return response.data.albums.items;
-            case "artist":
-                return response.data.artists.items;
-            case "track":
-                return response.data.tracks.items;
-            case "playlist":
-                return response.data.playlists.items;
-            case "album":
-                return response.data.albums.items;
-            default:
-                return "error";
-        }
     };
 
     return [status, error, fetchedData];

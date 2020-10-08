@@ -6,13 +6,11 @@ import com.codecool.spotify.repository.UserPlaylistRepository;
 import com.codecool.spotify.repository.UserPlaylistTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class PlaylistProvider {
+public class PlaylistService {
 
     @Autowired
     private UserPlaylistRepository userPlaylistRepository;

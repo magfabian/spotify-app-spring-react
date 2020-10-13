@@ -1,6 +1,7 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.*;
+import com.codecool.spotify.model.userPlaylist.UserPlaylist;
+import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

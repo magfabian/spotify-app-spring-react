@@ -1,7 +1,10 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.*;
-import com.codecool.spotify.repository.*;
+import com.codecool.spotify.model.favorite.*;
+import com.codecool.spotify.repository.favorite.FavoriteAlbumRepository;
+import com.codecool.spotify.repository.favorite.FavoriteArtistRepository;
+import com.codecool.spotify.repository.favorite.FavoritePlaylistRepository;
+import com.codecool.spotify.repository.favorite.FavoriteTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

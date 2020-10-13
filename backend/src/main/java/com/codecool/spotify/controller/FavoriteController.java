@@ -1,7 +1,6 @@
 package com.codecool.spotify.controller;
 
-
-import com.codecool.spotify.model.*;
+import com.codecool.spotify.model.favorite.*;
 import com.codecool.spotify.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

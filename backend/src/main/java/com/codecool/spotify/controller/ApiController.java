@@ -1,9 +1,9 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.Album;
-import com.codecool.spotify.model.Artist;
-import com.codecool.spotify.model.Playlist;
-import com.codecool.spotify.model.Track;
+import com.codecool.spotify.model.favorite.Album;
+import com.codecool.spotify.model.favorite.Artist;
+import com.codecool.spotify.model.favorite.Playlist;
+import com.codecool.spotify.model.favorite.Track;
 import com.codecool.spotify.service.DataService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;

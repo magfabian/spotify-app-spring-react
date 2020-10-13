@@ -1,7 +1,7 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.UserPlaylist;
-import com.codecool.spotify.model.UserPlaylistTrack;
+import com.codecool.spotify.model.userPlaylist.UserPlaylist;
+import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

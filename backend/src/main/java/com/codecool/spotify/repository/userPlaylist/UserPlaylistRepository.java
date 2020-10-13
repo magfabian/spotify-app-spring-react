@@ -1,6 +1,6 @@
-package com.codecool.spotify.repository;
+package com.codecool.spotify.repository.userPlaylist;
 
-import com.codecool.spotify.model.UserPlaylist;
+import com.codecool.spotify.model.userPlaylist.UserPlaylist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

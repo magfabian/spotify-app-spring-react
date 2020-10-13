@@ -1,6 +1,6 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.*;
+import com.codecool.spotify.model.favorite.*;
 import com.codecool.spotify.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

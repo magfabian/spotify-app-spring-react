@@ -1,10 +1,12 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.Album;
-import com.codecool.spotify.model.Artist;
-import com.codecool.spotify.model.Playlist;
-import com.codecool.spotify.model.Track;
+import com.codecool.spotify.model.favorite.Album;
+import com.codecool.spotify.model.favorite.Artist;
+import com.codecool.spotify.model.favorite.Playlist;
+import com.codecool.spotify.model.favorite.Track;
 import com.codecool.spotify.utility.JsonParser;
+import com.codecool.spotify.utility.RemoteURLReader;
+import com.codecool.spotify.utility.TokenProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class DataProvider {
+public class DataService {
 
    public static final String NEW_RELEASES_URL = "https://api.spotify.com/v1/browse/new-releases";
    private static final String SEARCH_URL = "https://api.spotify.com/v1/search?q=";

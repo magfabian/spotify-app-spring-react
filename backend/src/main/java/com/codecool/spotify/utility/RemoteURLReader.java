@@ -1,4 +1,4 @@
-package com.codecool.spotify.service;
+package com.codecool.spotify.utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;

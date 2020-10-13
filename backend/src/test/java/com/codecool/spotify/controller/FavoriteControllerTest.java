@@ -1,7 +1,7 @@
 package com.codecool.spotify.controller;
 
-import com.codecool.spotify.model.*;
-import com.codecool.spotify.service.FavoriteProvider;
+import com.codecool.spotify.model.favorite.*;
+import com.codecool.spotify.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ class FavoriteControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private FavoriteProvider favoriteProvider;
+    private FavoriteService favoriteService;
 
     @Test
     public void test_GetAllEndpoint_ShouldRunAndGetArrayFromService() throws Exception {
@@ -36,14 +36,14 @@ class FavoriteControllerTest {
                 .artists(testArtists)
                 .build();
 
-        when(favoriteProvider.provideAllFavorites()).thenReturn(favorite);
+        when(favoriteService.provideAllFavorites()).thenReturn(favorite);
 
         this.mockMvc.perform(get("/favorite/get-all")
                 .accept("application/json"))
                 .andExpect(jsonPath("$.artists[0].spotifyId").value("test"))
                 .andExpect(status().isOk());
 
-        verify(favoriteProvider, times(1)).provideAllFavorites();
+        verify(favoriteService, times(1)).provideAllFavorites();
     }
 
     @Test
@@ -64,7 +64,7 @@ class FavoriteControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(favoriteProvider, times(1)).addNewFavoriteAlbum(any(Album.class));
+        verify(favoriteService, times(1)).addNewFavoriteAlbum(any(Album.class));
     }
 
     @Test
@@ -79,7 +79,7 @@ class FavoriteControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(favoriteProvider, times(1)).addNewFavoriteTrack(any(Track.class));
+        verify(favoriteService, times(1)).addNewFavoriteTrack(any(Track.class));
     }
 
     @Test
@@ -94,7 +94,7 @@ class FavoriteControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(favoriteProvider, times(1)).addNewFavoriteArtist(any(Artist.class));
+        verify(favoriteService, times(1)).addNewFavoriteArtist(any(Artist.class));
     }
 
     @Test
@@ -109,7 +109,7 @@ class FavoriteControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        verify(favoriteProvider, times(1)).addNewFavoritePlaylist(any(Playlist.class));
+        verify(favoriteService, times(1)).addNewFavoritePlaylist(any(Playlist.class));
     }
 
     public static String asJsonString(final Object obj) {

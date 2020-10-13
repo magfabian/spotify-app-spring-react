@@ -50,7 +50,7 @@ const FavoriteStar = ({
         }
     };
 
-    const handleYellowClick = (event) => {
+    const handleYellowStarClick = (event) => {
         event.target.className = "star large icon";
         const card = {
             spotifyId: spotifyId,
@@ -90,7 +90,7 @@ const FavoriteStar = ({
                     <Icon
                         name="yellow star"
                         size="large"
-                        onClick={handleYellowClick}
+                        onClick={handleYellowStarClick}
                     />
                 ) : (
                     <Icon name="star" size="large" onClick={handleClick} />

@@ -1,13 +1,13 @@
 package com.codecool.spotify.utility;
 
-import com.codecool.spotify.model.Album;
-import com.codecool.spotify.model.Artist;
-import com.codecool.spotify.model.Playlist;
-import com.codecool.spotify.model.Track;
-import com.codecool.spotify.repository.FavoriteAlbumRepository;
-import com.codecool.spotify.repository.FavoriteArtistRepository;
-import com.codecool.spotify.repository.FavoritePlaylistRepository;
-import com.codecool.spotify.repository.FavoriteTrackRepository;
+import com.codecool.spotify.model.favorite.Album;
+import com.codecool.spotify.model.favorite.Artist;
+import com.codecool.spotify.model.favorite.Playlist;
+import com.codecool.spotify.model.favorite.Track;
+import com.codecool.spotify.repository.favorite.FavoriteAlbumRepository;
+import com.codecool.spotify.repository.favorite.FavoriteArtistRepository;
+import com.codecool.spotify.repository.favorite.FavoritePlaylistRepository;
+import com.codecool.spotify.repository.favorite.FavoriteTrackRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,12 +32,11 @@ public class JsonParser {
    @Autowired
    private FavoriteTrackRepository favoriteTrackRepository;
 
-
-
    public List<Album> getParsedAlbums(JSONObject json) throws JSONException {
       List<Album> data = new ArrayList<>();
       JSONObject albums = json.getJSONObject("albums");
       JSONArray items = albums.getJSONArray("items");
+
       for(int i = 0; i < items.length(); i++) {
          JSONObject album = items.getJSONObject(i);
          String imageUrl = album.getJSONArray("images").getJSONObject(0).get("url").toString();
@@ -124,7 +123,7 @@ public class JsonParser {
          String imageUrl;
          try {
             imageUrl = artist.getJSONArray("images").getJSONObject(0).get("url").toString();
-         } catch (Exception ex) {
+         } catch (JSONException e) {
             imageUrl = "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png";
          }
          String header = artist.get("name").toString();

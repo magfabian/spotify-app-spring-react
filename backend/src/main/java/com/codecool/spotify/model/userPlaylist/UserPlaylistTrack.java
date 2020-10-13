@@ -1,4 +1,4 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.userPlaylist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

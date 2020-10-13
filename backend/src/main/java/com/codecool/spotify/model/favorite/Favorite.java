@@ -1,4 +1,4 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.favorite;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

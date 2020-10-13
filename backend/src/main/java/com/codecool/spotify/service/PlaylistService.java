@@ -1,9 +1,9 @@
 package com.codecool.spotify.service;
 
-import com.codecool.spotify.model.UserPlaylist;
-import com.codecool.spotify.model.UserPlaylistTrack;
-import com.codecool.spotify.repository.UserPlaylistRepository;
-import com.codecool.spotify.repository.UserPlaylistTrackRepository;
+import com.codecool.spotify.model.userPlaylist.UserPlaylist;
+import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
+import com.codecool.spotify.repository.userPlaylist.UserPlaylistRepository;
+import com.codecool.spotify.repository.userPlaylist.UserPlaylistTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

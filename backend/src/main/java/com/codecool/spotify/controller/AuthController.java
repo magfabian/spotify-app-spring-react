@@ -58,15 +58,14 @@ public class AuthController {
         }
     }
 
-    private void addTokenToCookie(HttpServletResponse response, String token) {
-        ResponseCookie cookie = ResponseCookie.from("token", token)
-                .domain("localhost") // should be parameterized
-                .sameSite("Strict")  // CSRF
-                .maxAge(Duration.ofHours(24))
-                .httpOnly(true)      // XSS
-                .path("/")
-                .build();
-        response.addHeader("Set-Cookie", cookie.toString());
+    private ResponseCookie addTokenToCookie(String token) {
+        return ResponseCookie
+            .from("token", token)
+            .maxAge(Duration.ofHours(18))
+            .path("/")
+            .httpOnly(true)
+            .secure(false)
+            .build();
     }
 
     @GetMapping("/logout")

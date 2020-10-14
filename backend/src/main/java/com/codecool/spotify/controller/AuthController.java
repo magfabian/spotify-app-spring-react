@@ -30,9 +30,6 @@ public class AuthController {
     @Autowired
     private JwtService jwtService;
 
-    @Autowired
-    private SpotiUserService spotiUserlService;
-
     @PostMapping("/login")
     public ResponseEntity createAuthToken(@RequestBody SpotiUserCredentials spotiUserCredentials, HttpServletResponse response) {
         try {
@@ -47,14 +44,7 @@ public class AuthController {
                 .collect(Collectors.toList());
 
             String token = jwtService.createToken(emailAddress, roles);
-
-            addTokenToCookie(response, token);
-
-            addLoginToCookie(response);
-
-            Long userId = spotiUserlService.getUserIdByEmailAddress(emailAddress);
-
-            addIdToCookie(response, String.valueOf(userId));
+            ResponseCookie cookie = addTokenToCookie(token);
 
             Map<Object, Object> model = new HashMap<>();
             model.put("email-address", emailAddress);

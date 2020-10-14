@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Duration;
 import java.util.HashMap;
@@ -104,5 +105,42 @@ public class AuthController {
                 .path("/")
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response) {
+        response.addCookie(deleteUserIdFromCookie());
+        response.addCookie(deleteTokenFromCookie());
+        response.addCookie(deleteLoggenInFromCookie());
+    }
+
+    public Cookie deleteUserIdFromCookie() {
+        Cookie cookie = new Cookie("user_id", null);
+        cookie.setMaxAge(0);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        return cookie;
+    }
+
+    public Cookie deleteLoggenInFromCookie() {
+        Cookie cookie = new Cookie("logged_in", null);
+        cookie.setMaxAge(0);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        return cookie;
+    }
+
+    public Cookie deleteTokenFromCookie() {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        return cookie;
     }
 }

@@ -67,7 +67,7 @@ public class AuthController {
             model.put("roles", roles);
             model.put("token", token);
 
-            return ResponseEntity.ok(model);
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(model);
 
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Wrong username or password!");
@@ -85,33 +85,16 @@ public class AuthController {
         response.addHeader("Set-Cookie", cookie.toString());
     }
 
-    private void addLoginToCookie(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from("logged_in", "true")
-                .domain("localhost") // should be parameterized
-                .sameSite("Strict")  // CSRF
-                .maxAge(Duration.ofHours(24))
-                .httpOnly(true)      // XSS
-                .path("/")
-                .build();
-        response.addHeader("Set-Cookie", cookie.toString());
-    }
-
-    private void addIdToCookie(HttpServletResponse response, String userId) {
-        ResponseCookie cookie = ResponseCookie.from("user_id", userId)
-                .domain("localhost") // should be parameterized
-                .sameSite("Strict")  // CSRF
-                .maxAge(Duration.ofHours(24))
-                .httpOnly(true)      // XSS
-                .path("/")
-                .build();
-        response.addHeader("Set-Cookie", cookie.toString());
-    }
-
-    @PostMapping("/logout")
-    public void logout(HttpServletResponse response) {
-        response.addCookie(deleteUserIdFromCookie());
-        response.addCookie(deleteTokenFromCookie());
-        response.addCookie(deleteLoggenInFromCookie());
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout() {
+        ResponseCookie cookie = ResponseCookie
+            .from("token", "")
+            .maxAge(0)
+            .path("/")
+            .httpOnly(true)
+            .secure(false)
+            .build();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body("");
     }
 
     public Cookie deleteUserIdFromCookie() {

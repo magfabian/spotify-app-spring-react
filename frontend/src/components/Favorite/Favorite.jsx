@@ -5,6 +5,7 @@ import useFetch from "../../utilities/useFetch";
 import url from "../../utilities/url";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
+import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
 
 const Favorite = () => {
     const [status, error, fetchedData] = useFetch(url.favorite_all);
@@ -55,7 +56,11 @@ const Favorite = () => {
 
     return (
         <div className="content">
-            {status === "error" && <Error error={error} />}
+            {status === "error" && (
+                <div>
+                    <NotLoggedIn />
+                </div>
+            )}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>

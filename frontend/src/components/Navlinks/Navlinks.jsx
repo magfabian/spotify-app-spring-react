@@ -49,13 +49,6 @@ const NavLinks = () => {
                     >
                         Playlist
                     </NavLink>
-                    <NavLink
-                        activeClassName="active"
-                        to="/friend"
-                        className="item"
-                    >
-                        Friend
-                    </NavLink>
                 </div>
             </div>
         </>

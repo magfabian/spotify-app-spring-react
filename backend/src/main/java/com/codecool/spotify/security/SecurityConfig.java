@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/user/signup").permitAll()
                 .anyRequest().authenticated()
             .and()
+                .logout().logoutUrl("/auth/logout").invalidateHttpSession(true).logoutSuccessUrl("/login")
+            .and()
                 .addFilterBefore(JwtFilter.builder()
                     .jwtService(jwtService)
                     .build(),

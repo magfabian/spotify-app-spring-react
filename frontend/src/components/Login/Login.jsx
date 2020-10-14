@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
     Button,
     Form,
@@ -11,11 +11,13 @@ import {
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import url from "../../utilities/url";
+import { LogInContext } from "../../context/LogInContex";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loggedIn, setLoggedIn] = useContext(LogInContext);
 
     const signUpStyle = {
         color: "rgb(85,182,96)",
@@ -38,7 +40,7 @@ const Login = () => {
             .post(url.login, user, {
                 withCredentials: true,
             })
-            .then((response) => {})
+            .then((response) => setLoggedIn(true))
             .catch((error) => {
                 setError("error");
             });

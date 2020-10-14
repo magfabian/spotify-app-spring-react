@@ -44,29 +44,7 @@ public class JwtService {
             .compact();
     }
 
-    public String getTokenFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            log.debug("JWT is invalid" + e);
-        }
-        return false;
-    }
-
-    public Authentication parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
+    public UsernamePasswordAuthenticationToken parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
 
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         String emailAddress = body.getSubject();

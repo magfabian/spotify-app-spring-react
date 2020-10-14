@@ -10,6 +10,7 @@ import EmptyPlaylist from "../EmptyPlaylist/EmptyPlaylist";
 const Playlist = (props) => {
     const [status, setStatus] = useState("");
     const [fetchedData, setData] = useState([]);
+    const [error, setError] = useState({});
 
     useEffect(() => {
         setStatus("loading");
@@ -26,6 +27,7 @@ const Playlist = (props) => {
                 console.log(response.data);
             })
             .catch((error) => {
+                setError(error.response);
                 setStatus("error");
             });
     };
@@ -70,7 +72,7 @@ const Playlist = (props) => {
 
     return (
         <div className="content ">
-            {status === "error" && <div>Error</div>}
+            {status === "error" && <Error error={error} />}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>

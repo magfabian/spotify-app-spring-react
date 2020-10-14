@@ -18,6 +18,8 @@ const url = {
     playlist_get_all: "/playlist/get-all",
     playlist_add_track: "http://localhost:8080/playlist/track/",
     playlist_delete_track: "http://localhost:8080/playlist/delete/track/",
+    signup: "/user/signup",
+    login: "/auth/login",
 };
 
 export default url;

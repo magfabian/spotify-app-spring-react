@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Navlinks = () => {
+const NavLinks = () => {
     return (
-        <div>
+        <>
             <NavLink activeClassName="active" exact to="/" className="item">
                 New releases
             </NavLink>
@@ -51,8 +51,8 @@ const Navlinks = () => {
                     </NavLink>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
-export default Navlinks;
+export default NavLinks;

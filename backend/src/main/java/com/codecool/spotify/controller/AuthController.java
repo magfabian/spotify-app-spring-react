@@ -79,34 +79,4 @@ public class AuthController {
             .build();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body("");
     }
-
-    public Cookie deleteUserIdFromCookie() {
-        Cookie cookie = new Cookie("user_id", null);
-        cookie.setMaxAge(0);
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-
-        return cookie;
-    }
-
-    public Cookie deleteLoggenInFromCookie() {
-        Cookie cookie = new Cookie("logged_in", null);
-        cookie.setMaxAge(0);
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-
-        return cookie;
-    }
-
-    public Cookie deleteTokenFromCookie() {
-        Cookie cookie = new Cookie("token", null);
-        cookie.setMaxAge(0);
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-
-        return cookie;
-    }
 }

@@ -10,6 +10,7 @@ import Playlists from "../Playlists/Playlists";
 import Playlist from "../Playlist/Playlist";
 import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
+import Friend from "../Friend/Friend";
 
 function App() {
     return (
@@ -44,6 +45,9 @@ function App() {
                     </Route>
                     <Route path="/signup">
                         <Signup />
+                    </Route>
+                    <Route path="/friend">
+                        <Friend />
                     </Route>
                     <Route
                         path="/playlists/:title"

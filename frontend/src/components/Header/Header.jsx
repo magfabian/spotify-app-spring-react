@@ -1,7 +1,23 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Header = () => {
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get("/user/me")
+            .then((response) => {
+                setLoggedIn(true);
+            })
+            .catch((error) => {
+                console.log("error");
+            });
+    }, []);
+
     const headerStyle = {
         backgroundColor: "black",
         position: "absolute",
@@ -42,17 +58,35 @@ const Header = () => {
         top: "20px",
     };
 
+    const handleLogout = () => {
+        axios.post("/auth/logout");
+    };
+
     return (
         <div style={headerStyle}>
             <span style={headerName}>Spotify App</span>
             <div style={containerStyle}>
-                <NavLink exact to="/login" style={navlinkStyle}>
-                    Login
-                </NavLink>
-                <span style={separatorStyle}> | </span>
-                <NavLink exact to="/signup" style={navlinkStyle}>
-                    Sign up
-                </NavLink>
+                {loggedIn === true ? (
+                    <div>
+                        <NavLink exact to="/login" style={navlinkStyle}>
+                            Profile
+                        </NavLink>
+                        <span style={separatorStyle}> | </span>
+                        <NavLink style={navlinkStyle} onClick={handleLogout}>
+                            Log out
+                        </NavLink>
+                    </div>
+                ) : (
+                    <div>
+                        <NavLink exact to="/login" style={navlinkStyle}>
+                            Login
+                        </NavLink>
+                        <span style={separatorStyle}> | </span>
+                        <NavLink exact to="/signup" style={navlinkStyle}>
+                            Sign up
+                        </NavLink>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -17,6 +17,10 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const signUpStyle = {
+        color: "rgb(85,182,96)",
+    };
+
     const changeEmail = (event) => {
         setEmail(event.target.value);
     };
@@ -34,9 +38,7 @@ const Login = () => {
             .post(url.login, user, {
                 withCredentials: true,
             })
-            .then((response) => {
-                console.log(response.data.token);
-            })
+            .then((response) => {})
             .catch((error) => {
                 setError("error");
             });
@@ -86,7 +88,7 @@ const Login = () => {
                 </Form>
                 <Message>
                     New to us?{" "}
-                    <NavLink exact to="/signup">
+                    <NavLink exact to="/signup" style={signUpStyle}>
                         Sign Up
                     </NavLink>
                 </Message>

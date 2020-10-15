@@ -65,22 +65,27 @@ public class PlaylistService {
         userPlaylistRepository.save(userPlaylist);
     }
 
-    public void deleteTrackFromPlaylist(Long id, UserPlaylistTrack track) {
-        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistById(id);
+    public void deleteTrackFromPlaylist(String email, Long playlistId, String spotifyId) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistById(spotiUser, playlistId);
         Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
 
-        UserPlaylistTrack userPlaylistTrackToDelete = userPlaylistTracks.stream().filter(track1 -> track1.getSpotifyId().equals(track.getSpotifyId())).findFirst().get();
+        UserPlaylistTrack userPlaylistTrackToDelete = userPlaylistTracks.stream().filter(track1 -> track1.getSpotifyId().equals(spotifyId)).findFirst().get();
 
         userPlaylistTracks.remove(userPlaylistTrackToDelete);
 
         userPlaylist.setUserPlaylistTracks(userPlaylistTracks);
         userPlaylist.setTotal(userPlaylistTracks.size());
 
-        userPlaylistTrackRepository.deleteTrackFromPlaylist(id, track.getSpotifyId());
+        userPlaylistTrackRepository.deleteTrackFromPlaylist(playlistId, spotifyId);
         userPlaylistRepository.save(userPlaylist);
     }
 
-    public void deletePlaylist(UserPlaylist userPlaylist) {
+    public void deletePlaylist(String email, UserPlaylist userPlaylist) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         userPlaylistRepository.deleteUserPlaylistById(userPlaylist.getId());
     }

@@ -3,6 +3,7 @@ package com.codecool.spotify.controller;
 import com.codecool.spotify.model.userPlaylist.UserPlaylist;
 import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
 import com.codecool.spotify.service.PlaylistService;
+import com.codecool.spotify.utility.PrincipalFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,19 +44,16 @@ public class UserPlaylistController {
         return playlistService.getSpecificPlaylist(principalEmail, playlist);
     }
 
-    @DeleteMapping("/delete/{playlist}")
-    public void handleDeletePlaylist(@RequestBody UserPlaylist userPlaylist) {
-        playlistService.deletePlaylist(userPlaylist);
+    @DeleteMapping("/delete/{playlistId}")
+    public void handleDeletePlaylist(@PathVariable(name = "playlistId") UserPlaylist userPlaylist) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        playlistService.deletePlaylist(principalEmail, userPlaylist);
     }
 
-    @PostMapping("/delete/track/{playlistId}")
-    public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlistId") String playlistId, @RequestBody UserPlaylistTrack track) {
-        Long id = Long.parseLong(playlistId);
-        playlistService.deleteTrackFromPlaylist(id, track);
-    }
+    @DeleteMapping("/delete/track/{playlistId}/{spotifyId}")
+    public void handleDeleteTrackFromPlaylist(@PathVariable(name = "playlistId") String playlistId, @PathVariable(name = "spotifyId") String spotifyId) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
 
-    @PostMapping("/edit/")
-    public UserPlaylist handleEditPlaylistTitle(@RequestBody UserPlaylist userPlaylist) {
-        return playlistService.editPlaylistTitle(userPlaylist);
+        playlistService.deleteTrackFromPlaylist(principalEmail, Long.parseLong(playlistId), spotifyId);
     }
 }

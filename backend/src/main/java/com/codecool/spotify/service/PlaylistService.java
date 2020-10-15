@@ -1,16 +1,22 @@
 package com.codecool.spotify.service;
 
+import com.codecool.spotify.model.user.SpotiUser;
 import com.codecool.spotify.model.userPlaylist.UserPlaylist;
 import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
+import com.codecool.spotify.repository.user.SpotiUserRepository;
 import com.codecool.spotify.repository.userPlaylist.UserPlaylistRepository;
 import com.codecool.spotify.repository.userPlaylist.UserPlaylistTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
 @Service
 public class PlaylistService {
+
+    @Autowired
+    private SpotiUserRepository spotiUserRepository;
 
     @Autowired
     private UserPlaylistRepository userPlaylistRepository;

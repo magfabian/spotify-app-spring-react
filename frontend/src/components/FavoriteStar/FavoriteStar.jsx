@@ -52,7 +52,6 @@ const FavoriteStar = ({
     };
 
     const handleYellowStarClick = (event) => {
-        event.target.className = "star large icon";
         const card = {
             spotifyId: spotifyId,
             imageUrl: imageUrl,
@@ -68,16 +67,24 @@ const FavoriteStar = ({
     const handleDelete = (card) => {
         switch (category) {
             case "track":
-                axios.delete(url.favorite_delete_track + spotifyId, {data: card});
+                axios.delete(url.favorite_delete_track + spotifyId, {
+                    data: card,
+                });
                 break;
             case "album":
-                axios.delete(url.favorite_delete_album + spotifyId, {data: card});
+                axios.delete(url.favorite_delete_album + spotifyId, {
+                    data: card,
+                });
                 break;
             case "playlist":
-                axios.delete(url.favorite_delete_playlist + spotifyId, {data: card});
+                axios.delete(url.favorite_delete_playlist + spotifyId, {
+                    data: card,
+                });
                 break;
             case "artist":
-                axios.delete(url.favorite_delete_artist + spotifyId, {data: card});
+                axios.delete(url.favorite_delete_artist + spotifyId, {
+                    data: card,
+                });
                 break;
             default:
                 break;

@@ -12,52 +12,55 @@ import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
 import Friend from "../Friend/Friend";
 import { LogInProvider } from "../../context/LogInContex";
+import { ImageUrlProvider } from "../../context/ImageUrlContext";
 
 function App() {
     return (
         <LogInProvider>
-            <Router>
-                <Header />
-                <div className="wrapper">
-                    <Navbar />
-                    <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route path="/favorite">
-                            <Favorite />
-                        </Route>
-                        <Route exact path="/playlists">
-                            <Playlists />
-                        </Route>
-                        <Route path="/artist">
-                            <Category categoryType={"artist"} />
-                        </Route>
-                        <Route path="/album">
-                            <Category categoryType={"album"} />
-                        </Route>
-                        <Route path="/track">
-                            <Category categoryType={"track"} />
-                        </Route>
-                        <Route path="/playlist">
-                            <Category categoryType={"playlist"} />
-                        </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <Route path="/signup">
-                            <Signup />
-                        </Route>
-                        <Route path="/friend">
-                            <Friend />
-                        </Route>
-                        <Route
-                            path="/playlists/:title"
-                            render={(props) => <Playlist {...props} />}
-                        ></Route>
-                    </Switch>
-                </div>
-            </Router>
+            <ImageUrlProvider>
+                <Router>
+                    <Header />
+                    <div className="wrapper">
+                        <Navbar />
+                        <Switch>
+                            <Route exact path="/">
+                                <Home />
+                            </Route>
+                            <Route path="/favorite">
+                                <Favorite />
+                            </Route>
+                            <Route exact path="/playlists">
+                                <Playlists />
+                            </Route>
+                            <Route path="/artist">
+                                <Category categoryType={"artist"} />
+                            </Route>
+                            <Route path="/album">
+                                <Category categoryType={"album"} />
+                            </Route>
+                            <Route path="/track">
+                                <Category categoryType={"track"} />
+                            </Route>
+                            <Route path="/playlist">
+                                <Category categoryType={"playlist"} />
+                            </Route>
+                            <Route path="/login">
+                                <Login />
+                            </Route>
+                            <Route path="/signup">
+                                <Signup />
+                            </Route>
+                            <Route path="/friend">
+                                <Friend />
+                            </Route>
+                            <Route
+                                path="/playlists/:title"
+                                render={(props) => <Playlist {...props} />}
+                            ></Route>
+                        </Switch>
+                    </div>
+                </Router>
+            </ImageUrlProvider>
         </LogInProvider>
     );
 }

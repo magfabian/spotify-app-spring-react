@@ -12,12 +12,13 @@ import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
 import Friend from "../Friend/Friend";
 import { LogInProvider } from "../../context/LogInContex";
-import { ImageUrlProvider } from "../../context/ImageUrlContext";
+import { UserProvider } from "../../context/UserContext";
+import Profile from "../Profile/Profile";
 
 function App() {
     return (
         <LogInProvider>
-            <ImageUrlProvider>
+            <UserProvider>
                 <Router>
                     <Header />
                     <div className="wrapper">
@@ -53,6 +54,9 @@ function App() {
                             <Route path="/friend">
                                 <Friend />
                             </Route>
+                            <Route path="/profile">
+                                <Profile />
+                            </Route>
                             <Route
                                 path="/playlists/:title"
                                 render={(props) => <Playlist {...props} />}
@@ -60,7 +64,7 @@ function App() {
                         </Switch>
                     </div>
                 </Router>
-            </ImageUrlProvider>
+            </UserProvider>
         </LogInProvider>
     );
 }

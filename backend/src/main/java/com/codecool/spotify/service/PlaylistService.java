@@ -24,8 +24,11 @@ public class PlaylistService {
     @Autowired
     private UserPlaylistTrackRepository userPlaylistTrackRepository;
 
-    public List<UserPlaylist> getAllPlaylists() {
-        return userPlaylistRepository.findAll();
+    public List<UserPlaylist> getAllPlaylists(String email) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return userPlaylistRepository.findAllBySpotiUser(spotiUser);
     }
 
     public void addNewPlaylist(String title) {

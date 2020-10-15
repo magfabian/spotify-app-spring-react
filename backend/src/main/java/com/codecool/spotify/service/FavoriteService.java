@@ -1,17 +1,23 @@
 package com.codecool.spotify.service;
 
 import com.codecool.spotify.model.favorite.*;
+import com.codecool.spotify.model.user.SpotiUser;
 import com.codecool.spotify.repository.favorite.FavoriteAlbumRepository;
 import com.codecool.spotify.repository.favorite.FavoriteArtistRepository;
 import com.codecool.spotify.repository.favorite.FavoritePlaylistRepository;
 import com.codecool.spotify.repository.favorite.FavoriteTrackRepository;
+import com.codecool.spotify.repository.user.SpotiUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
 public class FavoriteService {
+
+   @Autowired
+   private SpotiUserRepository spotiUserRepository;
 
    @Autowired
    private FavoriteAlbumRepository favoriteAlbumRepository;
@@ -60,32 +66,49 @@ public class FavoriteService {
 
       newPlaylist.setSpotiUser(user);
       newPlaylist.setFavorite(true);
+
       favoritePlaylistRepository.save(newPlaylist);
    }
 
-   public void addNewFavoriteArtist(Artist newArtist) {
+   public void addNewFavoriteArtist(String email, Artist newArtist) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      newArtist.setSpotiUser(user);
       newArtist.setFavorite(true);
 
       favoriteArtistRepository.save(newArtist);
    }
 
    @Transactional
-   public void deleteFavoriteArtist(Artist artist) {
-      favoriteArtistRepository.deleteArtistBySpotifyId(artist.getSpotifyId());
+   public void deleteFavoriteArtist(String email, String spotifyId) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      favoriteArtistRepository.deleteArtistBySpotifyId(user, spotifyId);
    }
 
    @Transactional
-   public void deleteFavoriteAlbum(Album album) {
-      favoriteAlbumRepository.deleteAlbumBySpotifyId(album.getSpotifyId());
+   public void deleteFavoriteAlbum(String email, String spotifyId) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      favoriteAlbumRepository.deleteAlbumBySpotifyId(user, spotifyId);
    }
 
    @Transactional
-   public void deleteFavoriteTrack(Track track) {
-      favoriteTrackRepository.deleteTrackBySpotifyId(track.getSpotifyId());
+   public void deleteFavoriteTrack(String email, String spotifyId) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      favoriteTrackRepository.deleteTrackBySpotifyId(user, spotifyId);
    }
 
    @Transactional
-   public void deleteFavoritePlaylist(Playlist playlist) {
-      favoritePlaylistRepository.deletePlaylistBySpotifyId(playlist.getSpotifyId());
+   public void deleteFavoritePlaylist(String email, String spotifyId) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      favoritePlaylistRepository.deletePlaylistBySpotifyId(user, spotifyId);
    }
 }

@@ -43,12 +43,12 @@ public class FavoriteController {
         favoriteService.addNewFavoriteArtist(artist);
     }
 
-    @PostMapping("/delete/artist")
+    @DeleteMapping("/delete/artist")
     public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
         favoriteService.deleteFavoriteArtist(artist);
     }
 
-    @PostMapping("/delete/album")
+    @DeleteMapping("/delete/album")
     public void handleDeleteFavouriteArtist(@RequestBody Album album) {
         favoriteService.deleteFavoriteAlbum(album);
     }
@@ -58,7 +58,7 @@ public class FavoriteController {
         favoriteService.deleteFavoriteTrack(track);
     }
 
-    @PostMapping("/delete/playlist")
+    @DeleteMapping("/delete/playlist")
     public void handleDeleteFavouriteArtist(@RequestBody Playlist playlist) {
         favoriteService.deleteFavoritePlaylist(playlist);
     }

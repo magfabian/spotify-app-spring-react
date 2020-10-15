@@ -12,6 +12,7 @@ const FavoriteStar = ({
     footer,
     footerUrl,
     favorite,
+    handleFavoriteDelete,
 }) => {
     const starStyle = {
         marginLeft: "110px",
@@ -67,20 +68,45 @@ const FavoriteStar = ({
     const handleDelete = (card) => {
         switch (category) {
             case "track":
-                axios.post(url.favorite_delete_track, card);
+                axios.post(
+                    url.favorite_delete_track,
+                    {
+                        withCredentials: true,
+                    },
+                    card
+                );
                 break;
             case "album":
-                axios.post(url.favorite_delete_album, card);
+                axios.post(
+                    url.favorite_delete_album,
+                    {
+                        withCredentials: true,
+                    },
+                    card
+                );
                 break;
             case "playlist":
-                axios.post(url.favorite_delete_playlist, card);
+                axios.post(
+                    url.favorite_delete_playlist,
+                    {
+                        withCredentials: true,
+                    },
+                    card
+                );
                 break;
             case "artist":
-                axios.post(url.favorite_delete_artist, card);
+                axios.post(
+                    url.favorite_delete_artist,
+                    {
+                        withCredentials: true,
+                    },
+                    card
+                );
                 break;
             default:
                 break;
         }
+        handleFavoriteDelete();
     };
 
     return (

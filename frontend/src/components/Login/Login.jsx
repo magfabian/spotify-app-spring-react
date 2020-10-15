@@ -70,14 +70,14 @@ const Login = () => {
                         </Header>
                         {error === "error" && (
                             <Header as="h3" color="red" textAlign="center">
-                                Wrong username or password!
+                                Wrong email or password!
                             </Header>
                         )}
                         <Form size="large">
                             <Segment stacked>
                                 <Form.Input
                                     fluid
-                                    icon="user"
+                                    icon="mail"
                                     iconPosition="left"
                                     placeholder="E-mail address"
                                     onChange={changeEmail}

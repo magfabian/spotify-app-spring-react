@@ -3,7 +3,9 @@ import { Card, Image, Dropdown } from "semantic-ui-react";
 import FavoriteStar from "../FavoriteStar/FavoriteStar";
 import useFetch from "../../utilities/useFetch";
 import url from "../../utilities/url";
+import { useContext } from "react";
 import axios from "axios";
+import { LogInContext } from "../../context/LogInContex";
 
 const cardStyle = {
     margin: "10px",
@@ -21,8 +23,11 @@ const CardItem = ({
     favorite,
     playlistId,
     reloadPlaylist,
+    handleFavoriteDelete,
 }) => {
     const [status, error, fetchedData] = useFetch(url.playlist_get_all);
+
+    const [loggedIn, setLoggedIn] = useContext(LogInContext);
 
     const handleClick = (event) => {
         const playlist = event.target.getAttribute("data-title");
@@ -82,37 +87,45 @@ const CardItem = ({
                     {footer}
                 </Card.Description>
             </Card.Content>
-            <FavoriteStar
-                category={category}
-                spotifyId={spotifyId}
-                imageUrl={imageUrl}
-                onClickUrl={onClickUrl}
-                header={header}
-                footer={footer}
-                footerUrl={footerUrl}
-                favorite={favorite}
-            />
-            {category === "track" && playlistId === undefined && (
-                <Dropdown
-                    text="Add to playlist"
-                    icon="plus"
-                    labeled
-                    button
-                    className="icon"
-                >
-                    <Dropdown.Menu>{renderedDropDown}</Dropdown.Menu>
-                </Dropdown>
+            {loggedIn === true && (
+                <FavoriteStar
+                    category={category}
+                    spotifyId={spotifyId}
+                    imageUrl={imageUrl}
+                    onClickUrl={onClickUrl}
+                    header={header}
+                    footer={footer}
+                    footerUrl={footerUrl}
+                    favorite={favorite}
+                    handleFavoriteDelete={handleFavoriteDelete}
+                />
             )}
-            {category === "track" && playlistId !== undefined && (
-                <Dropdown
-                    text="Remove from playlist"
-                    icon="minus"
-                    labeled
-                    button
-                    className="icon"
-                    onClick={handleDelete}
-                ></Dropdown>
-            )}
+
+            {category === "track" &&
+                loggedIn === true &&
+                playlistId === undefined && (
+                    <Dropdown
+                        text="Add to playlist"
+                        icon="plus"
+                        labeled
+                        button
+                        className="icon"
+                    >
+                        <Dropdown.Menu>{renderedDropDown}</Dropdown.Menu>
+                    </Dropdown>
+                )}
+            {category === "track" &&
+                loggedIn === true &&
+                playlistId !== undefined && (
+                    <Dropdown
+                        text="Remove from playlist"
+                        icon="minus"
+                        labeled
+                        button
+                        className="icon"
+                        onClick={handleDelete}
+                    ></Dropdown>
+                )}
         </Card>
     );
 };

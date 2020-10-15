@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Header, Divider } from "semantic-ui-react";
 import CardItem from "../CardItem/CardItem";
 import useFetch from "../../utilities/useFetch";
 import url from "../../utilities/url";
 import Error from "../Error/Error";
+import axios from "axios";
 import Loading from "../Loading/Loading";
 import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
 
 const Favorite = () => {
-    const [status, error, fetchedData] = useFetch(url.favorite_all);
+    const [status, setStatus] = useState("");
+    const [fetchedData, setData] = useState([]);
+
+    useEffect(() => {
+        setStatus("loading");
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const fetchData = () => {
+        axios
+            .get(url.favorite_all, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                setStatus("loaded");
+                setData(response.data);
+            })
+            .catch((error) => {
+                setStatus("error");
+            });
+    };
 
     const headerStyle = {
         marginBottom: "20px",
@@ -30,8 +52,14 @@ const Favorite = () => {
                 footer={data.footer}
                 footerUrl={data.footerUrl}
                 favorite={data.favorite}
+                handleFavoriteDelete={handleFavoriteDelete}
             />
         ));
+    };
+
+    const handleFavoriteDelete = () => {
+        console.log("a");
+        fetchData();
     };
 
     let renderedArtists = [];

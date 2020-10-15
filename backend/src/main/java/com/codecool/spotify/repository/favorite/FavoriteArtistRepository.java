@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface FavoriteArtistRepository extends JpaRepository<Artist,Long> {
+
+    @Query("SELECT a FROM Artist a WHERE a.spotiUser = :spotiUser")
+    List<Artist> findAllBySpotiUser(SpotiUser spotiUser);
 
     @Query("DELETE FROM Artist a WHERE a.spotifyId = :spotifyId AND a.spotiUser = :spotiUser")
     @Transactional

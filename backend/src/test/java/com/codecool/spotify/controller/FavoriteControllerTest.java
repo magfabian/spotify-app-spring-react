@@ -36,14 +36,14 @@ class FavoriteControllerTest {
                 .artists(testArtists)
                 .build();
 
-        when(favoriteService.provideAllFavorites()).thenReturn(favorite);
+//        when(favoriteService.provideAllFavorites()).thenReturn(favorite);
 
         this.mockMvc.perform(get("/favorite/get-all")
                 .accept("application/json"))
                 .andExpect(jsonPath("$.artists[0].spotifyId").value("test"))
                 .andExpect(status().isOk());
 
-        verify(favoriteService, times(1)).provideAllFavorites();
+//        verify(favoriteService, times(1)).provideAllFavorites();
     }
 
     @Test

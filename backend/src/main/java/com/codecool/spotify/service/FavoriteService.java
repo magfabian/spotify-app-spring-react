@@ -31,12 +31,15 @@ public class FavoriteService {
    @Autowired
    private FavoriteTrackRepository favoriteTrackRepository;
 
-   public Favorite provideAllFavorites() {
+   public Favorite provideAllFavorites(String email) {
+      SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
       return Favorite.builder()
-              .albums(favoriteAlbumRepository.findAll())
-              .artists(favoriteArtistRepository.findAll())
-              .playlists(favoritePlaylistRepository.findAll())
-              .tracks(favoriteTrackRepository.findAll())
+              .albums(favoriteAlbumRepository.findAllBySpotiUser(spotiUser))
+              .artists(favoriteArtistRepository.findAllBySpotiUser(spotiUser))
+              .playlists(favoritePlaylistRepository.findAllBySpotiUser(spotiUser))
+              .tracks(favoriteTrackRepository.findAllBySpotiUser(spotiUser))
               .build();
    }
 

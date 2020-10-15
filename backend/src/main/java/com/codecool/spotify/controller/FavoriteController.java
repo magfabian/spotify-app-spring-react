@@ -17,8 +17,8 @@ public class FavoriteController {
 
     @GetMapping("/get-all")
     public Favorite handleAllFavorites() {
-
-        return favoriteService.provideAllFavorites();
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        return favoriteService.provideAllFavorites(principalEmail);
     }
 
     @PostMapping("/track")

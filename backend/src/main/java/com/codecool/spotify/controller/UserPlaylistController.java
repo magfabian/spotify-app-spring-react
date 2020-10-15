@@ -19,24 +19,28 @@ public class UserPlaylistController {
 
     @GetMapping("/get-all")
     public List<UserPlaylist> handleAllPlaylist() {
-        return playlistService.getAllPlaylists();
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        return playlistService.getAllPlaylists(principalEmail);
     }
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewPlaylist(@RequestBody String playlist) {
-        playlistService.addNewPlaylist(playlist);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        playlistService.addNewPlaylist(principalEmail, playlist);
     }
 
     @PostMapping("/track/{playlist}")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewTrack(@PathVariable(name = "playlist") String playlist, @RequestBody UserPlaylistTrack userPlaylistTrack) {
-        playlistService.addNewTrackToPlaylist(playlist, userPlaylistTrack);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        playlistService.addNewTrackToPlaylist(principalEmail, playlist, userPlaylistTrack);
     }
 
     @GetMapping("/{playlist}")
     public UserPlaylist handlePlaylist(@PathVariable(name = "playlist") String playlist) {
-        return playlistService.getSpecificPlaylist(playlist);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        return playlistService.getSpecificPlaylist(principalEmail, playlist);
     }
 
     @DeleteMapping("/delete/{playlist}")

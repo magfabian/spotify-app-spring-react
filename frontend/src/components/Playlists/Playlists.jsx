@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
 
 const Playlists = () => {
     const [status, setStatus] = useState("");
@@ -103,7 +104,11 @@ const Playlists = () => {
 
     return (
         <div>
-            {status === "error" && <Error error={error} />}
+            {status === "error" && (
+                <div>
+                    <NotLoggedIn />
+                </div>
+            )}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>

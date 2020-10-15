@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { LogInContext } from "../../context/LogInContex";
 
 const Header = () => {
+    const [loggedIn, setLoggedIn] = useContext(LogInContext);
+
     const headerStyle = {
         backgroundColor: "black",
         position: "absolute",
@@ -42,17 +48,43 @@ const Header = () => {
         top: "20px",
     };
 
+    const handleLogout = () => {
+        axios.get("/auth/logout");
+        setLoggedIn(false);
+    };
+
     return (
         <div style={headerStyle}>
-            <span style={headerName}>Spotify App</span>
+            <NavLink exact to="/" style={headerName}>
+                Spotify App
+            </NavLink>
             <div style={containerStyle}>
-                <NavLink exact to="/login" style={navlinkStyle}>
-                    Login
-                </NavLink>
-                <span style={separatorStyle}> | </span>
-                <NavLink exact to="/signup" style={navlinkStyle}>
-                    Sign up
-                </NavLink>
+                {loggedIn === true ? (
+                    <div>
+                        <NavLink exact to="/login" style={navlinkStyle}>
+                            Profile
+                        </NavLink>
+                        <span style={separatorStyle}> | </span>
+                        <NavLink
+                            exact
+                            to="/"
+                            style={navlinkStyle}
+                            onClick={handleLogout}
+                        >
+                            Log out
+                        </NavLink>
+                    </div>
+                ) : (
+                    <div>
+                        <NavLink exact to="/signup" style={navlinkStyle}>
+                            Sign up
+                        </NavLink>
+                        <span style={separatorStyle}> | </span>
+                        <NavLink exact to="/login" style={navlinkStyle}>
+                            Login
+                        </NavLink>
+                    </div>
+                )}
             </div>
         </div>
     );

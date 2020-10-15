@@ -71,7 +71,7 @@ const PlaylistModal = ({ handleClick }) => {
                             handleClick();
                         }}
                     >
-                        Submit
+                        Add
                     </Button>
                 </Modal.Actions>
             </Form>

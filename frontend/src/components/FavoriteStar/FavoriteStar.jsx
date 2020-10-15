@@ -12,6 +12,7 @@ const FavoriteStar = ({
     footer,
     footerUrl,
     favorite,
+    handleFavoriteDelete,
 }) => {
     const starStyle = {
         marginLeft: "110px",
@@ -81,6 +82,7 @@ const FavoriteStar = ({
             default:
                 break;
         }
+        handleFavoriteDelete();
     };
 
     return (

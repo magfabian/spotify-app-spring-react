@@ -58,8 +58,9 @@ const Favorite = () => {
     };
 
     const handleFavoriteDelete = () => {
-        console.log("a");
-        fetchData();
+        setTimeout(() => {
+            fetchData();
+        }, 100);
     };
 
     let renderedArtists = [];

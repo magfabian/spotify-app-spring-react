@@ -55,7 +55,9 @@ const Header = () => {
 
     return (
         <div style={headerStyle}>
-            <span style={headerName}>Spotify App</span>
+            <NavLink exact to="/" style={headerName}>
+                Spotify App
+            </NavLink>
             <div style={containerStyle}>
                 {loggedIn === true ? (
                     <div>
@@ -74,12 +76,12 @@ const Header = () => {
                     </div>
                 ) : (
                     <div>
-                        <NavLink exact to="/login" style={navlinkStyle}>
-                            Login
-                        </NavLink>
-                        <span style={separatorStyle}> | </span>
                         <NavLink exact to="/signup" style={navlinkStyle}>
                             Sign up
+                        </NavLink>
+                        <span style={separatorStyle}> | </span>
+                        <NavLink exact to="/login" style={navlinkStyle}>
+                            Login
                         </NavLink>
                     </div>
                 )}

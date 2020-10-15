@@ -54,7 +54,7 @@ const CardItem = ({
             footerUrl: footerUrl,
             favorite: favorite,
         };
-        axios.post(url.playlist_delete_track + playlistId, card);
+        axios.delete(url.playlist_delete_track + playlistId + "/" + spotifyId, {data: card});
         reloadPlaylist();
     };
 

@@ -68,40 +68,16 @@ const FavoriteStar = ({
     const handleDelete = (card) => {
         switch (category) {
             case "track":
-                axios.post(
-                    url.favorite_delete_track,
-                    {
-                        withCredentials: true,
-                    },
-                    card
-                );
+                axios.delete(url.favorite_delete_track + spotifyId, {data: card});
                 break;
             case "album":
-                axios.post(
-                    url.favorite_delete_album,
-                    {
-                        withCredentials: true,
-                    },
-                    card
-                );
+                axios.delete(url.favorite_delete_album + spotifyId, {data: card});
                 break;
             case "playlist":
-                axios.post(
-                    url.favorite_delete_playlist,
-                    {
-                        withCredentials: true,
-                    },
-                    card
-                );
+                axios.delete(url.favorite_delete_playlist + spotifyId, {data: card});
                 break;
             case "artist":
-                axios.post(
-                    url.favorite_delete_artist,
-                    {
-                        withCredentials: true,
-                    },
-                    card
-                );
+                axios.delete(url.favorite_delete_artist + spotifyId, {data: card});
                 break;
             default:
                 break;

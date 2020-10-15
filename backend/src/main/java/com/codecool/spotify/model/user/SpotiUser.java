@@ -58,4 +58,8 @@ public class SpotiUser {
     @OneToMany(mappedBy = "spotiUser", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     private List<Track> tracks;
+
+//    @OneToMany(mappedBy = "spotiUser", cascade = CascadeType.ALL)
+//    @EqualsAndHashCode.Exclude
+//    private List<Friend> friends;
 }

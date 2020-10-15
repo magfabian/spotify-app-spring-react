@@ -2,6 +2,7 @@ package com.codecool.spotify.controller;
 
 import com.codecool.spotify.model.favorite.*;
 import com.codecool.spotify.service.FavoriteService;
+import com.codecool.spotify.utility.PrincipalFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,50 +17,59 @@ public class FavoriteController {
 
     @GetMapping("/get-all")
     public Favorite handleAllFavorites() {
+
         return favoriteService.provideAllFavorites();
     }
 
     @PostMapping("/track")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteTrack(@RequestBody Track track) {
-        favoriteService.addNewFavoriteTrack(track);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.addNewFavoriteTrack(principalEmail, track);
     }
 
     @PostMapping("/album")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteAlbum(@RequestBody Album album) {
-        favoriteService.addNewFavoriteAlbum(album);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.addNewFavoriteAlbum(principalEmail, album);
     }
 
     @PostMapping("/playlist")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoritePlaylist(@RequestBody Playlist playlist) {
-        favoriteService.addNewFavoritePlaylist(playlist);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.addNewFavoritePlaylist(principalEmail, playlist);
     }
 
     @PostMapping("/artist")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleNewFavoriteArtist(@RequestBody Artist artist) {
-        favoriteService.addNewFavoriteArtist(artist);
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.addNewFavoriteArtist(principalEmail, artist);
     }
 
-    @DeleteMapping("/delete/artist")
-    public void handleDeleteFavouriteArtist(@RequestBody Artist artist) {
-        favoriteService.deleteFavoriteArtist(artist);
+    @DeleteMapping("/delete/artist/{spotifyId}")
+    public void handleDeleteFavouriteArtist(@PathVariable(name = "spotifyId") String spotifyId) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.deleteFavoriteArtist(principalEmail, spotifyId);
     }
 
-    @DeleteMapping("/delete/album")
-    public void handleDeleteFavouriteArtist(@RequestBody Album album) {
-        favoriteService.deleteFavoriteAlbum(album);
+    @DeleteMapping("/delete/album/{spotifyId}")
+    public void handleDeleteFavouriteAlbum(@PathVariable(name = "spotifyId") String spotifyId) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.deleteFavoriteAlbum(principalEmail, spotifyId);
     }
 
-    @PostMapping("/delete/track")
-    public void handleDeleteFavouriteArtist(@RequestBody Track track) {
-        favoriteService.deleteFavoriteTrack(track);
+    @DeleteMapping("/delete/track/{spotifyId}")
+    public void handleDeleteFavouriteTrack(@PathVariable(name = "spotifyId") String spotifyId) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.deleteFavoriteTrack(principalEmail, spotifyId);
     }
 
-    @DeleteMapping("/delete/playlist")
-    public void handleDeleteFavouriteArtist(@RequestBody Playlist playlist) {
-        favoriteService.deleteFavoritePlaylist(playlist);
+    @DeleteMapping("/delete/playlist/{spotifyId}")
+    public void handleDeleteFavouritePlaylist(@PathVariable(name = "spotifyId") String spotifyId) {
+        String principalEmail = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+        favoriteService.deleteFavoritePlaylist(principalEmail, spotifyId);
     }
 }

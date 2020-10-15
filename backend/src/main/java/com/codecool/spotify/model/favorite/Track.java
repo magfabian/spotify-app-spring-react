@@ -35,7 +35,7 @@ public class Track {
 
     private boolean favorite;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @JsonIgnore
     private SpotiUser spotiUser;

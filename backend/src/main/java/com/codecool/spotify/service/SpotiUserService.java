@@ -3,12 +3,10 @@ package com.codecool.spotify.service;
 import com.codecool.spotify.model.user.SpotiUser;
 import com.codecool.spotify.repository.user.SpotiUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 @Service
 public class SpotiUserService {
@@ -26,9 +24,14 @@ public class SpotiUserService {
         spotiUserRepository.save(spotiUser);
     }
 
-    public Long getUserIdByEmailAddress(String emailAddress) {
-        Optional<SpotiUser> spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(emailAddress);
-        return spotiUser.map(SpotiUser::getId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-    }
+//    public void addNewFriend(String emailAddress, SpotiUser friend) {
+//        SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(emailAddress)
+//            .orElseThrow(() -> new UsernameNotFoundException("Email address" + emailAddress + "not found."));
+//
+//        List<Friend> friendList = user.getFriends();
+//        friendList.add(Friend.builder().selfId(friend.getId()).follower(user).build());
+//
+//        user.setFriends(friendList);
+//        spotiUserRepository.save(user);
+//    }
 }

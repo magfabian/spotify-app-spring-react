@@ -1,5 +1,6 @@
 import React from "react";
 import { Header, Divider } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
 
 const EmptyPlaylist = () => {
     const dividerStlye = {
@@ -20,11 +21,11 @@ const EmptyPlaylist = () => {
                 TRACKS
             </Divider>
             <Header as="h2">Your playlist is empty.</Header>
-            <a href="/track">
+            <NavLink exact to="/track">
                 <Header as="h3" style={headerStyle}>
                     Fill playlist with your favorite tracks!
                 </Header>
-            </a>
+            </NavLink>
         </aside>
     );
 };

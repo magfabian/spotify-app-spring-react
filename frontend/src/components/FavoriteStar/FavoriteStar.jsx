@@ -52,6 +52,9 @@ const FavoriteStar = ({
     };
 
     const handleYellowStarClick = (event) => {
+        if (handleFavoriteDelete == undefined) {
+            event.target.className = "star large icon";
+        }
         const card = {
             spotifyId: spotifyId,
             imageUrl: imageUrl,
@@ -89,7 +92,9 @@ const FavoriteStar = ({
             default:
                 break;
         }
-        handleFavoriteDelete();
+        if (handleFavoriteDelete !== undefined) {
+            handleFavoriteDelete();
+        }
     };
 
     return (

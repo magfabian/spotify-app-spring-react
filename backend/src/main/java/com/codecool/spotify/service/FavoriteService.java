@@ -34,23 +34,38 @@ public class FavoriteService {
               .build();
    }
 
-   public void addNewFavoriteTrack(Track newTrack) {
+   public void addNewFavoriteTrack(String email, Track newTrack) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      newTrack.setSpotiUser(user);
       newTrack.setFavorite(true);
+
       favoriteTrackRepository.save(newTrack);
    }
 
-   public void addNewFavoriteAlbum(Album newAlbum) {
+   public void addNewFavoriteAlbum(String email, Album newAlbum) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      newAlbum.setSpotiUser(user);
       newAlbum.setFavorite(true);
+
       favoriteAlbumRepository.save(newAlbum);
    }
 
-   public void addNewFavoritePlaylist(Playlist newPlaylist) {
+   public void addNewFavoritePlaylist(String email, Playlist newPlaylist) {
+      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+      newPlaylist.setSpotiUser(user);
       newPlaylist.setFavorite(true);
       favoritePlaylistRepository.save(newPlaylist);
    }
 
    public void addNewFavoriteArtist(Artist newArtist) {
       newArtist.setFavorite(true);
+
       favoriteArtistRepository.save(newArtist);
    }
 

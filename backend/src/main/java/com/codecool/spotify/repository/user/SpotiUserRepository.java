@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface   extends JpaRepository<SpotiUser, Long> {
+public interface SpotiUserRepository  extends JpaRepository<SpotiUser, Long> {
 
     Optional<SpotiUser> findSpotiUserByEmailAddress(String emailAddress);
 

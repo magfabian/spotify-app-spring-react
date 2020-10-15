@@ -3,10 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { Image } from "semantic-ui-react";
 import { LogInContext } from "../../context/LogInContex";
+import { UserContext } from "../../context/UserContext";
 
 const Header = () => {
     const [loggedIn, setLoggedIn] = useContext(LogInContext);
+    const [user, setUser] = useContext(UserContext);
 
     const headerStyle = {
         backgroundColor: "black",
@@ -45,7 +48,12 @@ const Header = () => {
     const containerStyle = {
         position: "absolute",
         right: "10px",
-        top: "20px",
+        top: "15px",
+    };
+
+    const imageStyle = {
+        height: "50px",
+        width: "50px",
     };
 
     const handleLogout = () => {
@@ -61,9 +69,15 @@ const Header = () => {
             <div style={containerStyle}>
                 {loggedIn === true ? (
                     <div>
-                        <NavLink exact to="/login" style={navlinkStyle}>
-                            Profile
+                        <NavLink exact to="/profile">
+                            <Image
+                                avatar
+                                style={imageStyle}
+                                src={user.imageUrl}
+                            />
                         </NavLink>
+
+                        <span>{user.username}</span>
                         <span style={separatorStyle}> | </span>
                         <NavLink
                             exact

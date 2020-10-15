@@ -37,11 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.anonymous().and()
             .httpBasic().disable()
                 .cors().and()
                 .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
             .and().authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/**").permitAll()
@@ -52,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(JwtFilter.builder()
                     .jwtService(jwtService)
                     .build(),
-                    UsernamePasswordAuthenticationFilter.class);
+                    UsernamePasswordAuthenticationFilter.class)
+                ;
     }
 
     @Bean

@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import url from "../../utilities/url";
 import { LogInContext } from "../../context/LogInContex";
-import { ImageUrlContext } from "../../context/ImageUrlContext";
+import { UserContext } from "../../context/UserContext";
 import Home from "../Home/Home";
 
 const Login = () => {
@@ -21,7 +21,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const [loggedIn, setLoggedIn] = useContext(LogInContext);
     const [homePage, setHomePage] = useState(false);
-    const [imageUrl, setImageUrl] = useContext(ImageUrlContext);
+    const [user, setUser] = useContext(UserContext);
 
     const signUpStyle = {
         color: "rgb(85,182,96)",
@@ -55,10 +55,11 @@ const Login = () => {
     };
 
     const setupUrl = () => {
-        axios.get("/user/me").then((response) => {
-            console.log(response.data);
+        axios.get("/user/profile").then((response) => {
+            setUser(response.data);
         });
     };
+
     return (
         <div>
             {homePage === true ? (

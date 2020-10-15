@@ -87,11 +87,6 @@ public class PlaylistService {
         SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        userPlaylistRepository.deleteUserPlaylistById(userPlaylist.getId());
-    }
-
-    public UserPlaylist editPlaylistTitle(UserPlaylist userPlaylist) {
-        UserPlaylist playlist = userPlaylistRepository.findUserPlaylistById(userPlaylist.getId());
-        return userPlaylistRepository.updateUserPlaylistTitle(playlist.getId(), userPlaylist.getTitle());
+        userPlaylistRepository.deleteUserPlaylistById(spotiUser, userPlaylist.getId());
     }
 }

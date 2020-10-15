@@ -32,6 +32,9 @@ public class UserPlaylistTrack {
     @Column
     private String footerUrl;
 
+    @Column
+    private boolean favorite;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @JsonIgnore

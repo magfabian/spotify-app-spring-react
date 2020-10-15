@@ -1,8 +1,10 @@
 package com.codecool.spotify.service;
 
+import com.codecool.spotify.model.favorite.Track;
 import com.codecool.spotify.model.user.SpotiUser;
 import com.codecool.spotify.model.userPlaylist.UserPlaylist;
 import com.codecool.spotify.model.userPlaylist.UserPlaylistTrack;
+import com.codecool.spotify.repository.favorite.FavoriteTrackRepository;
 import com.codecool.spotify.repository.user.SpotiUserRepository;
 import com.codecool.spotify.repository.userPlaylist.UserPlaylistRepository;
 import com.codecool.spotify.repository.userPlaylist.UserPlaylistTrackRepository;
@@ -23,6 +25,9 @@ public class PlaylistService {
 
     @Autowired
     private UserPlaylistTrackRepository userPlaylistTrackRepository;
+    
+    @Autowired
+    private FavoriteTrackRepository favoriteTrackRepository; 
 
     public List<UserPlaylist> getAllPlaylists(String email) {
         SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
@@ -57,12 +62,28 @@ public class PlaylistService {
         UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(spotiUser, title);
         Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
 
+        userPlaylistTrack.setFavorite(setFavorite(email, userPlaylistTrack));
         userPlaylistTracks.add(userPlaylistTrack);
         userPlaylistTrack.setUserPlaylist(userPlaylist);
 
         userPlaylist.setTotal(userPlaylistTracks.size());
         userPlaylist.setUserPlaylistTracks(userPlaylistTracks);
         userPlaylistRepository.save(userPlaylist);
+    }
+
+    public boolean setFavorite(String email, UserPlaylistTrack track) {
+        boolean contains = false;
+
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        
+        List<Track> favoriteTracks = favoriteTrackRepository.findAllBySpotiUser(spotiUser);
+        for (Track favoriteTrack : favoriteTracks) {
+            if (favoriteTrack.getSpotifyId().equals(track.getSpotifyId())) {
+                contains = true;
+                break;
+            }
+        } return contains;
     }
 
     public void deleteTrackFromPlaylist(String email, Long playlistId, String spotifyId) {
@@ -88,5 +109,6 @@ public class PlaylistService {
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         userPlaylistRepository.deleteUserPlaylistById(spotiUser, userPlaylist.getId());
+
     }
 }

@@ -32,6 +32,9 @@ public class SpotiUser {
     @Column
     private String fullName;
 
+    @Column
+    private String imageUrl;
+
     @Column(nullable = false, unique = true)
     private String emailAddress;
 

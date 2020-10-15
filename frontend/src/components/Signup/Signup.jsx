@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
+import {
+    Button,
+    Form,
+    Grid,
+    Header,
+    Segment,
+    Image,
+    List,
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import url from "../../utilities/url";
@@ -10,6 +18,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
 
     const changeFirstName = (event) => {
         setFirstName(event.target.value);
@@ -31,12 +40,26 @@ const Signup = () => {
         setUsername(event.target.value);
     };
 
+    const headerStyle = {
+        fontWeight: "bolder",
+        marginBottom: "10px",
+    };
+
+    const avatarStyle = {
+        marginBottom: "20px",
+    };
+
+    const selectImage = (event) => {
+        setImageUrl(event.target.dataset.url);
+    };
+
     const handleSignUp = () => {
         const user = {
             userName: username,
             password: password,
             fullName: firstName + " " + lastName,
             emailAddress: email,
+            imageUrl: imageUrl,
         };
         axios.post(url.signup, user);
     };
@@ -44,15 +67,88 @@ const Signup = () => {
     return (
         <Grid
             textAlign="center"
-            style={{ height: "100vh" }}
+            style={{ height: "200vh" }}
             verticalAlign="top"
         >
-            <Grid.Column style={{ maxWidth: 450 }}>
+            <Grid.Column style={{ maxWidth: 530 }}>
                 <Header as="h2" color="rgb(85,182,96)" textAlign="center">
                     Sign up
                 </Header>
                 <Form size="large">
                     <Segment stacked>
+                        <span style={headerStyle}>Choose your avatar: </span>
+                        <div stlye={avatarStyle}>
+                            <List selection horizontal relaxed>
+                                <List.Item>
+                                    <Image
+                                        avatar
+                                        onClick={selectImage}
+                                        size="tiny"
+                                        style={
+                                            imageUrl.includes("steve")
+                                                ? {
+                                                      border:
+                                                          "4px solid rgb(85,182,96)",
+                                                  }
+                                                : {}
+                                        }
+                                        data-url="https://semantic-ui.com/images/avatar/large/steve.jpg"
+                                        src="https://semantic-ui.com/images/avatar/large/steve.jpg"
+                                    />
+                                </List.Item>
+                                <List.Item>
+                                    <Image
+                                        avatar
+                                        onClick={selectImage}
+                                        size="tiny"
+                                        style={
+                                            imageUrl.includes("ade")
+                                                ? {
+                                                      border:
+                                                          "4px solid rgb(85,182,96)",
+                                                  }
+                                                : {}
+                                        }
+                                        data-url="https://semantic-ui.com/images/avatar/large/ade.jpg"
+                                        src="https://semantic-ui.com/images/avatar/large/ade.jpg"
+                                    />
+                                </List.Item>
+                                <List.Item>
+                                    <Image
+                                        avatar
+                                        onClick={selectImage}
+                                        size="tiny"
+                                        style={
+                                            imageUrl.includes("chris")
+                                                ? {
+                                                      border:
+                                                          "4px solid rgb(85,182,96)",
+                                                  }
+                                                : {}
+                                        }
+                                        data-url="https://semantic-ui.com/images/avatar/large/chris.jpg"
+                                        src="https://semantic-ui.com/images/avatar/large/chris.jpg"
+                                    />
+                                </List.Item>
+                                <List.Item>
+                                    <Image
+                                        avatar
+                                        onClick={selectImage}
+                                        size="tiny"
+                                        style={
+                                            imageUrl.includes("helen")
+                                                ? {
+                                                      border:
+                                                          "4px solid rgb(85,182,96)",
+                                                  }
+                                                : {}
+                                        }
+                                        data-url="https://semantic-ui.com/images/avatar/large/helen.jpg"
+                                        src="https://semantic-ui.com/images/avatar/large/helen.jpg"
+                                    />
+                                </List.Item>
+                            </List>
+                        </div>
                         <Form.Group widths={2}>
                             <Form.Input
                                 label="First name"
@@ -87,7 +183,6 @@ const Signup = () => {
                             type="password"
                             onChange={changePassword}
                         />
-
                         <Button
                             fluid
                             size="large"

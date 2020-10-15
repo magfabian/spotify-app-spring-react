@@ -95,7 +95,7 @@ const Signup = () => {
                             to="/login"
                             onClick={handleSignUp}
                         >
-                            Submit
+                            Create account
                         </Button>
                     </Segment>
                 </Form>

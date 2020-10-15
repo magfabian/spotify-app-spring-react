@@ -29,7 +29,7 @@ const NotLoggedIn = () => {
                 Your are not logged in!
             </Header>
             <Header as="h2" style={headerStyle}>
-                You should{" "}
+                Please{" "}
                 <NavLink exact to="/login" style={underlineStyle}>
                     Login
                 </NavLink>{" "}

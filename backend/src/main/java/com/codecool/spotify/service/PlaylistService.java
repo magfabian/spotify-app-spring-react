@@ -31,20 +31,30 @@ public class PlaylistService {
         return userPlaylistRepository.findAllBySpotiUser(spotiUser);
     }
 
-    public void addNewPlaylist(String title) {
+    public void addNewPlaylist(String email, String title) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
        UserPlaylist userPlaylist = UserPlaylist.builder()
-               .title(title)
-               .total(0)
-               .build();
+           .title(title)
+           .total(0)
+           .spotiUser(spotiUser)
+           .build();
        userPlaylistRepository.save(userPlaylist);
     }
 
-    public UserPlaylist getSpecificPlaylist(String title) {
-        return userPlaylistRepository.findUserPlaylistByTitle(title);
+    public UserPlaylist getSpecificPlaylist(String email, String title) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return userPlaylistRepository.findUserPlaylistByTitle(spotiUser, title);
     }
 
-    public void addNewTrackToPlaylist(String title, UserPlaylistTrack userPlaylistTrack) {
-        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(title);
+    public void addNewTrackToPlaylist(String email, String title, UserPlaylistTrack userPlaylistTrack) {
+        SpotiUser spotiUser = spotiUserRepository.findSpotiUserByEmailAddress(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        UserPlaylist userPlaylist = userPlaylistRepository.findUserPlaylistByTitle(spotiUser, title);
         Set<UserPlaylistTrack> userPlaylistTracks = userPlaylist.getUserPlaylistTracks();
 
         userPlaylistTracks.add(userPlaylistTrack);

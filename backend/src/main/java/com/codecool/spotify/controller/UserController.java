@@ -19,14 +19,6 @@ public class UserController {
         spotiUserService.saveNewUser(spotiUser);
     }
 
-//    @PostMapping("/add-friend/")
-//    public void handleNewFriend(@RequestBody SpotiUser friend) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String userEmail = authentication.getName();
-//
-//        spotiUserService.addNewFriend(userEmail, friend);
-//    }
-
     @GetMapping("/me")
     public Object currentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

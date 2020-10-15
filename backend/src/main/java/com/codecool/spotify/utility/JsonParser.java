@@ -152,64 +152,72 @@ public class JsonParser {
    }
 
    public boolean isFavoriteAlbum(String id) {
-      String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
-      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
-          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
-
-      List<Album> albums = favoriteAlbumRepository.findAllBySpotiUser(user);
       boolean contains = false;
-      for (Album album : albums) {
-         if (album.getSpotifyId().equals(id)) {
-            contains = true;
-            break;
+      if (PrincipalFinder.principleIsPresent()) {
+         String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+         SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+             .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+         List<Album> albums = favoriteAlbumRepository.findAllBySpotiUser(user);
+         for (Album album : albums) {
+            if (album.getSpotifyId().equals(id)) {
+               contains = true;
+               break;
+            }
          }
       }
       return contains;
    }
 
    public boolean isFavoriteArtist(String id) {
-      String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
-      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
-          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
-
-      List<Artist> artists = favoriteArtistRepository.findAllBySpotiUser(user);
       boolean contains = false;
-      for (Artist artist : artists) {
-         if (artist.getSpotifyId().equals(id)) {
-            contains = true;
-            break;
+      if (PrincipalFinder.principleIsPresent()) {
+         String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+         SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+             .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+         List<Artist> artists = favoriteArtistRepository.findAllBySpotiUser(user);
+         for (Artist artist : artists) {
+            if (artist.getSpotifyId().equals(id)) {
+               contains = true;
+               break;
+            }
          }
       }
       return contains;
    }
 
    public boolean isFavoriteTrack(String id) {
-      String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
-      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
-          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
-
-      List<Track> tracks = favoriteTrackRepository.findAllBySpotiUser(user);
       boolean contains = false;
-      for (Track track : tracks) {
-         if (track.getSpotifyId().equals(id)) {
-            contains = true;
-            break;
+      if (PrincipalFinder.principleIsPresent()) {
+         String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+         SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+             .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+         List<Track> tracks = favoriteTrackRepository.findAllBySpotiUser(user);
+         for (Track track : tracks) {
+            if (track.getSpotifyId().equals(id)) {
+               contains = true;
+               break;
+            }
          }
       }
       return contains;
    }
 
    public boolean isFavoritePlaylist(String id) {
-      String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
-      SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
-          .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
-
-      List<Playlist> playlists = favoritePlaylistRepository.findAllBySpotiUser(user);
       boolean contains = false;
-      for (Playlist playlist : playlists) {
-         if (playlist.getSpotifyId().equals(id)) {
-            contains = true;
-            break;
+      if (PrincipalFinder.principleIsPresent()) {
+         String email = PrincipalFinder.getCurrentlyLoggedInUserEmail();
+         SpotiUser user = spotiUserRepository.findSpotiUserByEmailAddress(email)
+             .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+
+         List<Playlist> playlists = favoritePlaylistRepository.findAllBySpotiUser(user);
+         for (Playlist playlist : playlists) {
+            if (playlist.getSpotifyId().equals(id)) {
+               contains = true;
+               break;
+            }
          }
       }
       return contains;

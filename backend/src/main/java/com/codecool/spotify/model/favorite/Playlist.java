@@ -1,7 +1,8 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.favorite;
 
+import com.codecool.spotify.model.user.SpotiUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Artist  {
+public class Playlist {
     @Id
     @GeneratedValue
     private Long id;
@@ -33,5 +34,10 @@ public class Artist  {
     private String footerUrl;
 
     private boolean favorite;
+
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private SpotiUser spotiUser;
 
 }

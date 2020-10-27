@@ -3,12 +3,15 @@ import PlaylistModal from "../PlaylistModal/PlaylistModal";
 import url from "../../utilities/url";
 import { Header, Segment } from "semantic-ui-react";
 import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
 
 const Playlists = () => {
     const [status, setStatus] = useState("");
     const [fetchedData, setData] = useState([]);
+    const [error, setError] = useState({});
 
     useEffect(() => {
         setStatus("loading");
@@ -25,6 +28,7 @@ const Playlists = () => {
                 console.log(response.data);
             })
             .catch((error) => {
+                setError(error.response);
                 setStatus("error");
             });
     };
@@ -100,11 +104,15 @@ const Playlists = () => {
 
     return (
         <div>
-            <PlaylistModal handleClick={handleClick.bind(this)} />
-            {status === "error" && <div>Error</div>}
+            {status === "error" && (
+                <div>
+                    <NotLoggedIn />
+                </div>
+            )}
             {status === "loading" && <Loading />}
             {status === "loaded" && (
                 <div>
+                    <PlaylistModal handleClick={handleClick.bind(this)} />
                     <div className="ui grid">{renderedPlaylists}</div>
                 </div>
             )}

@@ -1,14 +1,15 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.userPlaylist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
-public class Album {
+@Builder
+public class UserPlaylistTrack {
     @Id
     @GeneratedValue
     private Long id;
@@ -33,4 +34,9 @@ public class Album {
 
     @Column
     private boolean favorite;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private UserPlaylist userPlaylist;
 }

@@ -1,5 +1,7 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.userPlaylist;
 
+import com.codecool.spotify.model.user.SpotiUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -25,5 +27,11 @@ public class UserPlaylist {
     @Singular
     @EqualsAndHashCode.Exclude
     private Set<UserPlaylistTrack> userPlaylistTracks = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private SpotiUser spotiUser;
+
 
 }

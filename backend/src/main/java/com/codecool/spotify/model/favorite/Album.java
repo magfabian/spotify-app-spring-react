@@ -1,5 +1,6 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.favorite;
 
+import com.codecool.spotify.model.user.SpotiUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
@@ -7,9 +8,9 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class UserPlaylistTrack {
+@AllArgsConstructor
+public class Album {
     @Id
     @GeneratedValue
     private Long id;
@@ -32,8 +33,11 @@ public class UserPlaylistTrack {
     @Column
     private String footerUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column
+    private boolean favorite;
+
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    private UserPlaylist userPlaylist;
+    private SpotiUser spotiUser;
 }

@@ -1,5 +1,7 @@
-package com.codecool.spotify.model;
+package com.codecool.spotify.model.favorite;
 
+import com.codecool.spotify.model.user.SpotiUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 
@@ -32,4 +34,9 @@ public class Track {
     private String footerUrl;
 
     private boolean favorite;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private SpotiUser spotiUser;
 }

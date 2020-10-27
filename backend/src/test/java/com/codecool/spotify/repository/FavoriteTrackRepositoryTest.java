@@ -1,6 +1,7 @@
 package com.codecool.spotify.repository;
 
-import com.codecool.spotify.model.Track;
+import com.codecool.spotify.model.favorite.Track;
+import com.codecool.spotify.repository.favorite.FavoriteTrackRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
